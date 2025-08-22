@@ -1,103 +1,143 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emin VC — Investor · Builder</title>
-  <meta name="description" content="Emin VC — Onepage: Wer ich bin, Vision, Kontakt." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#fff; --fg:#0a0a0a; --muted:#6b7280; --line:#e5e7eb; --accent:#111827;
-      --radius:16px; --max:1080px; --pad:20px;
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
     }
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%;margin:0}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg);}
-    a{color:inherit;text-decoration:none}
-    a:hover{opacity:.8}
-
-    /* One-Screen Layout */
-    .wrap{min-height:100svh;display:flex;flex-direction:column}
-    .container{max-width:var(--max);margin:0 auto;padding:24px var(--pad);flex:1;display:flex}
-    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-content:center}
-
-    header.nav{display:flex;align-items:center;justify-content:space-between;padding:16px var(--pad);max-width:var(--max);margin:0 auto}
-    .brand{font-weight:600}
-    .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}
-
-    h1{font-size:clamp(28px,6.2vw,56px);line-height:1.05;margin:0 0 10px}
-    .lead{font-size:clamp(14px,2.2vw,18px);color:var(--muted);max-width:60ch;margin:0 0 18px}
-
-    .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;margin-right:8px;margin-top:6px}
-
-    .quote{border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:260px}
-    .q{font-size:clamp(14px,2.2vw,18px);line-height:1.5}
-    .by{margin-top:12px;color:var(--muted);font-size:13px}
-    .sign{margin-top:18px;border-top:1px dashed var(--line);padding-top:10px;color:var(--muted);font-size:12px}
-
-    .links{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-    .btn{border:1px solid var(--line);border-radius:999px;padding:9px 12px;font-weight:500}
-
-    footer{border-top:1px solid var(--line);padding:10px var(--pad);font-size:12px;color:var(--muted)}
-
-    /* Keep to one screen on common sizes */
-    @media(max-width:880px){
-      .grid{grid-template-columns:1fr;gap:16px}
-      .container{padding:16px var(--pad)}
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 20px;
+      height: 100vh;
+      padding: 40px;
+    }
+    .left, .middle, .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .left {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .middle {
+      align-items: center;
+      text-align: center;
+    }
+    .right {
+      align-items: flex-end;
+      text-align: right;
+    }
+    .logo {
+      margin-bottom: 40px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .subtitle {
+      font-weight: 600;
+      margin: 6px 0;
+    }
+    p {
+      max-width: 320px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #ccc;
+    }
+    .card {
+      background: rgba(0,0,0,0.6);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .card p {
+      margin: 0;
+      font-size: 13px;
+    }
+    .socials {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    .socials a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .quote {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      max-width: 280px;
+    }
+    .quote .by {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #aaa;
+    }
+    .photo {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <header class="nav">
-    <div class="brand">Emin VC</div>
-    <div class="badge">Investor • Builder</div>
-  </header>
-
-  <main class="wrap">
-    <section class="container">
-      <div class="grid" role="group" aria-label="Emin VC Onepage">
-        <!-- Left: Who I am + Vision -->
-        <div>
-          <h1>Emin Turus</h1>
-          <p class="lead">Ich investiere in ambitionierte Gründer und baue skalierbare Produkte. Fokus auf AI‑native Workflows, Distribution & produktgetriebenes Wachstum.</p>
-
-          <div>
-            <span class="pill">Pre‑Seed / Seed</span>
-            <span class="pill">AI‑Agents</span>
-            <span class="pill">Fintech / Infra</span>
-            <span class="pill">Builder Mindset</span>
-          </div>
-
-          <div class="links">
-            <a class="btn" href="mailto:hello@emin.vc">hello@emin.vc</a>
-            <a class="btn" href="https://x.com/" target="_blank" rel="noreferrer">X</a>
-            <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="btn" href="#imprint">Impressum</a>
-          </div>
-        </div>
-
-        <!-- Right: Quote + signature placeholder -->
-        <aside class="quote" aria-label="Zitat & Signatur">
-          <div>
-            <div class="q">„Platzhalter für ein kurzes Zitat eines Philosophen. Hier kann später dein eigener Spruch oder ein Leitgedanke stehen.“</div>
-            <div class="by">— Autor / Philosoph</div>
-          </div>
-          <div class="sign">Unterschrift — Platzhalter</div>
-        </aside>
+  <div class="wrapper">
+    <!-- Left Section -->
+    <div class="left">
+      <div class="logo">[Dein Logo hier]</div>
+      <h1>Emin Turus</h1>
+      <div class="subtitle">Investor · Builder</div>
+      <p>Kurzbeschreibung über dich, wer du bist und was du machst. Hier nur wenige klare Sätze, so wie auf hoss.vc.</p>
+      <div class="socials">
+        <a href="#">YouTube</a>
+        <a href="#">X</a>
+        <a href="#">LinkedIn</a>
       </div>
-    </section>
+    </div>
 
-    <footer>
-      <div style="max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-        <span>© <span id="y"></span> Emin VC</span>
-        <span id="imprint">Rechtliches auf Anfrage • minimaler Onepage</span>
+    <!-- Middle Section -->
+    <div class="middle">
+      <div class="card">
+        <h2>Projekt / Investment 1</h2>
+        <p>Kurzbeschreibung deines Projekts oder Themas.</p>
       </div>
-    </footer>
-  </main>
+      <div class="card">
+        <h2>Projekt / Investment 2</h2>
+        <p>Kurzbeschreibung deines Projekts oder Themas.</p>
+      </div>
+      <div class="card">
+        <h2>Podcast / Content</h2>
+        <p>Kurzbeschreibung deines Formats oder Contents.</p>
+      </div>
+    </div>
 
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+    <!-- Right Section -->
+    <div class="right">
+      <div class="quote">
+        „Platz für ein Zitat von einem Philosophen oder eigenen Spruch.“
+        <div class="by">— Autor / Philosopher</div>
+      </div>
+      <img src="portrait.jpg" alt="Emin Turus" class="photo">
+    </div>
+  </div>
 </body>
 </html>
