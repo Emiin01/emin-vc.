@@ -9,14 +9,11 @@
     :root{--pad:40px;--card:rgba(255,255,255,.08);--muted:#a8b0bf}
     *{box-sizing:border-box}
     html,body{height:100%}
-body{
-  margin:0;
-  font-family:'Inter',sans-serif;
-  background: radial-gradient(1200px 800px at 20% 20%, #0b1220 0%, #070c18 40%, #050a14 70%, #04070e 100%);
-  color:#fff;
-}
-
-       /* subtle starfield */
+    body{margin:0;font-family:'Inter',system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#fff;
+      /* Dark gradient background (no image needed) */
+      background: radial-gradient(1200px 800px at 20% 15%, #121a2b 0%, #0b1220 45%, #070d19 70%, #050a14 100%);
+      position:relative;overflow:hidden}
+    /* subtle starfield */
     body::before{content:"";position:absolute;inset:0;background-image:
       radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.25) 50%, transparent 51%),
       radial-gradient(2px 2px at 65% 20%, rgba(255,255,255,.18) 50%, transparent 51%),
@@ -62,7 +59,7 @@ body{
     <div class="col left">
       <div class="logo">
         <!-- If aigen-logo.png exists, it will show. Otherwise text fallback is visible. -->
-        <img src="Aigen.png" alt="Aigen Logo">
+        <img src="aigen-logo.png" alt="Aigen Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'">
         <div class="fallback" style="display:none">AigenAI</div>
       </div>
       <h1>AigenAI</h1>
