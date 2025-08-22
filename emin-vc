@@ -1,159 +1,143 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Emin VC — Investor & Builder</title>
-  <meta name="description" content="Emin VC — Persönliche Seite als Investor: Vision, Investments, Blog & Kontakt." />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AigenAI — Autonomous AI Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#ffffff; --fg:#0a0a0a; --muted:#6b7280; --line:#e5e7eb; --accent:#111827;
-      --radius:16px; --max:920px; --pad:20px;
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
     }
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
-    img{max-width:100%;height:auto;display:block}
-    a{color:var(--fg);text-decoration:none}
-    a:hover{opacity:.75}
-    .container{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0}
-    .nav a.brand{font-weight:600;letter-spacing:.2px}
-    .nav .links{display:flex;gap:16px}
-    .tag{display:inline-block;border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
-
-    .hero{padding:72px 0 48px;border-top:1px solid var(--line)}
-    h1{font-size:clamp(32px,6vw,56px);line-height:1.1;margin:0 0 12px}
-    .subtitle{font-size:clamp(16px,2.6vw,20px);color:var(--muted);max-width:52ch}
-    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
-    .btn{border:1px solid var(--line);padding:10px 14px;border-radius:999px;font-weight:500}
-
-    section{padding:36px 0;border-top:1px solid var(--line)}
-    section header{display:flex;align-items:end;justify-content:space-between;margin-bottom:20px}
-    section h2{font-size:20px;margin:0}
-    .kicker{font-size:13px;color:var(--muted)}
-
-    .grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
-
-    .card{border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-    .card h3{margin:0 0 6px;font-size:16px}
-    .muted{color:var(--muted)}
-
-    .logos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .logo{border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;aspect-ratio:3/2;color:#9ca3af;font-weight:600}
-
-    .list{display:grid;gap:10px}
-    .list a{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:12px;padding:14px}
-    .list .title{font-weight:500}
-    .list .meta{font-size:12px;color:var(--muted)}
-
-    .footer{padding:32px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
-    .footer a{color:inherit;text-decoration:underline}
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 20px;
+      height: 100vh;
+      padding: 40px;
+    }
+    .left, .middle, .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .left {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .middle {
+      align-items: center;
+      text-align: center;
+    }
+    .right {
+      align-items: flex-end;
+      text-align: right;
+    }
+    .logo img {
+      max-width: 160px;
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .subtitle {
+      font-weight: 600;
+      margin: 6px 0;
+      font-size: 18px;
+    }
+    p {
+      max-width: 320px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #ccc;
+    }
+    .card {
+      background: rgba(0,0,0,0.6);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .card p {
+      margin: 0;
+      font-size: 13px;
+    }
+    .socials {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    .socials a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .quote {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      max-width: 280px;
+    }
+    .quote .by {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #aaa;
+    }
+    .photo {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <nav class="container nav">
-    <a class="brand" href="#">Emin VC</a>
-    <div class="links">
-      <a href="#vision">Vision</a>
-      <a href="#investments">Investments</a>
-      <a href="#writings">Writings</a>
-      <a href="#contact">Kontakt</a>
+  <div class="wrapper">
+    <!-- Left Section -->
+    <div class="left">
+      <div class="logo"><img src="aigen-logo.png" alt="Aigen Logo"></div>
+      <h1>AigenAI</h1>
+      <div class="subtitle">Autonomous AI Agents</div>
+      <p>Autonomous AI agents built to think, act & execute. Designed for scale. Powered by vision.</p>
+      <div class="socials">
+        <a href="#">YouTube</a>
+        <a href="#">X</a>
+        <a href="#">LinkedIn</a>
+      </div>
     </div>
-  </nav>
 
-  <main class="container">
-    <section class="hero">
-      <span class="tag">Investor • Builder</span>
-      <h1>Ich investiere in ambitionierte Gründer & skalierbare Produkte.</h1>
-      <p class="subtitle">Kurz & prägnant, wie bei hoss.vc: ein klarer Fokus, starke These und ein Netzwerk, das Gründern in der Frühphase hilft. Hier steht deine Value Proposition in 2–3 Sätzen.</p>
-      <div class="cta">
-        <a class="btn" href="mailto:hello@emin.vc">E‑Mail</a>
-        <a class="btn" href="https://x.com/aigenvc" target="_blank" rel="noreferrer">X</a>
-        <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
-      </div>
-    </section>
-
-    <section id="vision">
-      <header>
-        <h2>Vision</h2>
-        <span class="kicker">These • Fokus • Stage</span>
-      </header>
-      <div class="grid">
-        <article class="card">
-          <h3>Investment-These</h3>
-          <p class="muted">Z. B. Produkt‑getriebene Gründer, AI‑native Workflows, Fintech‑Infra, Consumer‑Apps mit organischer Distribution.</p>
-        </article>
-        <article class="card">
-          <h3>Value‑Add</h3>
-          <p class="muted">Distribution, GTM, Hiring, Produkt‑Feedback, Zugang zu Syndicates und Co‑Investoren.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="investments">
-      <header>
-        <h2>Ausgewählte Investments</h2>
-        <span class="kicker">Portfolio (Auszug)</span>
-      </header>
-      <div class="logos">
-        <div class="logo">LOGO</div>
-        <div class="logo">LOGO</div>
-        <div class="logo">LOGO</div>
-        <div class="logo">LOGO</div>
-        <div class="logo">LOGO</div>
-        <div class="logo">LOGO</div>
-      </div>
-    </section>
-
-    <section id="writings">
-      <header>
-        <h2>Writings</h2>
-        <span class="kicker">Kurz-Blog & Notizen</span>
-      </header>
-      <div class="list">
-        <a href="#">
-          <span class="title">Warum Attention & Distribution deine ersten 1000 Nutzer bestimmen</span>
-          <span class="meta">12. Aug 2025</span>
-        </a>
-        <a href="#">
-          <span class="title">Meine 5 Kriterien für Pre‑Seed‑Checks</span>
-          <span class="meta">28. Jul 2025</span>
-        </a>
-        <a href="#">
-          <span class="title">These: AI‑Agents als neue B2B‑Schicht</span>
-          <span class="meta">10. Jul 2025</span>
-        </a>
-      </div>
-    </section>
-
-    <section id="contact">
-      <header>
-        <h2>Kontakt</h2>
-        <span class="kicker">Intro‑Mail bevorzugt</span>
-      </header>
+    <!-- Middle Section -->
+    <div class="middle">
       <div class="card">
-        <p class="muted">Am liebsten per E‑Mail mit <em>1‑Pager</em> / <em>Deck</em> und 3 Stichpunkten: Problem • Lösung • Traction.</p>
-        <p><a class="btn" href="mailto:hello@emin.vc">Pitch senden</a></p>
+        <h2>Core Product</h2>
+        <p>AI agents engineered for autonomy, scalability and vision-driven execution.</p>
       </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container" style="padding:0">
-        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <span>© <span id="y"></span> Emin VC</span>
-          <span><a href="#">Impressum</a> • <a href="#">Datenschutz</a></span>
-        </div>
+      <div class="card">
+        <h2>Investments</h2>
+        <p>Focused on AI-native infrastructure and early-stage innovation.</p>
       </div>
-    </footer>
-  </main>
+      <div class="card">
+        <h2>Content / Insights</h2>
+        <p>Sharing thought leadership on the future of AI, agents and scale.</p>
+      </div>
+    </div>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
+    <!-- Right Section -->
+    <div class="right">
+      <div class="quote">
+        „Platz für ein Zitat von einem Philosophen oder eigenen Spruch.“
+        <div class="by">— Autor / Philosopher</div>
+      </div>
+      <img src="portrait.jpg" alt="AigenAI Vision" class="photo">
+    </div>
+  </div>
 </body>
 </html>
