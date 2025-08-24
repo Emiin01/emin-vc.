@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,36 +39,24 @@
     }
     .col{max-width:var(--colMax);margin:0 auto;width:100%;display:flex;flex-direction:column;justify-content:space-between}
 
-    /* LINKSSPALTE */
-    .brand{text-align:center}
-    .brand img{
-      max-width:320px;max-height:140px;object-fit:contain;
+    /* LEFT */
+    .logo-top{text-align:center}
+    .logo-top img{
+      max-width:180px;max-height:70px;object-fit:contain;
       filter:drop-shadow(0 2px 8px rgba(0,0,0,.25));
     }
-    .tagline{
-      margin-top:20px;
-      font-weight:600;
-      font-size:16px;
-      opacity:.95;
-      line-height:1.5;
+    .headline{
+      text-align:center;
+      margin-top:80px;
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:1px;
     }
-    .subtag{
-      margin-top:6px;
-      font-weight:500;
-      font-size:15px;
-      opacity:.85;
-    }
-    .desc{
-      margin-top:20px;
-      font-size:14px;
-      line-height:1.6;
-      color:var(--muted);
-    }
-    .quote{margin-top:40px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:left}
+    .quote{margin-top:auto;margin-bottom:80px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:left}
     .quote p{margin:0 0 8px 0;color:#dbe3f3;line-height:1.55;font-size:14px}
     .quote .by{color:var(--muted);font-size:12px}
 
-    /* MITTE */
+    /* MIDDLE */
     .mid{display:flex;flex-direction:column;justify-content:space-between}
     .card{
       position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;flex:1;
@@ -80,11 +68,10 @@
     .content{position:relative;padding:18px 20px}
     .kicker{font-size:12px;letter-spacing:.6px;color:#a9b3c7;margin-bottom:6px}
     .title{display:flex;align-items:center;gap:10px;font-weight:700}
-    .title img{width:22px;height:22px;object-fit:contain;filter:grayscale(1) brightness(2)}
     .subtitle{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.5}
     .ext{position:absolute;right:12px;bottom:12px;font-size:12px;color:#cfd6e6;text-decoration:none}
 
-    /* RECHTS */
+    /* RIGHT */
     .about{border:1px solid var(--line);border-radius:var(--radius);background:var(--glass);padding:18px;margin-bottom:16px}
     .about h3{margin:0 0 10px}
     .about p{margin:0 0 10px;color:var(--muted);line-height:1.55}
@@ -106,14 +93,12 @@
 </head>
 <body>
   <div class="wrap">
-    <!-- LINKS -->
+    <!-- LEFT -->
     <aside class="col">
-      <div class="brand">
+      <div class="logo-top">
         <img src="aigen-logo.png" alt="Aigen Logo" onerror="this.style.display='none'">
-        <div class="tagline">Autonomous AI Agents × Crypto</div>
-        <div class="subtag">Powering the future economy</div>
-        <div class="desc">Autonomous AI agents built to think, act & execute.<br>Designed for scale. Powered by vision.</div>
       </div>
+      <div class="headline">Autonomous AI</div>
 
       <div class="quote">
         <p>„Platz für deinen Spruch oder ein kurzes Zitat. Später kommt hier deine Unterschrift hin.“</p>
@@ -121,14 +106,13 @@
       </div>
     </aside>
 
-    <!-- MITTE -->
+    <!-- MIDDLE -->
     <main class="col mid">
-      <!-- Projekte -->
       <article class="card">
         <div class="bg" style="background-image:url('card-aigen.jpg')"></div>
         <div class="content">
           <div class="kicker">CORE PRODUCT</div>
-          <div class="title"><div>AigenAI</div></div>
+          <div class="title">AigenAI</div>
           <div class="subtitle">Autonomous AI agents engineered for scale and execution.</div>
           <a class="ext" href="#">↗</a>
         </div>
@@ -138,7 +122,7 @@
         <div class="bg" style="background-image:url('card-emin.jpg')"></div>
         <div class="content">
           <div class="kicker">CAPITAL</div>
-          <div class="title"><div>Emin Capitals</div></div>
+          <div class="title">Emin Capitals</div>
           <div class="subtitle">Investment firm focused on AI-native infrastructure and early-stage innovation.</div>
           <a class="ext" href="#">↗</a>
         </div>
@@ -148,19 +132,19 @@
         <div class="bg" style="background-image:url('card-insights.jpg')"></div>
         <div class="content">
           <div class="kicker">INSIGHTS</div>
-          <div class="title"><div>Insights</div></div>
+          <div class="title">Insights</div>
           <div class="subtitle">Thought leadership on the future of AI, agents and scale.</div>
           <a class="ext" href="#">↗</a>
         </div>
       </article>
     </main>
 
-    <!-- RECHTS -->
+    <!-- RIGHT -->
     <aside class="col">
       <section class="about">
         <h3>About</h3>
-        <p>Schreibe hier deine Bio: wer du bist, Mission, Prinzipien und wie du Building mit Investing kombinierst.</p>
-        <p>Maximal 2–3 kurze Absätze, die den Leser einladen dich kennenzulernen.</p>
+        <p>Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</p>
+        <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
       </section>
       <div class="portrait">
         <img src="portrait.jpg" alt="Portrait" onerror="this.style.display='none'">
