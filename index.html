@@ -17,6 +17,18 @@
       margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);
       background:linear-gradient(160deg,var(--bg1),var(--bg0));
     }
+    /* starfield */
+    body::before{
+      content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;mix-blend-mode:screen;
+      background-image:
+        radial-gradient(1.5px 1.5px at 12% 22%, rgba(255,255,255,.45) 50%, transparent 51%),
+        radial-gradient(2px 2px at 28% 18%, rgba(255,255,255,.28) 50%, transparent 51%),
+        radial-gradient(1px 1px at 35% 80%, rgba(255,255,255,.34) 50%, transparent 51%),
+        radial-gradient(1.2px 1.2px at 60% 32%, rgba(255,255,255,.26) 50%, transparent 51%),
+        radial-gradient(1.4px 1.4px at 78% 64%, rgba(255,255,255,.24) 50%, transparent 51%),
+        radial-gradient(2px 2px at 88% 20%, rgba(255,255,255,.22) 50%, transparent 51%);
+    }
+
     /* Layout */
     .wrap{
       display:grid;
@@ -28,39 +40,19 @@
     .col{max-width:var(--colMax);margin:0 auto;width:100%;display:flex;flex-direction:column;justify-content:space-between}
 
     /* LEFT */
-    .brand{text-align:center}
-    .brand img{
-      max-width:300px;max-height:120px;object-fit:contain;
+    .logo-top{text-align:center}
+    .logo-top img{
+      max-width:180px;max-height:70px;object-fit:contain;
       filter:drop-shadow(0 2px 8px rgba(0,0,0,.25));
     }
-    .name{
-      margin-top:24px;
+    .headline{
+      text-align:center;
+      margin-top:80px;
       font-size:28px;
       font-weight:700;
       letter-spacing:1px;
     }
-    .roles{
-      margin-top:8px;
-      font-size:14px;
-      font-weight:600;
-      letter-spacing:1px;
-      color:var(--muted);
-    }
-    .bio-short{
-      margin-top:18px;
-      font-size:15px;
-      font-weight:500;
-      font-style:italic;
-      line-height:1.6;
-      color:#eaeff9;
-    }
-    .slogan{
-      margin-top:20px;
-      font-size:14px;
-      line-height:1.6;
-      color:var(--muted);
-    }
-    .quote{margin-top:40px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:left}
+    .quote{margin-top:auto;margin-bottom:80px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:left}
     .quote p{margin:0 0 8px 0;color:#dbe3f3;line-height:1.55;font-size:14px}
     .quote .by{color:var(--muted);font-size:12px}
 
@@ -76,7 +68,6 @@
     .content{position:relative;padding:18px 20px}
     .kicker{font-size:12px;letter-spacing:.6px;color:#a9b3c7;margin-bottom:6px}
     .title{display:flex;align-items:center;gap:10px;font-weight:700}
-    .title img{width:22px;height:22px;object-fit:contain;filter:grayscale(1) brightness(2)}
     .subtitle{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.5}
     .ext{position:absolute;right:12px;bottom:12px;font-size:12px;color:#cfd6e6;text-decoration:none}
 
@@ -104,13 +95,10 @@
   <div class="wrap">
     <!-- LEFT -->
     <aside class="col">
-      <div class="brand">
+      <div class="logo-top">
         <img src="aigen-logo.png" alt="Aigen Logo" onerror="this.style.display='none'">
-        <div class="name">Emin Turus</div>
-        <div class="roles">INVESTOR — BUILDER</div>
-        <div class="bio-short">Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</div>
-        <div class="slogan">Autonomous AI agents built to think, act & execute.<br>Designed for scale. Powered by vision.</div>
       </div>
+      <div class="headline">Autonomous AI</div>
 
       <div class="quote">
         <p>„Platz für deinen Spruch oder ein kurzes Zitat. Später kommt hier deine Unterschrift hin.“</p>
@@ -118,13 +106,13 @@
       </div>
     </aside>
 
-    <!-- MIDDLE (unchanged: Projects) -->
+    <!-- MIDDLE -->
     <main class="col mid">
       <article class="card">
         <div class="bg" style="background-image:url('card-aigen.jpg')"></div>
         <div class="content">
           <div class="kicker">CORE PRODUCT</div>
-          <div class="title"><div>AigenAI</div></div>
+          <div class="title">AigenAI</div>
           <div class="subtitle">Autonomous AI agents engineered for scale and execution.</div>
           <a class="ext" href="#">↗</a>
         </div>
@@ -134,7 +122,7 @@
         <div class="bg" style="background-image:url('card-emin.jpg')"></div>
         <div class="content">
           <div class="kicker">CAPITAL</div>
-          <div class="title"><div>Emin Capitals</div></div>
+          <div class="title">Emin Capitals</div>
           <div class="subtitle">Investment firm focused on AI-native infrastructure and early-stage innovation.</div>
           <a class="ext" href="#">↗</a>
         </div>
@@ -144,19 +132,19 @@
         <div class="bg" style="background-image:url('card-insights.jpg')"></div>
         <div class="content">
           <div class="kicker">INSIGHTS</div>
-          <div class="title"><div>Insights</div></div>
+          <div class="title">Insights</div>
           <div class="subtitle">Thought leadership on the future of AI, agents and scale.</div>
           <a class="ext" href="#">↗</a>
         </div>
       </article>
     </main>
 
-    <!-- RIGHT (unchanged: About + Portrait) -->
+    <!-- RIGHT -->
     <aside class="col">
       <section class="about">
         <h3>About</h3>
-        <p>Schreibe hier deine Bio: wer du bist, Mission, Prinzipien und wie du Building mit Investing kombinierst.</p>
-        <p>Maximal 2–3 kurze Absätze, die den Leser einladen dich kennenzulernen.</p>
+        <p>Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</p>
+        <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
       </section>
       <div class="portrait">
         <img src="portrait.jpg" alt="Portrait" onerror="this.style.display='none'">
