@@ -1,172 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AigenAI — Investor · Builder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AigenAI — Investor • Builder</title>
   <style>
-    :root{
-      --bg0:#0a0f19;--bg1:#0b1220;--bgGlass:rgba(255,255,255,.08);
-      --fg:#e7edf6;--muted:#b9c2d3;--line:rgba(255,255,255,.12);
-      --pad:28px;--radius:14px;--colL:420px;--colM:600px;--colR:520px;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #0b1320, #000);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--fg);background:linear-gradient(160deg,var(--bg1),var(--bg0));
+    header {
+      text-align: center;
+      margin: 40px 0 20px 0;
     }
-    /* starfield */
-    body::before{
-      content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;mix-blend-mode:screen;
-      background-image:
-        radial-gradient(1.5px 1.5px at 12% 22%, rgba(255,255,255,.45) 50%, transparent 51%),
-        radial-gradient(2px 2px at 28% 18%, rgba(255,255,255,.28) 50%, transparent 51%),
-        radial-gradient(1px 1px at 35% 80%, rgba(255,255,255,.34) 50%, transparent 51%),
-        radial-gradient(1.2px 1.2px at 60% 32%, rgba(255,255,255,.26) 50%, transparent 51%),
-        radial-gradient(1.4px 1.4px at 78% 64%, rgba(255,255,255,.24) 50%, transparent 51%),
-        radial-gradient(2px 2px at 88% 20%, rgba(255,255,255,.22) 50%, transparent 51%);
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
     }
-
-    /* 3-column frame */
-    .wrap{
-      display:grid;grid-template-columns:var(--colL) var(--colM) minmax(440px,1fr);
-      gap:28px;min-height:100svh;padding:var(--pad)
+    header h2 {
+      font-size: 1.2rem;
+      font-weight: normal;
+      margin-top: 10px;
     }
-
-    /* LEFT column */
-    .left{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px}
-    .logo{align-self:flex-start;margin-top:8px}
-    .logo img{max-width:160px;max-height:56px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.25))}
-    .heroName{margin-top:90px;text-align:center}
-    .heroName h1{margin:0;font-size:34px;letter-spacing:.6px}
-    .roles{display:flex;align-items:center;gap:24px;justify-content:center;margin:10px 0 12px}
-    .role{font-weight:700;font-size:12px;letter-spacing:.6px;color:var(--muted)}
-    .sep{height:2px;width:48px;background:var(--line);border-radius:999px}
-    .about{max-width:360px;text-align:center;color:var(--muted);font-size:14px;line-height:1.6}
-
-    /* Socials bottom-left */
-    .socials{position:fixed;left:var(--pad);bottom:var(--pad);display:flex;gap:16px;align-items:center}
-    .socials a{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center}
-    .socials svg{width:22px;height:22px;fill:#fff;opacity:.9;transition:transform .2s ease}
-    .socials a:hover svg{opacity:1;transform:scale(1.15)}
-
-    /* MIDDLE column – stack cards */
-    .mid{display:flex;flex-direction:column;gap:18px}
-    .card{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-      background:linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.02));}
-    .card .bg{position:absolute;inset:0;background:url('placeholder-wide.jpg') center/cover no-repeat;opacity:.22;filter:grayscale(1) contrast(1.1)}
-    .card .content{position:relative;padding:18px 20px}
-    .kicker{font-size:12px;letter-spacing:.6px;color:#a9b3c7;margin-bottom:6px}
-    .title{display:flex;align-items:center;gap:10px;font-weight:700}
-    .title img{width:22px;height:22px;object-fit:contain;filter:grayscale(1) brightness(2)}
-    .subtitle{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.5}
-    .ext{position:absolute;right:12px;bottom:12px;font-size:12px;color:#cfd6e6;text-decoration:none}
-
-    /* RIGHT column – bio text + portrait */
-    .right{display:grid;grid-template-rows:auto 1fr;gap:18px}
-    .bio{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--bgGlass)}
-    .bio h3{margin:0 0 10px}
-    .bio p{margin:0 0 10px;color:var(--muted);line-height:1.55}
-    .portrait{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-height:340px}
-    .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}
-
-    /* Responsive */
-    @media(max-width:1260px){
-      .wrap{grid-template-columns:minmax(300px,1fr) minmax(360px,1fr) minmax(360px,1fr)}
+    header p {
+      font-size: 1rem;
+      color: #aaa;
+      margin-top: 10px;
     }
-    @media(max-width:980px){
-      .wrap{grid-template-columns:1fr;gap:18px}
-      .logo{align-self:center}.heroName{margin-top:40px}.socials{left:22px}
+    .container {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      max-width: 1200px;
+      margin-top: 30px;
+    }
+    .left {
+      width: 25%;
+    }
+    .left .quote {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .center {
+      width: 40%;
+      text-align: center;
+    }
+    .center h1 {
+      font-size: 2.2rem;
+    }
+    .center p {
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #bbb;
+    }
+    .right {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .card p {
+      margin: 5px 0 0 0;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+    footer a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    footer a:hover {
+      color: #00acee;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- LEFT -->
-    <aside class="left">
-      <div class="logo">
-        <!-- dein Logo -->
-        <img src="aigen-logo.png" alt="Logo" onerror="this.style.display='none'">
+  <div class="container">
+    <!-- Linke Seite mit Zitat -->
+    <div class="left">
+      <div class="quote">
+        „Platz für deinen Spruch oder ein kurzes Zitat eines Philosophen. Später kann hier deine Unterschrift hin.“
+        <br><br>— Author / Philosopher
       </div>
+    </div>
 
-      <div class="heroName">
-        <h1>AIGEN AI</h1>
-        <div class="roles">
-          <span class="role">INVESTOR</span>
-          <span class="sep"></span>
-          <span class="role">BUILDER</span>
-        </div>
-        <p class="about">Autonomous AI agents built to think, act & execute. Designed for scale. Powered by vision.</p>
+    <!-- Mitte mit Titel -->
+    <div class="center">
+      <h1>AigenAI</h1>
+      <h2>Autonomous AI Agents</h2>
+      <p>Autonomous AI agents built to think, act & execute. Designed for scale. Powered by vision.</p>
+    </div>
+
+    <!-- Rechte Seite mit Projektkarten -->
+    <div class="right">
+      <div class="card" onclick="location.href='#';">
+        <h3>AigenAI</h3>
+        <p>Autonomous AI agents engineered for scale and execution.</p>
       </div>
-    </aside>
-
-    <!-- MIDDLE: cards (nur letzte Karte umbenannt zu Insights) -->
-    <main class="mid">
-      <article class="card">
-        <div class="bg" style="background-image:url('card-1.jpg')"></div>
-        <div class="content">
-          <div class="kicker">FAMILY OFFICE</div>
-          <div class="title">
-            <img src="logo-1.png" alt="brand" onerror="this.style.display='none'">
-            <div>GAUSS</div>
-          </div>
-          <div class="subtitle">Multi-Asset Discretionary Investment Architecture & Venture Growth</div>
-          <a class="ext" href="#" target="_blank" rel="noreferrer">↗</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="bg" style="background-image:url('card-2.jpg')"></div>
-        <div class="content">
-          <div class="kicker">SYNDICATE</div>
-          <div class="title">
-            <img src="logo-2.png" alt="brand" onerror="this.style.display='none'">
-            <div>SIXSIGMA</div>
-          </div>
-          <div class="subtitle">Syndicate fund bridging elite capital with transformative zeitgeist ventures.</div>
-          <a class="ext" href="#" target="_blank" rel="noreferrer">↗</a>
-        </div>
-      </article>
-
-      <!-- NUR HIER geändert: Hoss.Hopf -> Insights -->
-      <article class="card">
-        <div class="bg" style="background-image:url('card-3.jpg')"></div>
-        <div class="content">
-          <div class="kicker">INSIGHTS</div>
-          <div class="title">
-            <img src="logo-3.png" alt="brand" onerror="this.style.display='none'">
-            <div>Insights</div>
-          </div>
-          <div class="subtitle">Thought leadership on the future of AI, agents and scale.</div>
-          <a class="ext" href="#" target="_blank" rel="noreferrer">↗</a>
-        </div>
-      </article>
-    </main>
-
-    <!-- RIGHT: About + Portrait -->
-    <aside class="right">
-      <section class="bio">
-        <h3>About</h3>
-        <p>Write your long bio here. Replace this placeholder with your own story, focus areas, and what makes your perspective distinct.</p>
-        <p>Use short paragraphs. Emphasize mission, principles, and how you combine building with investing.</p>
-        <p>Close with a line that invites the reader to learn more or reach out.</p>
-      </section>
-      <figure class="portrait">
-        <img src="portrait.jpg" alt="Portrait" onerror="this.style.display='none'">
-      </figure>
-    </aside>
+      <div class="card" onclick="location.href='#';">
+        <h3>Emin Capitals</h3>
+        <p>Investment firm focused on innovation and long-term value.</p>
+      </div>
+      <div class="card" onclick="location.href='#';">
+        <h3>Insights</h3>
+        <p>Thought leadership on the future of AI, agents and scale.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Socials bottom-left (unverändert) -->
-  <div class="socials" aria-label="Social links">
-    <a href="https://x.com/" target="_blank" rel="noreferrer" aria-label="X">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21l-6.52 7.46L22.5 22h-6.93l-4.54-5.87L5.77 22H3l6.96-7.96L1.5 2h7.03l4.1 5.39L18.244 2Zm-1.214 18h1.88L7.06 4h-1.9l11.87 16Z"/></svg>
-    </a>
-    <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3a6 6 0 1 1 0 12A6 6 0 0 1 12 7Zm0 2.2A3.8 3.8 0 1 0 15.8 13 3.8 3.8 0 0 0 12 9.2Zm5.35-3.15a1.15 1.15 0 1 1-1.15 1.15 1.15 1.15 0 0 1 1.15-1.15Z"/></svg>
-    </a>
-  </div>
+  <!-- Footer mit Socials -->
+  <footer>
+    <a href="#"><span>✖</span></a>
+    <a href="#"><span>📸</span></a>
+  </footer>
 </body>
 </html>
