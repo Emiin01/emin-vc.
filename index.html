@@ -1,457 +1,307 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emin Turus - Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+import React, { useState } from 'react';
+
+export default function LandingPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <style jsx>{`
+        .stars, .twinkling {
+          position: absolute;
+          display: block;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
         }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0a0a0f;
-            color: white;
-            overflow-x: hidden;
-            line-height: 1.6;
-            position: relative;
-        }
-
-        /* Sternen-Hintergrund */
         .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: 
-                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(2px 2px at 160px 30px, #fff, transparent),
-                radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 220px 90px, #eee, transparent),
-                radial-gradient(1px 1px at 260px 40px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 300px 70px, #fff, transparent),
-                radial-gradient(2px 2px at 340px 20px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 380px 50px, #eee, transparent),
-                radial-gradient(1px 1px at 420px 80px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 450px 30px, #fff, transparent),
-                radial-gradient(1px 1px at 480px 60px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 520px 40px, #eee, transparent),
-                radial-gradient(2px 2px at 560px 70px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 20px 120px, #fff, transparent),
-                radial-gradient(1px 1px at 60px 150px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 100px 180px, #eee, transparent),
-                radial-gradient(1px 1px at 140px 160px, rgba(255,255,255,0.8), transparent);
-            background-repeat: repeat;
-            background-size: 600px 200px;
-            animation: sparkle 20s linear infinite;
+          background: black url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="white" opacity="0.8"/><circle cx="80" cy="10" r="0.5" fill="white" opacity="0.6"/><circle cx="40" cy="70" r="1" fill="white" opacity="0.9"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.7"/><circle cx="10" cy="90" r="1" fill="white" opacity="0.5"/><circle cx="70" cy="60" r="0.5" fill="white" opacity="0.8"/><circle cx="30" cy="30" r="0.5" fill="white" opacity="0.6"/><circle cx="60" cy="85" r="1" fill="white" opacity="0.7"/><circle cx="5" cy="50" r="0.5" fill="white" opacity="0.9"/><circle cx="85" cy="80" r="0.5" fill="white" opacity="0.6"/></svg>') repeat;
+          animation: move-stars 200s linear infinite;
         }
 
-        @keyframes sparkle {
-            from { transform: translateX(0px); }
-            to { transform: translateX(-600px); }
+        .twinkling {
+          background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="15" r="1" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/></circle><circle cx="75" cy="25" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></circle><circle cx="15" cy="75" r="1" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/></circle><circle cx="85" cy="65" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/></circle><circle cx="45" cy="45" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite"/></circle></svg>') repeat;
+          animation: move-twinkling 100s linear infinite;
         }
 
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            min-height: 100vh;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
+        @keyframes move-stars {
+          from { transform: translateX(0); }
+          to { transform: translateX(-100px); }
         }
 
-        /* Left Section - Emin Turus */
-        .left-section {
-            background: transparent;
-            padding: 4rem 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        @keyframes move-twinkling {
+          from { transform: translateX(0); }
+          to { transform: translateX(-100px); }
         }
-
-        .name-container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .main-name {
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-            letter-spacing: 4px;
-            text-align: left;
-        }
-
-        .name-divider {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .divider-line {
-            width: 30px;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .bio-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 3rem;
-            font-style: italic;
-        }
-
-        .quote-section {
-            margin-bottom: 2rem;
-        }
-
-        .quote {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 1.5rem;
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .quote-author {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.85rem;
-            margin-left: 1rem;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .social-icons a {
-            width: 45px;
-            height: 45px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Center Section - Projects */
-        .center-section {
-            background: transparent;
-            padding: 4rem 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .main-title {
-            font-size: 3rem;
-            font-weight: 600;
-            margin-bottom: 3rem;
-            color: white;
-        }
-
-        .project-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .project-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .card-category {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .card-description {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        .card-arrow {
-            position: absolute;
-            top: 50%;
-            right: 2rem;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        /* Right Section - About */
-        .right-section {
-            background: transparent;
-            padding: 4rem 3rem;
-        }
-
-        .about-header {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 2.5rem;
-            color: white;
-        }
-
-        .about-content {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
-        }
-
-        /* Hover Effects */
-        .project-card:hover .card-arrow {
-            transform: translateY(-50%) translateX(5px);
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto;
-            }
-
-            .left-section, .center-section, .right-section {
-                padding: 3rem 2rem;
-            }
-
-            .main-name {
-                font-size: 3rem;
-            }
-
-            .main-title {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .left-section, .center-section, .right-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .main-name {
-                font-size: 2.5rem;
-            }
-
-            .main-title {
-                font-size: 2rem;
-            }
-
-            .project-card {
-                padding: 1.5rem;
-            }
-        }
-
-        /* Animation für die Sterne */
-        .stars::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(1px 1px at 150px 50px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 200px 100px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 280px 20px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 320px 80px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 400px 40px, rgba(255,255,255,0.7), transparent);
-            background-repeat: repeat;
-            background-size: 500px 150px;
-            animation: sparkle-secondary 25s linear infinite reverse;
-        }
-
-        @keyframes sparkle-secondary {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-150px); }
-        }
-    </style>
-</head>
-<body>
-    <div class="stars"></div>
-
-    <div class="container">
-        <!-- Left Section - Emin Turus Info -->
-        <div class="left-section">
-            <div class="name-container">
-                <h1 class="main-name">EMIN<br>TURUS</h1>
-                
-                <div class="name-divider">
-                    <span>INVESTOR</span>
-                    <div class="divider-line"></div>
-                    <span>BUILDER</span>
-                </div>
-                
-                <p class="bio-text">
-                    Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
-                </p>
-            </div>
-
-            <div class="quote-section">
-                <div class="quote">
-                    "The best way to predict the future is to create it."
-                </div>
-                <div class="quote-author">— Peter Drucker</div>
+      `}</style>
+      
+      {/* Navigation */}
+      <nav className="relative z-20 bg-black bg-opacity-20 backdrop-blur-md border-b border-white border-opacity-10">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex justify-between items-center py-6">
+            <div className="text-2xl font-bold bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+              NEXUS
             </div>
             
-            <div class="social-icons">
-                <a href="https://x.com/aigenvc" target="_blank" aria-label="Twitter">𝕏</a>
-                <a href="https://www.instagram.com/emiintrs/" target="_blank" aria-label="Instagram">📷</a>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-8">
+              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Home</a>
+              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">About</a>
+              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Services</a>
+              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Contact</a>
             </div>
-        </div>
-
-        <!-- Center Section - Projects -->
-        <div class="center-section">
-            <h2 class="main-title">Autonomous AI</h2>
             
-            <div class="project-cards">
-                <div class="project-card">
-                    <div class="card-category">CORE PRODUCT</div>
-                    <h3 class="card-title">AigenAI</h3>
-                    <p class="card-description">Autonomous AI agents engineered for scale and execution.</p>
-                    <span class="card-arrow">↗</span>
-                </div>
-                
-                <div class="project-card">
-                    <div class="card-category">CAPITAL</div>
-                    <h3 class="card-title">Emin Capitals</h3>
-                    <p class="card-description">Investment firm focused on AI-native infrastructure and early-stage innovation.</p>
-                    <span class="card-arrow">↗</span>
-                </div>
-                
-                <div class="project-card">
-                    <div class="card-category">INSIGHTS</div>
-                    <h3 class="card-title">Insights</h3>
-                    <p class="card-description">Thought leadership on the future of AI, agents, and scale.</p>
-                    <span class="card-arrow">↗</span>
-                </div>
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <div className="w-6 h-6 flex flex-col justify-center">
+                <span className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+                <span className={`bg-white block h-0.5 w-6 rounded-sm my-0.5 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+              </div>
+            </button>
+          </div>
+          
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden py-4 border-t border-white border-opacity-10">
+              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Home</a>
+              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">About</a>
+              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Services</a>
+              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Contact</a>
             </div>
+          )}
         </div>
+      </nav>
 
-        <!-- Right Section - About -->
-        <div class="right-section">
-            <h2 class="about-header">About</h2>
-            <div class="about-content">
-                <p>Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</p>
-                <br>
-                <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
-            </div>
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800">
+          <div className="absolute inset-0 opacity-80">
+            <div className="stars"></div>
+            <div className="twinkling"></div>
+          </div>
         </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24">
+          <div className="text-center">
+            <div className="mb-8">
+              <div className="inline-block bg-black bg-opacity-30 backdrop-blur-md rounded-full px-6 py-3 border border-white border-opacity-20">
+                <span className="text-white text-sm font-medium">✨ Welcome to the Future</span>
+              </div>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+              Innovation
+              <br />
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Reimagined</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-white text-opacity-80 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Experience the next generation of digital transformation with cutting-edge technology that adapts to your vision.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+              <button className="group relative overflow-hidden bg-white text-black px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <span className="relative z-10">Get Started</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+              
+              <button className="group px-8 py-4 rounded-full font-semibold text-lg border-2 border-white border-opacity-30 text-white hover:border-opacity-100 hover:bg-white hover:bg-opacity-10 transition-all duration-300 backdrop-blur-sm">
+                <span className="flex items-center gap-2">
+                  <span>Watch Demo</span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </span>
+              </button>
+            </div>
+            
+            <div className="text-center text-white text-opacity-60">
+              <p className="text-lg italic mb-2">*"The best way to predict the future is to create it."*</p>
+              <p className="text-sm">— Peter Drucker</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="relative py-24 bg-black bg-opacity-50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+              Why Choose Us
+            </h2>
+            <p className="text-xl text-white text-opacity-70 max-w-3xl mx-auto">
+              Discover the features that set us apart from the competition
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-white">Lightning Fast</h3>
+              <p className="text-white text-opacity-70 leading-relaxed">
+                Experience unparalleled speed with our optimized infrastructure that delivers results in milliseconds.
+              </p>
+            </div>
+            
+            <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+                <span className="text-2xl">🛡️</span>
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-white">Secure</h3>
+              <p className="text-white text-opacity-70 leading-relaxed">
+                Your data is protected with enterprise-grade security measures and end-to-end encryption.
+              </p>
+            </div>
+            
+            <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+                <span className="text-2xl">🚀</span>
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-white">Scalable</h3>
+              <p className="text-white text-opacity-70 leading-relaxed">
+                Grow without limits. Our platform scales effortlessly to meet your expanding needs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="relative py-24 bg-gradient-to-r from-black via-gray-900 to-black">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="grid md:grid-cols-4 gap-8 text-center">
+            <div className="group">
+              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+                99.9%
+              </div>
+              <p className="text-white text-opacity-70">Uptime</p>
+            </div>
+            
+            <div className="group">
+              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+                1M+
+              </div>
+              <p className="text-white text-opacity-70">Users</p>
+            </div>
+            
+            <div className="group">
+              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+                50+
+              </div>
+              <p className="text-white text-opacity-70">Countries</p>
+            </div>
+            
+            <div className="group">
+              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+                24/7
+              </div>
+              <p className="text-white text-opacity-70">Support</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative py-24 bg-black bg-opacity-70 backdrop-blur-sm">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+            Ready to Get Started?
+          </h2>
+          <p className="text-xl text-white text-opacity-70 mb-12 max-w-2xl mx-auto">
+            Join thousands of satisfied customers who have transformed their business with our platform.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <button className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              <span className="relative z-10">Start Free Trial</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+            
+            <button className="px-8 py-4 rounded-full font-semibold text-lg border-2 border-white border-opacity-30 text-white hover:border-opacity-100 hover:bg-white hover:bg-opacity-10 transition-all duration-300 backdrop-blur-sm">
+              Contact Sales
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative bg-black border-t border-white border-opacity-10">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="text-2xl font-bold bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent mb-4">
+                NEXUS
+              </div>
+              <p className="text-white text-opacity-70 mb-6">
+                Transforming the future with innovative solutions that empower businesses worldwide.
+              </p>
+              <div className="flex space-x-4">
+                <a href="https://x.com/aigenvc" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white bg-opacity-10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-opacity-20 transition-all duration-300">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                </a>
+                <a href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white bg-opacity-10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-opacity-20 transition-all duration-300">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Features</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Pricing</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">API</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Documentation</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Company</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">About</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Blog</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Careers</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Support</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Help Center</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Community</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Status</a></li>
+                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Privacy</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-white border-opacity-10 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-white text-opacity-70 text-sm">
+                © 2024 NEXUS. All rights reserved.
+              </p>
+              <div className="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Terms</a>
+                <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Privacy</a>
+                <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Cookies</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth hover animations
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            projectCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
-                });
-            });
-
-            // Fade in animations
-            const cards = document.querySelectorAll('.project-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'all 0.8s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 300 * (index + 1));
-            });
-
-            // Parallax effect für Sterne
-            let ticking = false;
-            
-            function updateStars() {
-                const scrolled = window.pageYOffset;
-                const stars = document.querySelector('.stars');
-                if (stars) {
-                    stars.style.transform = `translateY(${scrolled * 0.2}px)`;
-                }
-                ticking = false;
-            }
-
-            function requestTick() {
-                if (!ticking) {
-                    requestAnimationFrame(updateStars);
-                    ticking = true;
-                }
-            }
-
-            window.addEventListener('scroll', requestTick);
-        });
-    </script>
-</body>
-</html>
+  );
+}
