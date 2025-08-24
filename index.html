@@ -1,307 +1,307 @@
 import React, { useState } from 'react';
 
 export default function LandingPage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+ const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <style jsx>{`
-        .stars, .twinkling {
-          position: absolute;
-          display: block;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          width: 100%;
-          height: 100%;
-        }
+ return (
+   <div className="min-h-screen bg-black text-white overflow-x-hidden">
+     <style jsx>{`
+       .stars, .twinkling {
+         position: absolute;
+         display: block;
+         top: 0;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         width: 100%;
+         height: 100%;
+       }
 
-        .stars {
-          background: black url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="white" opacity="0.8"/><circle cx="80" cy="10" r="0.5" fill="white" opacity="0.6"/><circle cx="40" cy="70" r="1" fill="white" opacity="0.9"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.7"/><circle cx="10" cy="90" r="1" fill="white" opacity="0.5"/><circle cx="70" cy="60" r="0.5" fill="white" opacity="0.8"/><circle cx="30" cy="30" r="0.5" fill="white" opacity="0.6"/><circle cx="60" cy="85" r="1" fill="white" opacity="0.7"/><circle cx="5" cy="50" r="0.5" fill="white" opacity="0.9"/><circle cx="85" cy="80" r="0.5" fill="white" opacity="0.6"/></svg>') repeat;
-          animation: move-stars 200s linear infinite;
-        }
+       .stars {
+         background: black url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="white" opacity="0.8"/><circle cx="80" cy="10" r="0.5" fill="white" opacity="0.6"/><circle cx="40" cy="70" r="1" fill="white" opacity="0.9"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.7"/><circle cx="10" cy="90" r="1" fill="white" opacity="0.5"/><circle cx="70" cy="60" r="0.5" fill="white" opacity="0.8"/><circle cx="30" cy="30" r="0.5" fill="white" opacity="0.6"/><circle cx="60" cy="85" r="1" fill="white" opacity="0.7"/><circle cx="5" cy="50" r="0.5" fill="white" opacity="0.9"/><circle cx="85" cy="80" r="0.5" fill="white" opacity="0.6"/></svg>') repeat;
+         animation: move-stars 200s linear infinite;
+       }
 
-        .twinkling {
-          background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="15" r="1" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/></circle><circle cx="75" cy="25" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></circle><circle cx="15" cy="75" r="1" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/></circle><circle cx="85" cy="65" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/></circle><circle cx="45" cy="45" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite"/></circle></svg>') repeat;
-          animation: move-twinkling 100s linear infinite;
-        }
+       .twinkling {
+         background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="15" r="1" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/></circle><circle cx="75" cy="25" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/></circle><circle cx="15" cy="75" r="1" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="4s" repeatCount="indefinite"/></circle><circle cx="85" cy="65" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/></circle><circle cx="45" cy="45" r="0.5" fill="white" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite"/></circle></svg>') repeat;
+         animation: move-twinkling 100s linear infinite;
+       }
 
-        @keyframes move-stars {
-          from { transform: translateX(0); }
-          to { transform: translateX(-100px); }
-        }
+       @keyframes move-stars {
+         from { transform: translateX(0); }
+         to { transform: translateX(-100px); }
+       }
 
-        @keyframes move-twinkling {
-          from { transform: translateX(0); }
-          to { transform: translateX(-100px); }
-        }
-      `}</style>
-      
-      {/* Navigation */}
-      <nav className="relative z-20 bg-black bg-opacity-20 backdrop-blur-md border-b border-white border-opacity-10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex justify-between items-center py-6">
-            <div className="text-2xl font-bold bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
-              NEXUS
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex space-x-8">
-              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Home</a>
-              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">About</a>
-              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Services</a>
-              <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Contact</a>
-            </div>
-            
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <div className="w-6 h-6 flex flex-col justify-center">
-                <span className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-                <span className={`bg-white block h-0.5 w-6 rounded-sm my-0.5 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                <span className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
-              </div>
-            </button>
-          </div>
-          
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-white border-opacity-10">
-              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Home</a>
-              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">About</a>
-              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Services</a>
-              <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Contact</a>
-            </div>
-          )}
-        </div>
-      </nav>
+       @keyframes move-twinkling {
+         from { transform: translateX(0); }
+         to { transform: translateX(-100px); }
+       }
+     `}</style>
+     
+     {/* Navigation */}
+     <nav className="relative z-20 bg-black bg-opacity-20 backdrop-blur-md border-b border-white border-opacity-10">
+       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+         <div className="flex justify-between items-center py-6">
+           <div className="text-2xl font-bold bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+             NEXUS
+           </div>
+           
+           {/* Desktop Navigation */}
+           <div className="hidden md:flex space-x-8">
+             <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Home</a>
+             <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">About</a>
+             <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Services</a>
+             <a href="#" className="text-white hover:text-cyan-400 transition-colors duration-300">Contact</a>
+           </div>
+           
+           {/* Mobile Menu Button */}
+           <button 
+             className="md:hidden"
+             onClick={() => setIsMenuOpen(!isMenuOpen)}
+           >
+             <div className="w-6 h-6 flex flex-col justify-center">
+               <span className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+               <span className={`bg-white block h-0.5 w-6 rounded-sm my-0.5 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+               <span className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+             </div>
+           </button>
+         </div>
+         
+         {/* Mobile Menu */}
+         {isMenuOpen && (
+           <div className="md:hidden py-4 border-t border-white border-opacity-10">
+             <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Home</a>
+             <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">About</a>
+             <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Services</a>
+             <a href="#" className="block py-2 text-white hover:text-cyan-400 transition-colors duration-300">Contact</a>
+           </div>
+         )}
+       </div>
+     </nav>
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800">
-          <div className="absolute inset-0 opacity-80">
-            <div className="stars"></div>
-            <div className="twinkling"></div>
-          </div>
-        </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24">
-          <div className="text-center">
-            <div className="mb-8">
-              <div className="inline-block bg-black bg-opacity-30 backdrop-blur-md rounded-full px-6 py-3 border border-white border-opacity-20">
-                <span className="text-white text-sm font-medium">✨ Welcome to the Future</span>
-              </div>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
-              Innovation
-              <br />
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Reimagined</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-white text-opacity-80 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Experience the next generation of digital transformation with cutting-edge technology that adapts to your vision.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <button className="group relative overflow-hidden bg-white text-black px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                <span className="relative z-10">Get Started</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
-              
-              <button className="group px-8 py-4 rounded-full font-semibold text-lg border-2 border-white border-opacity-30 text-white hover:border-opacity-100 hover:bg-white hover:bg-opacity-10 transition-all duration-300 backdrop-blur-sm">
-                <span className="flex items-center gap-2">
-                  <span>Watch Demo</span>
-                  <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                </span>
-              </button>
-            </div>
-            
-            <div className="text-center text-white text-opacity-60">
-              <p className="text-lg italic mb-2">*"The best way to predict the future is to create it."*</p>
-              <p className="text-sm">— Peter Drucker</p>
-            </div>
-          </div>
-        </div>
-      </section>
+     {/* Hero Section */}
+     <section className="relative min-h-screen flex items-center justify-center">
+       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800">
+         <div className="absolute inset-0 opacity-80">
+           <div className="stars"></div>
+           <div className="twinkling"></div>
+         </div>
+       </div>
+       
+       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-24">
+         <div className="text-center">
+           <div className="mb-8">
+             <div className="inline-block bg-black bg-opacity-30 backdrop-blur-md rounded-full px-6 py-3 border border-white border-opacity-20">
+               <span className="text-white text-sm font-medium">✨ Welcome to the Future</span>
+             </div>
+           </div>
+           
+           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent leading-tight">
+             Innovation
+             <br />
+             <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Reimagined</span>
+           </h1>
+           
+           <p className="text-xl md:text-2xl text-white text-opacity-80 mb-12 max-w-3xl mx-auto leading-relaxed">
+             Experience the next generation of digital transformation with cutting-edge technology that adapts to your vision.
+           </p>
+           
+           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+             <button className="group relative overflow-hidden bg-white text-black px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+               <span className="relative z-10">Get Started</span>
+               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+             </button>
+             
+             <button className="group px-8 py-4 rounded-full font-semibold text-lg border-2 border-white border-opacity-30 text-white hover:border-opacity-100 hover:bg-white hover:bg-opacity-10 transition-all duration-300 backdrop-blur-sm">
+               <span className="flex items-center gap-2">
+                 <span>Watch Demo</span>
+                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+               </span>
+             </button>
+           </div>
+           
+           <div className="text-center text-white text-opacity-60">
+             <p className="text-lg italic mb-2">*"The best way to predict the future is to create it."*</p>
+             <p className="text-sm">— Peter Drucker</p>
+           </div>
+         </div>
+       </div>
+     </section>
 
-      {/* Features Section */}
-      <section className="relative py-24 bg-black bg-opacity-50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
-              Why Choose Us
-            </h2>
-            <p className="text-xl text-white text-opacity-70 max-w-3xl mx-auto">
-              Discover the features that set us apart from the competition
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Lightning Fast</h3>
-              <p className="text-white text-opacity-70 leading-relaxed">
-                Experience unparalleled speed with our optimized infrastructure that delivers results in milliseconds.
-              </p>
-            </div>
-            
-            <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                <span className="text-2xl">🛡️</span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Secure</h3>
-              <p className="text-white text-opacity-70 leading-relaxed">
-                Your data is protected with enterprise-grade security measures and end-to-end encryption.
-              </p>
-            </div>
-            
-            <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
-                <span className="text-2xl">🚀</span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Scalable</h3>
-              <p className="text-white text-opacity-70 leading-relaxed">
-                Grow without limits. Our platform scales effortlessly to meet your expanding needs.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+     {/* Features Section */}
+     <section className="relative py-24 bg-black bg-opacity-50 backdrop-blur-sm">
+       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+         <div className="text-center mb-16">
+           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+             Why Choose Us
+           </h2>
+           <p className="text-xl text-white text-opacity-70 max-w-3xl mx-auto">
+             Discover the features that set us apart from the competition
+           </p>
+         </div>
+         
+         <div className="grid md:grid-cols-3 gap-8">
+           <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
+             <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+               <span className="text-2xl">⚡</span>
+             </div>
+             <h3 className="text-2xl font-bold mb-4 text-white">Lightning Fast</h3>
+             <p className="text-white text-opacity-70 leading-relaxed">
+               Experience unparalleled speed with our optimized infrastructure that delivers results in milliseconds.
+             </p>
+           </div>
+           
+           <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
+             <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+               <span className="text-2xl">🛡️</span>
+             </div>
+             <h3 className="text-2xl font-bold mb-4 text-white">Secure</h3>
+             <p className="text-white text-opacity-70 leading-relaxed">
+               Your data is protected with enterprise-grade security measures and end-to-end encryption.
+             </p>
+           </div>
+           
+           <div className="group bg-white bg-opacity-5 backdrop-blur-md rounded-2xl p-8 border border-white border-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:transform hover:scale-105">
+             <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+               <span className="text-2xl">🚀</span>
+             </div>
+             <h3 className="text-2xl font-bold mb-4 text-white">Scalable</h3>
+             <p className="text-white text-opacity-70 leading-relaxed">
+               Grow without limits. Our platform scales effortlessly to meet your expanding needs.
+             </p>
+           </div>
+         </div>
+       </div>
+     </section>
 
-      {/* Stats Section */}
-      <section className="relative py-24 bg-gradient-to-r from-black via-gray-900 to-black">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="group">
-              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
-                99.9%
-              </div>
-              <p className="text-white text-opacity-70">Uptime</p>
-            </div>
-            
-            <div className="group">
-              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
-                1M+
-              </div>
-              <p className="text-white text-opacity-70">Users</p>
-            </div>
-            
-            <div className="group">
-              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
-                50+
-              </div>
-              <p className="text-white text-opacity-70">Countries</p>
-            </div>
-            
-            <div className="group">
-              <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
-                24/7
-              </div>
-              <p className="text-white text-opacity-70">Support</p>
-            </div>
-          </div>
-        </div>
-      </section>
+     {/* Stats Section */}
+     <section className="relative py-24 bg-gradient-to-r from-black via-gray-900 to-black">
+       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+         <div className="grid md:grid-cols-4 gap-8 text-center">
+           <div className="group">
+             <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+               99.9%
+             </div>
+             <p className="text-white text-opacity-70">Uptime</p>
+           </div>
+           
+           <div className="group">
+             <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+               1M+
+             </div>
+             <p className="text-white text-opacity-70">Users</p>
+           </div>
+           
+           <div className="group">
+             <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+               50+
+             </div>
+             <p className="text-white text-opacity-70">Countries</p>
+           </div>
+           
+           <div className="group">
+             <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+               24/7
+             </div>
+             <p className="text-white text-opacity-70">Support</p>
+           </div>
+         </div>
+       </div>
+     </section>
 
-      {/* CTA Section */}
-      <section className="relative py-24 bg-black bg-opacity-70 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-white text-opacity-70 mb-12 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who have transformed their business with our platform.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-              <span className="relative z-10">Start Free Trial</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-            
-            <button className="px-8 py-4 rounded-full font-semibold text-lg border-2 border-white border-opacity-30 text-white hover:border-opacity-100 hover:bg-white hover:bg-opacity-10 transition-all duration-300 backdrop-blur-sm">
-              Contact Sales
-            </button>
-          </div>
-        </div>
-      </section>
+     {/* CTA Section */}
+     <section className="relative py-24 bg-black bg-opacity-70 backdrop-blur-sm">
+       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+         <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+           Ready to Get Started?
+         </h2>
+         <p className="text-xl text-white text-opacity-70 mb-12 max-w-2xl mx-auto">
+           Join thousands of satisfied customers who have transformed their business with our platform.
+         </p>
+         
+         <div className="flex flex-col sm:flex-row gap-6 justify-center">
+           <button className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+             <span className="relative z-10">Start Free Trial</span>
+             <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+           </button>
+           
+           <button className="px-8 py-4 rounded-full font-semibold text-lg border-2 border-white border-opacity-30 text-white hover:border-opacity-100 hover:bg-white hover:bg-opacity-10 transition-all duration-300 backdrop-blur-sm">
+             Contact Sales
+           </button>
+         </div>
+       </div>
+     </section>
 
-      {/* Footer */}
-      <footer className="relative bg-black border-t border-white border-opacity-10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent mb-4">
-                NEXUS
-              </div>
-              <p className="text-white text-opacity-70 mb-6">
-                Transforming the future with innovative solutions that empower businesses worldwide.
-              </p>
-              <div className="flex space-x-4">
-                <a href="https://x.com/aigenvc" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white bg-opacity-10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-opacity-20 transition-all duration-300">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </a>
-                <a href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white bg-opacity-10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-opacity-20 transition-all duration-300">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Features</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Pricing</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">API</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Documentation</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-semibold mb-4">Company</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">About</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Blog</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Careers</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-semibold mb-4">Support</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Help Center</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Community</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Status</a></li>
-                <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Privacy</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-white border-opacity-10 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-white text-opacity-70 text-sm">
-                © 2024 NEXUS. All rights reserved.
-              </p>
-              <div className="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Terms</a>
-                <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Privacy</a>
-                <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Cookies</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
+     {/* Footer */}
+     <footer className="relative bg-black border-t border-white border-opacity-10">
+       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
+         <div className="grid md:grid-cols-4 gap-8 mb-8">
+           <div>
+             <div className="text-2xl font-bold bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent mb-4">
+               NEXUS
+             </div>
+             <p className="text-white text-opacity-70 mb-6">
+               Transforming the future with innovative solutions that empower businesses worldwide.
+             </p>
+             <div className="flex space-x-4">
+               <a href="https://x.com/aigenvc" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white bg-opacity-10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-opacity-20 transition-all duration-300">
+                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                 </svg>
+               </a>
+               <a href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white bg-opacity-10 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-opacity-20 transition-all duration-300">
+                 <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                 </svg>
+               </a>
+             </div>
+           </div>
+           
+           <div>
+             <h4 className="text-white font-semibold mb-4">Product</h4>
+             <ul className="space-y-2">
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Features</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Pricing</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">API</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Documentation</a></li>
+             </ul>
+           </div>
+           
+           <div>
+             <h4 className="text-white font-semibold mb-4">Company</h4>
+             <ul className="space-y-2">
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">About</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Blog</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Careers</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Contact</a></li>
+             </ul>
+           </div>
+           
+           <div>
+             <h4 className="text-white font-semibold mb-4">Support</h4>
+             <ul className="space-y-2">
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Help Center</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Community</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Status</a></li>
+               <li><a href="#" className="text-white text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Privacy</a></li>
+             </ul>
+           </div>
+         </div>
+         
+         <div className="border-t border-white border-opacity-10 pt-8">
+           <div className="flex flex-col md:flex-row justify-between items-center">
+             <p className="text-white text-opacity-70 text-sm">
+               © 2024 NEXUS. All rights reserved.
+             </p>
+             <div className="flex space-x-6 mt-4 md:mt-0">
+               <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Terms</a>
+               <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Privacy</a>
+               <a href="#" className="text-white text-opacity-70 hover:text-opacity-100 text-sm transition-colors duration-300">Cookies</a>
+             </div>
+           </div>
+         </div>
+       </div>
+     </footer>
+   </div>
+ );
 }
