@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,122 +29,128 @@
         radial-gradient(2px 2px at 88% 20%, rgba(255,255,255,.22) 50%, transparent 51%);
     }
 
-    /* Layout */
+    /* === 3 SYMMETRISCHE SPALTEN === */
     .wrap{
       display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
+      grid-template-columns:repeat(3, minmax(0,1fr)); /* exakt gleich breit */
       gap:32px;
       min-height:100svh;
       padding:var(--pad);
+      align-items:start;
     }
-    .col{max-width:var(--colMax);margin:0 auto;width:100%;display:flex;flex-direction:column;justify-content:space-between}
+    .col{max-width:var(--colMax);margin:0 auto;width:100%}
 
-    /* LEFT */
-    .logo-top{text-align:center}
-    .logo-top img{
-      max-width:180px;max-height:70px;object-fit:contain;
-      filter:drop-shadow(0 2px 8px rgba(0,0,0,.25));
-    }
-    .headline{
-      text-align:center;
-      margin-top:80px;
-      font-size:28px;
-      font-weight:700;
-      letter-spacing:1px;
-    }
-    .quote{margin-top:auto;margin-bottom:80px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:left}
+    /* LINKS: Logo + Slogan + Zitat */
+    .brand{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+    .brand img{max-width:180px;max-height:56px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.25))}
+    .slogan{font-weight:700;font-size:14px;letter-spacing:.4px;opacity:.9}
+    .quote{margin-top:16px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
     .quote p{margin:0 0 8px 0;color:#dbe3f3;line-height:1.55;font-size:14px}
     .quote .by{color:var(--muted);font-size:12px}
 
-    /* MIDDLE */
-    .mid{display:flex;flex-direction:column;justify-content:space-between}
+    /* MITTE: Projekt-Karten (AigenAI, Emin Capitals, Insights) */
+    .mid{display:flex;flex-direction:column;gap:16px}
     .card{
-      position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;flex:1;
+      position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
       background:linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      transition:transform .2s ease, box-shadow .2s ease;margin:8px 0;
+      transition:transform .2s ease, box-shadow .2s ease;
     }
     .card:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,.25)}
     .card .bg{position:absolute;inset:0;background:url('card-placeholder.jpg') center/cover no-repeat;opacity:.18;filter:grayscale(1) contrast(1.05)}
     .content{position:relative;padding:18px 20px}
     .kicker{font-size:12px;letter-spacing:.6px;color:#a9b3c7;margin-bottom:6px}
     .title{display:flex;align-items:center;gap:10px;font-weight:700}
+    .title img{width:22px;height:22px;object-fit:contain;filter:grayscale(1) brightness(2)}
     .subtitle{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.5}
     .ext{position:absolute;right:12px;bottom:12px;font-size:12px;color:#cfd6e6;text-decoration:none}
 
-    /* RIGHT */
-    .about{border:1px solid var(--line);border-radius:var(--radius);background:var(--glass);padding:18px;margin-bottom:16px}
+    /* RECHTS: Über mich */
+    .about{border:1px solid var(--line);border-radius:var(--radius);background:var(--glass);padding:18px}
     .about h3{margin:0 0 10px}
     .about p{margin:0 0 10px;color:var(--muted);line-height:1.55}
-    .portrait{flex:1;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+    .portrait{margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-height:320px}
     .portrait img{width:100%;height:100%;object-fit:cover;display:block}
 
-    /* Socials */
+    /* Socials unten links (X & Instagram) */
     .socials{position:fixed;left:var(--pad);bottom:var(--pad);display:flex;gap:16px;align-items:center}
     .socials a{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center}
     .socials svg{width:22px;height:22px;fill:#fff;opacity:.9;transition:transform .2s ease}
     .socials a:hover svg{opacity:1;transform:scale(1.15)}
 
+    /* Mobile: 1 Spalte */
     @media(max-width:1100px){
       .wrap{grid-template-columns:1fr;gap:20px}
-      .col{justify-content:flex-start}
-      .mid{gap:16px}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <!-- LEFT -->
+    <!-- LINKSSPALTE -->
     <aside class="col">
-      <div class="logo-top">
+      <div class="brand">
+        <!-- Dein Logo -->
         <img src="aigen-logo.png" alt="Aigen Logo" onerror="this.style.display='none'">
+        <div class="slogan">Autonomous AI Agents</div>
       </div>
-      <div class="headline">Autonomous AI</div>
 
       <div class="quote">
-        <p>„Platz für deinen Spruch oder ein kurzes Zitat. Später kommt hier deine Unterschrift hin.“</p>
-        <div class="by">— Autor / Philosoph</div>
+        <p>„The best way to predict the future is to create it.“</p>
+        <div class="by">—Peter Drucker</div>
       </div>
     </aside>
 
-    <!-- MIDDLE -->
+    <!-- MITTESPALTE (OBEN: AigenAI, MITTE: Emin Capitals, UNTEN: Insights) -->
     <main class="col mid">
+      <!-- AigenAI -->
       <article class="card">
         <div class="bg" style="background-image:url('card-aigen.jpg')"></div>
         <div class="content">
           <div class="kicker">CORE PRODUCT</div>
-          <div class="title">AigenAI</div>
+          <div class="title">
+            <img src="logo-aigen.png" alt="Aigen Logo" onerror="this.style.display='none'">
+            <div>AigenAI</div>
+          </div>
           <div class="subtitle">Autonomous AI agents engineered for scale and execution.</div>
-          <a class="ext" href="#">↗</a>
+          <a class="ext" href="#" target="_blank" rel="noreferrer">↗</a>
         </div>
       </article>
 
+      <!-- Emin Capitals -->
       <article class="card">
         <div class="bg" style="background-image:url('card-emin.jpg')"></div>
         <div class="content">
           <div class="kicker">CAPITAL</div>
-          <div class="title">Emin Capitals</div>
-          <div class="subtitle">Investment firm focused on AI-native infrastructure and early-stage innovation.</div>
-          <a class="ext" href="#">↗</a>
+          <div class="title">
+            <img src="logo-emin.png" alt="Emin Capitals" onerror="this.style.display='none'">
+            <div>Emin Capitals</div>
+          </div>
+          <div class="subtitle">Investment firm focused on AI‑native infrastructure and early‑stage innovation.</div>
+          <a class="ext" href="#" target="_blank" rel="noreferrer">↗</a>
         </div>
       </article>
 
+      <!-- Insights -->
       <article class="card">
         <div class="bg" style="background-image:url('card-insights.jpg')"></div>
         <div class="content">
           <div class="kicker">INSIGHTS</div>
-          <div class="title">Insights</div>
+          <div class="title">
+            <img src="logo-insights.png" alt="Insights" onerror="this.style.display='none'">
+            <div>Insights</div>
+          </div>
           <div class="subtitle">Thought leadership on the future of AI, agents and scale.</div>
-          <a class="ext" href="#">↗</a>
+          <a class="ext" href="#" target="_blank" rel="noreferrer">↗</a>
         </div>
       </article>
     </main>
 
-    <!-- RIGHT -->
+    <!-- RECHTSSPALTE -->
     <aside class="col">
       <section class="about">
         <h3>About</h3>
-        <p>Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</p>
-        <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
+        <p>Schreibe hier kurz und prägnant, wer du bist (Investor/Builder) und was dich ausmacht. 2–3 Sätze reichen für den Start.</p>
+        <p>Betone Mission, Prinzipien und wie du Bauen mit Investieren verbindest. Halte die Absätze kurz.</p>
+        <p>Schließe mit einer Einladung zum Kontakt oder einem „Read more“‑Link.</p>
       </section>
       <div class="portrait">
         <img src="portrait.jpg" alt="Portrait" onerror="this.style.display='none'">
@@ -152,13 +158,13 @@
     </aside>
   </div>
 
-  <!-- Socials -->
-  <div class="socials">
-    <a href="https://x.com/" target="_blank" aria-label="X">
-      <svg viewBox="0 0 24 24"><path d="M18.244 2H21l-6.52 7.46L22.5 22h-6.93l-4.54-5.87L5.77 22H3l6.96-7.96L1.5 2h7.03l4.1 5.39L18.244 2Zm-1.214 18h1.88L7.06 4h-1.9l11.87 16Z"/></svg>
+  <!-- Socials unten links – X & Instagram (unverändert als SVG-Icons) -->
+  <div class="socials" aria-label="Social links">
+    <a href="https://x.com/" target="_blank" rel="noreferrer" aria-label="X">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2H21l-6.52 7.46L22.5 22h-6.93l-4.54-5.87L5.77 22H3l6.96-7.96L1.5 2h7.03l4.1 5.39L18.244 2Zm-1.214 18h1.88L7.06 4h-1.9l11.87 16Z"/></svg>
     </a>
-    <a href="https://instagram.com/" target="_blank" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3a6 6 0 1 1 0 12A6 6 0 0 1 12 7Zm0 2.2A3.8 3.8 0 1 0 15.8 13 3.8 3.8 0 0 0 12 9.2Zm5.35-3.15a1.15 1.15 0 1 1-1.15 1.15 1.15 1.15 0 0 1 1.15-1.15Z"/></svg>
+    <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3a6 6 0 1 1 0 12A6 6 0 0 1 12 7Zm0 2.2A3.8 3.8 0 1 0 15.8 13 3.8 3.8 0 0 0 12 9.2Zm5.35-3.15a1.15 1.15 0 1 1-1.15 1.15 1.15 1.15 0 0 1 1.15-1.15Z"/></svg>
     </a>
   </div>
 </body>
