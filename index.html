@@ -13,99 +13,172 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: #1a202c;
+            background: #0a0a0f;
             color: white;
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* Sternen-Hintergrund */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #fff, transparent),
+                radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 220px 90px, #eee, transparent),
+                radial-gradient(1px 1px at 260px 40px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 300px 70px, #fff, transparent),
+                radial-gradient(2px 2px at 340px 20px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 380px 50px, #eee, transparent),
+                radial-gradient(1px 1px at 420px 80px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 450px 30px, #fff, transparent),
+                radial-gradient(1px 1px at 480px 60px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 520px 40px, #eee, transparent),
+                radial-gradient(2px 2px at 560px 70px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 20px 120px, #fff, transparent),
+                radial-gradient(1px 1px at 60px 150px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 100px 180px, #eee, transparent),
+                radial-gradient(1px 1px at 140px 160px, rgba(255,255,255,0.8), transparent);
+            background-repeat: repeat;
+            background-size: 600px 200px;
+            animation: sparkle 20s linear infinite;
+        }
+
+        @keyframes sparkle {
+            from { transform: translateX(0px); }
+            to { transform: translateX(-600px); }
         }
 
         .container {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             min-height: 100vh;
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Left Section - Kiarash Style */
+        /* Left Section - Emin Turus */
         .left-section {
-            background: linear-gradient(135deg, #0f1419 0%, #1a202c 100%);
-            padding: 3rem 2rem;
+            background: rgba(15, 20, 35, 0.95);
+            padding: 4rem 3rem;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .signature {
-            display: none;
+            justify-content: space-between;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
         }
 
         .name-container {
-            margin-bottom: 3rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .main-name {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 0.9;
             margin-bottom: 2rem;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            text-align: left;
         }
 
         .name-divider {
             display: flex;
             align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            font-size: 0.85rem;
             font-weight: 500;
             letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .divider-line {
-            width: 40px;
+            width: 30px;
             height: 1px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
         }
 
         .bio-text {
             font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 300px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .quote-section {
+            margin-bottom: 2rem;
+        }
+
+        .quote {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            margin-left: 1rem;
         }
 
         .social-icons {
             display: flex;
             gap: 1.5rem;
-            margin-top: auto;
+            align-items: center;
         }
 
         .social-icons a {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            width: 45px;
+            height: 45px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
         }
 
         .social-icons a:hover {
-            color: rgba(255, 255, 255, 1);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: white;
+            transform: translateY(-2px);
         }
 
-        /* Center Section - Autonomous AI Style */
+        /* Center Section - Projects */
         .center-section {
-            background: #1e293b;
-            padding: 3rem;
+            background: rgba(30, 41, 59, 0.95);
+            padding: 4rem 3rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            position: relative;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
         }
 
         .main-title {
@@ -122,8 +195,8 @@
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
             padding: 2rem;
             transition: all 0.3s ease;
@@ -134,11 +207,12 @@
         .project-card:hover {
             background: rgba(255, 255, 255, 0.08);
             transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .card-category {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
@@ -163,20 +237,21 @@
             right: 2rem;
             transform: translateY(-50%);
             font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
         }
 
-        /* Right Section - About Style */
+        /* Right Section - About */
         .right-section {
-            background: #334155;
-            padding: 3rem 2rem;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(51, 65, 85, 0.95);
+            padding: 4rem 3rem;
+            backdrop-filter: blur(10px);
         }
 
         .about-header {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: white;
         }
 
@@ -187,26 +262,10 @@
             margin-bottom: 2rem;
         }
 
-        .quote-section {
-            position: absolute;
-            bottom: 3rem;
-            left: 2rem;
-            right: 2rem;
-        }
-
-        .quote {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 1.5rem;
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1rem;
-        }
-
-        .quote-author {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
+        /* Hover Effects */
+        .project-card:hover .card-arrow {
+            transform: translateY(-50%) translateX(5px);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         /* Responsive Design */
@@ -216,20 +275,22 @@
                 grid-template-rows: auto auto auto;
             }
 
-            .left-section {
-                order: 1;
-                padding: 2rem;
-                text-align: center;
+            .left-section, .center-section, .right-section {
+                padding: 3rem 2rem;
             }
 
-            .center-section {
-                order: 2;
-                padding: 2rem;
+            .main-name {
+                font-size: 3rem;
             }
 
-            .right-section {
-                order: 3;
-                padding: 2rem;
+            .main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .left-section, .center-section, .right-section {
+                padding: 2rem 1.5rem;
             }
 
             .main-name {
@@ -239,49 +300,43 @@
             .main-title {
                 font-size: 2rem;
             }
-        }
-
-        @media (max-width: 768px) {
-            .signature {
-                font-size: 2rem;
-                margin-bottom: 2rem;
-            }
-
-            .main-name {
-                font-size: 2rem;
-            }
-
-            .main-title {
-                font-size: 1.8rem;
-            }
 
             .project-card {
                 padding: 1.5rem;
             }
         }
 
-        /* Background Animation */
-        .left-section::before {
+        /* Animation für die Sterne */
+        .stars::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1px 1px at 150px 50px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(2px 2px at 200px 100px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 280px 20px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 320px 80px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 400px 40px, rgba(255,255,255,0.7), transparent);
+            background-repeat: repeat;
+            background-size: 500px 150px;
+            animation: sparkle-secondary 25s linear infinite reverse;
         }
 
-        /* Hover Effects */
-        .project-card:hover .card-arrow {
-            transform: translateY(-50%) translateX(5px);
-            color: rgba(255, 255, 255, 0.8);
+        @keyframes sparkle-secondary {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-150px); }
         }
     </style>
 </head>
 <body>
+    <div class="stars"></div>
+
     <div class="container">
-        <!-- Left Section - Kiarash Style -->
+        <!-- Left Section - Emin Turus Info -->
         <div class="left-section">
             <div class="name-container">
                 <h1 class="main-name">EMIN<br>TURUS</h1>
@@ -296,15 +351,21 @@
                     Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
                 </p>
             </div>
+
+            <div class="quote-section">
+                <div class="quote">
+                    "Space for your quote or a short saying. Your signature will come here later."
+                </div>
+                <div class="quote-author">— Author / Philosopher</div>
+            </div>
             
             <div class="social-icons">
-                <a href="#" aria-label="YouTube">📺</a>
-                <a href="#" aria-label="Twitter">🐦</a>
-                <a href="#" aria-label="Instagram">📷</a>
+                <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter">𝕏</a>
+                <a href="https://instagram.com/yourusername" target="_blank" aria-label="Instagram">📷</a>
             </div>
         </div>
 
-        <!-- Center Section - Autonomous AI Style -->
+        <!-- Center Section - Projects -->
         <div class="center-section">
             <h2 class="main-title">Autonomous AI</h2>
             
@@ -332,7 +393,7 @@
             </div>
         </div>
 
-        <!-- Right Section - About Style -->
+        <!-- Right Section - About -->
         <div class="right-section">
             <h2 class="about-header">About</h2>
             <div class="about-content">
@@ -340,25 +401,18 @@
                 <br>
                 <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
             </div>
-            
-            <div class="quote-section">
-                <div class="quote">
-                    "Space for your quote or a short saying. Your signature will come here later."
-                </div>
-                <div class="quote-author">— Author / Philosopher</div>
-            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Add smooth hover animations to project cards
+            // Smooth hover animations
             const projectCards = document.querySelectorAll('.project-card');
             
             projectCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2)';
+                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.3)';
                 });
                 
                 card.addEventListener('mouseleave', function() {
@@ -367,34 +421,39 @@
                 });
             });
 
-            // Typing effect for signature
-            const signature = document.querySelector('.signature');
-            const signatureText = signature.textContent;
-            signature.textContent = '';
-            
-            let i = 0;
-            function typeSignature() {
-                if (i < signatureText.length) {
-                    signature.textContent += signatureText.charAt(i);
-                    i++;
-                    setTimeout(typeSignature, 150);
-                }
-            }
-            
-            setTimeout(typeSignature, 1000);
-
-            // Fade in animation for cards
+            // Fade in animations
             const cards = document.querySelectorAll('.project-card');
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
+                card.style.transform = 'translateY(30px)';
                 
                 setTimeout(() => {
-                    card.style.transition = 'all 0.6s ease';
+                    card.style.transition = 'all 0.8s ease';
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
-                }, 200 * (index + 1));
+                }, 300 * (index + 1));
             });
+
+            // Parallax effect für Sterne
+            let ticking = false;
+            
+            function updateStars() {
+                const scrolled = window.pageYOffset;
+                const stars = document.querySelector('.stars');
+                if (stars) {
+                    stars.style.transform = `translateY(${scrolled * 0.2}px)`;
+                }
+                ticking = false;
+            }
+
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateStars);
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', requestTick);
         });
     </script>
 </body>
