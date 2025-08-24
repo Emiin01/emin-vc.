@@ -1,458 +1,133 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emin Turus - Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+import React, { useState } from 'react';
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0a0a0f;
-            color: white;
-            overflow-x: hidden;
-            line-height: 1.6;
-            position: relative;
-        }
+export default function EminTurusPortfolio() {
+  return (
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Animated background particles */}
+      <div className="fixed inset-0 opacity-20">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
 
-        /* Sternen-Hintergrund */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: 
-                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(2px 2px at 160px 30px, #fff, transparent),
-                radial-gradient(1px 1px at 200px 60px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 220px 90px, #eee, transparent),
-                radial-gradient(1px 1px at 260px 40px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 300px 70px, #fff, transparent),
-                radial-gradient(2px 2px at 340px 20px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 380px 50px, #eee, transparent),
-                radial-gradient(1px 1px at 420px 80px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 450px 30px, #fff, transparent),
-                radial-gradient(1px 1px at 480px 60px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 520px 40px, #eee, transparent),
-                radial-gradient(2px 2px at 560px 70px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 20px 120px, #fff, transparent),
-                radial-gradient(1px 1px at 60px 150px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 100px 180px, #eee, transparent),
-                radial-gradient(1px 1px at 140px 160px, rgba(255,255,255,0.8), transparent);
-            background-repeat: repeat;
-            background-size: 600px 200px;
-            animation: sparkle 20s linear infinite;
-        }
-
-        @keyframes sparkle {
-            from { transform: translateX(0px); }
-            to { transform: translateX(-600px); }
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            min-height: 100vh;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Left Section - Emin Turus */
-        .left-section {
-            background: transparent;
-            padding: 4rem 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .name-container {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .main-name {
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-            letter-spacing: 4px;
-            text-align: left;
-        }
-
-        .name-divider {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .divider-line {
-            width: 30px;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .bio-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 3rem;
-            font-style: italic;
-        }
-
-        .quote-section {
-            margin-bottom: 2rem;
-        }
-
-        .quote {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 1.5rem;
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .quote-author {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.85rem;
-            margin-left: 1rem;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .social-icons a {
-            width: 45px;
-            height: 45px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Center Section - Projects */
-        .center-section {
-            background: transparent;
-            padding: 4rem 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .main-title {
-            font-size: 3rem;
-            font-weight: 600;
-            margin-bottom: 3rem;
-            color: white;
-        }
-
-        .project-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .project-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .card-category {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .card-description {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-
-        .card-arrow {
-            position: absolute;
-            top: 50%;
-            right: 2rem;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        /* Right Section - About */
-        .right-section {
-            background: transparent;
-            padding: 4rem 3rem;
-        }
-
-        .about-header {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 2.5rem;
-            color: white;
-        }
-
-        .about-content {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 2rem;
-        }
-
-        /* Hover Effects */
-        .project-card:hover .card-arrow {
-            transform: translateY(-50%) translateX(5px);
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto;
-            }
-
-            .left-section, .center-section, .right-section {
-                padding: 3rem 2rem;
-            }
-
-            .main-name {
-                font-size: 3rem;
-            }
-
-            .main-title {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .left-section, .center-section, .right-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .main-name {
-                font-size: 2.5rem;
-            }
-
-            .main-title {
-                font-size: 2rem;
-            }
-
-            .project-card {
-                padding: 1.5rem;
-            }
-        }
-
-        /* Animation für die Sterne */
-        .stars::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(1px 1px at 150px 50px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(2px 2px at 200px 100px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 280px 20px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 320px 80px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 400px 40px, rgba(255,255,255,0.7), transparent);
-            background-repeat: repeat;
-            background-size: 500px 150px;
-            animation: sparkle-secondary 25s linear infinite reverse;
-        }
-
-        @keyframes sparkle-secondary {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-150px); }
-        }
-    </style>
-</head>
-<body>
-    <div class="stars"></div>
-
-    <div class="container">
-        <!-- Left Section - Emin Turus Info -->
-        <div class="left-section">
-            <div class="name-container">
-                <h1 class="main-name">EMIN<br>TURUS</h1>
-                
-                <div class="name-divider">
-                    <span>INVESTOR</span>
-                    <div class="divider-line"></div>
-                    <span>BUILDER</span>
-                </div>
-                
-                <p class="bio-text">
-                    Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
-                </p>
+      <div className="relative z-10 flex min-h-screen">
+        {/* Left Side - Main Profile */}
+        <div className="w-1/2 flex flex-col justify-center items-start px-16 py-20">
+          <div className="mb-8">
+            <h1 className="text-7xl font-bold tracking-tight mb-4">
+              EMIN<br />
+              TURUS
+            </h1>
+            <div className="flex items-center gap-8 mb-8">
+              <span className="text-gray-400 uppercase tracking-wider">INVESTOR</span>
+              <div className="w-16 h-px bg-gray-600"></div>
+              <span className="text-gray-400 uppercase tracking-wider">BUILDER</span>
             </div>
+          </div>
 
-            <div class="quote-section">
-                <div class="quote">
-                    "The best way to predict the future is to create it."
-                </div>
-                <div class="quote-author">— Peter Drucker</div>
+          <div className="mb-12 max-w-md">
+            <p className="text-gray-300 text-lg leading-relaxed italic">
+              Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
+            </p>
+          </div>
+
+          <div className="border border-gray-700 p-6 mb-8 max-w-md">
+            <p className="text-gray-300 italic text-center">
+              "The best way to predict the future is to create it."
+            </p>
+            <div className="flex items-center justify-center mt-4">
+              <div className="w-8 h-px bg-gray-600 mr-3"></div>
+              <span className="text-gray-500 text-sm">Peter Drucker</span>
             </div>
-            
-            <div class="social-icons">
-			<i class="fa-brands fa-instagram"></i>
-                <a href="https://x.com/aigenvc" target="_blank" aria-label="Twitter">𝕏</a>
-                <a href="https://www.instagram.com/emiintrs/" target="_blank" aria-label="Instagram">📷</a>
+          </div>
+
+          <div className="flex gap-4">
+            <div className="w-10 h-10 border border-gray-600 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer">
+              <span className="text-xs">𝕏</span>
             </div>
+            <div className="w-10 h-10 border border-gray-600 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer">
+              <span className="text-xs">in</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Center Section - Projects -->
-        <div class="center-section">
-            <h2 class="main-title">Autonomous AI</h2>
-            
-            <div class="project-cards">
-                <div class="project-card">
-                    <div class="card-category">CORE PRODUCT</div>
-                    <h3 class="card-title">AigenAI</h3>
-                    <p class="card-description">Autonomous AI agents engineered for scale and execution.</p>
-                    <span class="card-arrow">↗</span>
-                </div>
-                
-                <div class="project-card">
-                    <div class="card-category">CAPITAL</div>
-                    <h3 class="card-title">Emin Capitals</h3>
-                    <p class="card-description">Investment firm focused on AI-native infrastructure and early-stage innovation.</p>
-                    <span class="card-arrow">↗</span>
-                </div>
-                
-                <div class="project-card">
-                    <div class="card-category">INSIGHTS</div>
-                    <h3 class="card-title">Insights</h3>
-                    <p class="card-description">Thought leadership on the future of AI, agents, and scale.</p>
-                    <span class="card-arrow">↗</span>
-                </div>
-            </div>
-        </div>
+        {/* Right Side - Projects Grid */}
+        <div className="w-1/2 px-16 py-20">
+          {/* Top Section - Autonomous AI */}
+          <div className="mb-8">
+            <h2 className="text-4xl font-bold mb-8 text-center">Autonomous AI</h2>
+          </div>
 
-        <!-- Right Section - About -->
-        <div class="right-section">
-            <h2 class="about-header">About</h2>
-            <div class="about-content">
-                <p>Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</p>
-                <br>
-                <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
+          {/* AlgenAI Section */}
+          <div className="border border-gray-800 bg-gray-900/30 p-8 mb-6 hover:border-gray-600 transition-all cursor-pointer group">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <span className="text-gray-500 text-xs uppercase tracking-wider">CORE PRODUCT</span>
+                <h3 className="text-2xl font-bold mt-2">AlgenAI</h3>
+              </div>
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-gray-400">↗</span>
+              </div>
             </div>
+            <p className="text-gray-400">
+              Autonomous AI agents engineered for scale and execution.
+            </p>
+          </div>
+
+          {/* Emin Capitals Section */}
+          <div className="border border-gray-800 bg-gray-900/30 p-8 mb-6 hover:border-gray-600 transition-all cursor-pointer group">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <span className="text-gray-500 text-xs uppercase tracking-wider">CAPITAL</span>
+                <h3 className="text-2xl font-bold mt-2">Emin Capitals</h3>
+              </div>
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-gray-400">↗</span>
+              </div>
+            </div>
+            <p className="text-gray-400">
+              Investment firm focused on AI-native infrastructure and early-stage innovation.
+            </p>
+          </div>
+
+          {/* Insights Section */}
+          <div className="border border-gray-800 bg-gray-900/30 p-8 mb-8 hover:border-gray-600 transition-all cursor-pointer group">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <span className="text-gray-500 text-xs uppercase tracking-wider">INSIGHTS</span>
+                <h3 className="text-2xl font-bold mt-2">Insights</h3>
+              </div>
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-gray-400">↗</span>
+              </div>
+            </div>
+            <p className="text-gray-400">
+              Thought leadership on the future of AI, agents, and scale.
+            </p>
+          </div>
+
+          {/* About Section */}
+          <div className="bg-gray-900/50 p-8 border border-gray-800">
+            <h3 className="text-xl font-bold mb-4">About</h3>
+            <p className="text-gray-400 mb-4">
+              Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.
+            </p>
+            <p className="text-gray-400">
+              Focused on combining building and investing to create long-term impact in AI and crypto.
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth hover animations
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            projectCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
-                });
-            });
-
-            // Fade in animations
-            const cards = document.querySelectorAll('.project-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'all 0.8s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 300 * (index + 1));
-            });
-
-            // Parallax effect für Sterne
-            let ticking = false;
-            
-            function updateStars() {
-                const scrolled = window.pageYOffset;
-                const stars = document.querySelector('.stars');
-                if (stars) {
-                    stars.style.transform = `translateY(${scrolled * 0.2}px)`;
-                }
-                ticking = false;
-            }
-
-            function requestTick() {
-                if (!ticking) {
-                    requestAnimationFrame(updateStars);
-                    ticking = true;
-                }
-            }
-
-            window.addEventListener('scroll', requestTick);
-        });
-    </script>
-</body>
-</html>
+  );
+}
+		
