@@ -29,7 +29,6 @@
         radial-gradient(2px 2px at 88% 20%, rgba(255,255,255,.22) 50%, transparent 51%);
     }
 
-    /* Layout */
     .wrap{
       display:grid;
       grid-template-columns:repeat(3, minmax(0,1fr));
@@ -40,19 +39,45 @@
     .col{max-width:var(--colMax);margin:0 auto;width:100%;display:flex;flex-direction:column;justify-content:space-between}
 
     /* LEFT */
-    .logo-top{text-align:center}
-    .logo-top img{
-      max-width:180px;max-height:70px;object-fit:contain;
-      filter:drop-shadow(0 2px 8px rgba(0,0,0,.25));
-    }
     .headline{
       text-align:center;
-      margin-top:80px;
-      font-size:28px;
+      margin-top:40px;
+      font-size:34px;
       font-weight:700;
       letter-spacing:1px;
     }
-    .quote{margin-top:auto;margin-bottom:80px;background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:left}
+    .subline{
+      text-align:center;
+      margin-top:10px;
+      font-size:14px;
+      font-weight:600;
+      letter-spacing:2px;
+      color:var(--muted);
+    }
+    .bio{
+      text-align:center;
+      margin-top:20px;
+      font-style:italic;
+      color:#d0d8e6;
+      font-size:14px;
+    }
+    .tagline{
+      text-align:center;
+      margin-top:20px;
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .quote{
+      margin-top:40px; /* <-- verschiebt Box nach oben */
+      margin-bottom:40px;
+      background:var(--glass);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      text-align:left;
+    }
     .quote p{margin:0 0 8px 0;color:#dbe3f3;line-height:1.55;font-size:14px}
     .quote .by{color:var(--muted);font-size:12px}
 
@@ -95,14 +120,19 @@
   <div class="wrap">
     <!-- LEFT -->
     <aside class="col">
-      <div class="logo-top">
-        <img src="aigen-logo.png" alt="Aigen Logo" onerror="this.style.display='none'">
+      <div>
+        <div class="headline">AigenAI</div>
+        <div class="subline">INVESTOR — BUILDER</div>
+        <div class="bio">Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</div>
+        <div class="tagline">
+          Autonomous AI agents built to think, act & execute.<br>
+          Designed for scale. Powered by vision.
+        </div>
       </div>
-      <div class="headline">Autonomous AI</div>
 
       <div class="quote">
-        <p>„The best way to predict the future is to create it.“</p>
-        <div class="by">— Peter Drucker</div>
+        <p>„Platz für deinen Spruch oder ein kurzes Zitat. Später kommt hier deine Unterschrift hin.“</p>
+        <div class="by">— Autor / Philosoph</div>
       </div>
     </aside>
 
