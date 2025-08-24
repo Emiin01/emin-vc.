@@ -62,6 +62,8 @@
             flex-direction: column;
             justify-content: center;
             padding: 80px 64px;
+            align-items: center;
+            text-align: center;
         }
 
         .name {
@@ -163,6 +165,25 @@
         .right-side {
             width: 50%;
             padding: 80px 64px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .projects-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .about-section {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid #1F2937;
+            padding: 24px;
+            margin-bottom: 40px;
+            max-width: 300px;
+            align-self: flex-start;
         }
 
         .section-title {
@@ -179,6 +200,8 @@
             margin-bottom: 24px;
             cursor: pointer;
             transition: border-color 0.3s;
+            max-width: 400px;
+            width: 100%;
         }
 
         .project-card:hover {
@@ -211,8 +234,44 @@
             transition: opacity 0.3s;
         }
 
-        .project-card:hover .project-arrow {
-            opacity: 1;
+        .project-logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .aigen-logo {
+            background: transparent;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+        }
+
+        .aigen-logo::before {
+            content: "";
+            display: block;
+            width: 36px;
+            height: 36px;
+            background: white;
+            border-radius: 8px 8px 8px 2px;
+            position: relative;
+        }
+
+        .aigen-logo::after {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 12px;
+            height: 12px;
+            background: #2D3748;
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
         }
 
         .project-description {
@@ -222,7 +281,10 @@
         .about-section {
             background: rgba(17, 24, 39, 0.5);
             border: 1px solid #1F2937;
-            padding: 32px;
+            padding: 24px;
+            margin-bottom: 40px;
+            max-width: 300px;
+            align-self: flex-start;
         }
 
         .about-title {
@@ -295,51 +357,7 @@
             
             <!-- Right Side -->
             <div class="right-side">
-                <div class="section-title">Autonomous AI</div>
-                
-                <!-- AlgenAI -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div>
-                            <div class="project-category">CORE PRODUCT</div>
-                            <div class="project-title">AlgenAI</div>
-                        </div>
-                        <div class="project-arrow">↗</div>
-                    </div>
-                    <div class="project-description">
-                        Autonomous AI agents engineered for scale and execution.
-                    </div>
-                </div>
-                
-                <!-- Emin Capitals -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div>
-                            <div class="project-category">CAPITAL</div>
-                            <div class="project-title">Emin Capitals</div>
-                        </div>
-                        <div class="project-arrow">↗</div>
-                    </div>
-                    <div class="project-description">
-                        Investment firm focused on AI-native infrastructure and early-stage innovation.
-                    </div>
-                </div>
-                
-                <!-- Insights -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <div>
-                            <div class="project-category">INSIGHTS</div>
-                            <div class="project-title">Insights</div>
-                        </div>
-                        <div class="project-arrow">↗</div>
-                    </div>
-                    <div class="project-description">
-                        Thought leadership on the future of AI, agents, and scale.
-                    </div>
-                </div>
-                
-                <!-- About -->
+                <!-- About Section - Top Left -->
                 <div class="about-section">
                     <div class="about-title">About</div>
                     <div class="about-text">
@@ -347,6 +365,54 @@
                     </div>
                     <div class="about-text">
                         Focused on combining building and investing to create long-term impact in AI and crypto.
+                    </div>
+                </div>
+
+                <!-- Projects Container - Centered -->
+                <div class="projects-container">
+                    <div class="section-title">Autonomous AI</div>
+                    
+                    <!-- Aigen -->
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div>
+                                <div class="project-logo aigen-logo"></div>
+                                <div class="project-category">CORE PRODUCT</div>
+                                <div class="project-title">Aigen</div>
+                            </div>
+                            <div class="project-arrow">↗</div>
+                        </div>
+                        <div class="project-description">
+                            Autonomous AI agents engineered for scale and execution.
+                        </div>
+                    </div>
+                    
+                    <!-- Emin Capitals -->
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div>
+                                <div class="project-category">CAPITAL</div>
+                                <div class="project-title">Emin Capitals</div>
+                            </div>
+                            <div class="project-arrow">↗</div>
+                        </div>
+                        <div class="project-description">
+                            Investment firm focused on AI-native infrastructure and early-stage innovation.
+                        </div>
+                    </div>
+                    
+                    <!-- Insights -->
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div>
+                                <div class="project-category">INSIGHTS</div>
+                                <div class="project-title">Insights</div>
+                            </div>
+                            <div class="project-arrow">↗</div>
+                        </div>
+                        <div class="project-description">
+                            Thought leadership on the future of AI, agents, and scale.
+                        </div>
                     </div>
                 </div>
             </div>
