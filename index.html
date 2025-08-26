@@ -209,64 +209,62 @@
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
 
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-v9',
-      center: [6.4428, 51.1805],   // Mönchengladbach
-      zoom: 7.6,
-      pitch: 0,
-      bearing: -8,
-      interactive: false
-    });
+    // Europa-Ansicht
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/satellite-v9', // wenn du Labels willst: 'mapbox://styles/mapbox/satellite-streets-v12'
+  center: [10, 52],   // grob Mitte Europa
+  zoom: 3.6,          // rausgezoomt
+  bearing: -5,
+  pitch: 0,
+  interactive: false
+});
 
-    map.on('load', () => {
+map.on('load', () => {
+  // Sicherstellen, dass ganz Europa ins Bild passt (Portugal bis Skandinavien)
+  map.fitBounds([[-11, 35], [32, 71]], { padding: 20, bearing: -5, duration: 0 });
+
   const city = [6.4428, 51.1805]; // Mönchengladbach
 
-  // 1) Kamera so setzen, dass die City LINKS im Sichtfeld liegt (unter deiner freien Spalte)
-  const bounds = [
-    [city[0] - 0.08, city[1] - 0.06], // SW
-    [city[0] + 0.08, city[1] + 0.06]  // NE
-  ];
-  map.fitBounds(bounds, {
-    padding: { left: 520, right: 220, top: 140, bottom: 160 }, // <- schiebt die City nach links
-    bearing: -15,
-    pitch: 20,
-    duration: 0
+  // Quelle
+  map.addSource('mg', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: [
+        { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
+          geometry: { type: 'Point', coordinates: city } }
+      ]
+    }
   });
 
-  // 2) Deine Glow-/Label-Layer (so lassen wie bisher)
-  const mgPoint = {
-    "type":"FeatureCollection",
-    "features":[
-      {"type":"Feature","properties":{"name":"MÖNCHENGLADBACH"},"geometry":{"type":"Point","coordinates": city}}
-    ]
-  };
-  map.addSource('mg', { type: 'geojson', data: mgPoint });
-
+  // weicher Glow, damit man die Stelle auch im Zoom-out sieht
   map.addLayer({
     id: 'mg-glow',
     type: 'circle',
     source: 'mg',
     paint: {
-      'circle-radius': ['interpolate',['linear'],['zoom'], 7, 60, 10, 160],
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
       'circle-color': 'rgba(255,185,90,0.85)',
       'circle-blur': 0.8,
-      'circle-opacity': 0.35
+      'circle-opacity': 0.45
     }
   });
 
+  // Kern
   map.addLayer({
     id: 'mg-core',
     type: 'circle',
     source: 'mg',
     paint: {
-      'circle-radius': ['interpolate',['linear'],['zoom'], 7, 6, 10, 20],
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
       'circle-color': 'rgba(255,200,120,0.95)',
       'circle-blur': 0.2,
-      'circle-opacity': 0.9
+      'circle-opacity': 0.95
     }
   });
 
+  // Label – größer und mit starkem Halo, damit es auf Europa-Zoom lesbar bleibt
   map.addLayer({
     id: 'mg-label',
     type: 'symbol',
@@ -274,67 +272,17 @@
     layout: {
       'text-field': ['get','name'],
       'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Regular'],
-      'text-size': 16,
+      'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
       'text-letter-spacing': 0.25,
       'text-transform': 'uppercase',
-      'text-offset': [0, 2.2],
-      'text-anchor': 'top'
+      'text-offset': [0, 1.8],
+      'text-anchor': 'top',
+      'text-allow-overlap': true
     },
     paint: {
-      'text-color': 'rgba(255,200,120,0.92)',
-      'text-halo-color': 'rgba(0,0,0,0.7)',
-      'text-halo-width': 1.4
+      'text-color': 'rgba(255,200,120,0.95)',
+      'text-halo-color': 'rgba(0,0,0,0.8)',
+      'text-halo-width': 1.6
     }
   });
 });
-
-
-      map.addSource('mg', { type: 'geojson', data: mgPoint });
-
-      map.addLayer({
-        id: 'mg-glow',
-        type: 'circle',
-        source: 'mg',
-        paint: {
-          'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 40, 8, 110],
-          'circle-color': 'rgba(255,185,90,0.85)',
-          'circle-blur': 0.8,
-          'circle-opacity': 0.35
-        }
-      });
-
-      map.addLayer({
-        id: 'mg-core',
-        type: 'circle',
-        source: 'mg',
-        paint: {
-          'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 4, 8, 14],
-          'circle-color': 'rgba(255,200,120,0.95)',
-          'circle-blur': 0.2,
-          'circle-opacity': 0.9
-        }
-      });
-
-      map.addLayer({
-        id: 'mg-label',
-        type: 'symbol',
-        source: 'mg',
-        layout: {
-          'text-field': ['get','name'],
-          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Regular'],
-          'text-size': 14,
-          'text-letter-spacing': 0.25,
-          'text-transform': 'uppercase',
-          'text-offset': [0, 2.2],
-          'text-anchor': 'top'
-        },
-        paint: {
-          'text-color': 'rgba(255,200,120,0.9)',
-          'text-halo-color': 'rgba(0,0,0,0.6)',
-          'text-halo-width': 1.2
-        }
-      });
-    });
-  </script>
-</body>
-</html>
