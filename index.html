@@ -21,12 +21,12 @@
     }
 
     /* === Satelliten-Hintergrund === */
-    #map{
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  /* natürlicher Satelliten-Look */
-  filter: brightness(.95) contrast(1.07) saturate(1.03);
+   #map{
+  position:fixed; inset:0; z-index:0;
+  /* für Nachtbild: keine starke Filter verfälschen */
+  filter: brightness(.95) contrast(1.08);
+}
+
 }
 
     }
@@ -228,7 +228,7 @@
 
   const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-v9', // echtes Satellitenbild (Tag)
+    style: 'mapbox://styles/mapbox/dark-v11',   // dunkler Untergrund
     center: [10, 52],
     zoom: 4.4,
     bearing: 0,
@@ -238,23 +238,38 @@
   });
 
   map.on('load', () => {
-    // Platz für linke Spalte am Desktop, wenig Padding am Handy
     const leftPad = window.innerWidth >= 1024 ? 420 : 16;
 
-    // Westeuropa-Ausschnitt
+    // Bereich Westeuropa + Platz links für die Textspalte
     map.fitBounds([[-7, 44], [25, 58]], {
       padding: { top: 20, right: 20, bottom: 20, left: leftPad },
       duration: 0
     });
 
-    // Alle Symbol-Layer (Städte/Labels) ausblenden
-    for (const layer of map.getStyle().layers) {
-      if (layer.type === 'symbol') {
-        map.setLayoutProperty(layer.id, 'visibility', 'none');
-      }
+    // Alle bestehenden Layer außer Hintergrund ausblenden
+    for (const l of map.getStyle().layers) {
+      if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
     }
 
-    // Länder-Umrisse (Land-Grenzen)
+    // === NASA Black Marble (Nachtlichter) Overlay ===
+    map.addSource('night', {
+      type: 'raster',
+      tiles: [
+        'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'
+      ],
+      tileSize: 256,
+      attribution: 'NASA Black Marble'
+    });
+    map.addLayer({
+      id: 'night',
+      type: 'raster',
+      source: 'night',
+      paint: {
+        'raster-opacity': 0.95
+      }
+    });
+
+    // === Länder-Umrandungen (nur Linien) oben drüber ===
     map.addLayer({
       id: 'country-outline-land',
       type: 'line',
@@ -262,13 +277,11 @@
       'source-layer': 'admin',
       filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
       paint: {
-        'line-color': 'rgba(255,255,255,0.72)',
-        'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],
+        'line-color': 'rgba(255,255,255,0.70)',
+        'line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],
         'line-blur': 0.2
       }
     });
-
-    // Länder-Umrisse entlang der Küsten (maritime = true)
     map.addLayer({
       id: 'country-outline-coast',
       type: 'line',
@@ -276,35 +289,35 @@
       'source-layer': 'admin',
       filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
       paint: {
-        'line-color': 'rgba(255,255,255,0.60)',
-        'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],
+        'line-color': 'rgba(255,255,255,0.55)',
+        'line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],
         'line-blur': 0.2
       }
     });
 
-    // ===== Mönchengladbach (einziger Marker/Label) =====
+    // === Mönchengladbach – einziger Marker/Label ===
     const city = [6.4428, 51.1805];
-
     map.addSource('mg', {
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
         features: [
-          { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' }, geometry: { type: 'Point', coordinates: city } }
+          { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
+            geometry: { type: 'Point', coordinates: city } }
         ]
       }
     });
 
-    // sanfter weißer Glow
+    // warmer Glow passend zu Nachtlichtern
     map.addLayer({
       id: 'mg-glow',
       type: 'circle',
       source: 'mg',
       paint: {
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 12, 5, 28, 7, 64],
-        'circle-color': 'rgba(255,255,255,0.85)',
+        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],
+        'circle-color': 'rgba(255,190,120,0.85)',
         'circle-blur': 0.9,
-        'circle-opacity': 0.35
+        'circle-opacity': 0.38
       }
     });
 
@@ -314,13 +327,13 @@
       type: 'circle',
       source: 'mg',
       paint: {
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 5, 7, 7],
-        'circle-color': '#ffffff',
+        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 3, 5, 5, 7, 7],
+        'circle-color': '#ffd8a0',
         'circle-opacity': 0.95
       }
     });
 
-    // Großes Label: schwarz mit weißem Halo (wie im Foto)
+    // Label in warmem Ton mit schwarzem Halo
     map.addLayer({
       id: 'mg-label',
       type: 'symbol',
@@ -328,7 +341,7 @@
       layout: {
         'text-field': ['get','name'],
         'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
-        'text-size': ['interpolate', ['linear'], ['zoom'], 3, 18, 5, 22, 7, 26],
+        'text-size': ['interpolate',['linear'],['zoom'], 3, 18, 5, 22, 7, 26],
         'text-letter-spacing': 0.25,
         'text-transform': 'uppercase',
         'text-offset': [0, 1.9],
@@ -336,11 +349,10 @@
         'text-allow-overlap': true
       },
       paint: {
-        'text-color': 'rgba(10,10,10,0.98)',
-        'text-halo-color': 'rgba(255,255,255,0.92)',
+        'text-color': 'rgba(255,210,150,0.98)',
+        'text-halo-color': 'rgba(0,0,0,0.9)',
         'text-halo-width': 2.2
       }
     });
   });
 </script>
-
