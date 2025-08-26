@@ -13,99 +13,186 @@
         
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #0a0a0a;
+            background: #1a1a1a;
             color: #fff;
             line-height: 1.4;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
         }
         
-        /* Animated Star Background - Full Coverage */
-        .stars {
+        /* Satellite City Background */
+        .city-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1a1a 50%, #0f0f0f 100%);
             z-index: 0;
+            overflow: hidden;
         }
         
-        .star {
+        /* City Light Clusters */
+        .city-cluster {
             position: absolute;
-            background: #fff;
             border-radius: 50%;
-            animation: twinkle 4s infinite;
+            background: radial-gradient(circle, rgba(255, 200, 100, 0.8) 0%, rgba(255, 150, 50, 0.4) 30%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
         }
         
-        .star::before {
-            content: '';
-            position: absolute;
-            top: 50%;
+        .city-cluster.main {
+            width: 200px;
+            height: 150px;
+            top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.3;
+            background: radial-gradient(ellipse, rgba(255, 200, 100, 1) 0%, rgba(255, 180, 80, 0.8) 20%, rgba(255, 120, 40, 0.4) 50%, transparent 80%);
+            box-shadow: 0 0 50px rgba(255, 180, 80, 0.6);
         }
         
-        .star.small {
-            width: 1px;
-            height: 1px;
-            opacity: 0.7;
+        .city-cluster.district1 {
+            width: 120px;
+            height: 80px;
+            top: 35%;
+            left: 25%;
+            animation-delay: -1s;
         }
         
-        .star.medium {
-            width: 2px;
-            height: 2px;
-            opacity: 0.9;
-            animation-delay: -1.5s;
-        }
-        
-        .star.large {
-            width: 3px;
-            height: 3px;
-            opacity: 1;
-            animation-delay: -3s;
-        }
-        
-        .star.xl {
-            width: 4px;
-            height: 4px;
-            opacity: 1;
+        .city-cluster.district2 {
+            width: 90px;
+            height: 60px;
+            top: 60%;
+            left: 20%;
             animation-delay: -2s;
         }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.3); }
+        .city-cluster.district3 {
+            width: 100px;
+            height: 70px;
+            top: 30%;
+            right: 30%;
+            animation-delay: -0.5s;
         }
         
-        /* Shooting stars */
-        .shooting-star {
+        .city-cluster.district4 {
+            width: 80px;
+            height: 50px;
+            top: 65%;
+            right: 25%;
+            animation-delay: -1.5s;
+        }
+        
+        .city-cluster.suburb1 {
+            width: 60px;
+            height: 40px;
+            top: 25%;
+            left: 45%;
+            animation-delay: -3s;
+        }
+        
+        .city-cluster.suburb2 {
+            width: 70px;
+            height: 45px;
+            top: 70%;
+            left: 55%;
+            animation-delay: -2.5s;
+        }
+        
+        /* Individual City Lights */
+        .city-light {
             position: absolute;
+            width: 2px;
             height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
-            animation: shoot 4s linear infinite;
+            background: rgba(255, 200, 100, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255, 180, 80, 0.8);
+            animation: twinkle 3s infinite;
         }
         
-        @keyframes shoot {
-            0% {
-                transform: translateX(-200px) translateY(0px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(1200px) translateY(600px);
-                opacity: 0;
-            }
+        /* Highway/Street Lines */
+        .highway {
+            position: absolute;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 150, 50, 0.3) 50%, transparent 100%);
+            height: 1px;
+            animation: traffic 8s linear infinite;
+        }
+        
+        .highway.h1 {
+            width: 300px;
+            top: 52%;
+            left: 20%;
+            transform: rotate(15deg);
+        }
+        
+        .highway.h2 {
+            width: 250px;
+            top: 48%;
+            right: 15%;
+            transform: rotate(-20deg);
+            animation-delay: -2s;
+        }
+        
+        .highway.h3 {
+            width: 200px;
+            top: 40%;
+            left: 40%;
+            transform: rotate(45deg);
+            animation-delay: -4s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes traffic {
+            0% { opacity: 0.3; }
+            25% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+            75% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+        
+        /* Dark Space Areas */
+        .dark-space {
+            position: absolute;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .dark-space.space1 {
+            width: 400px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+        }
+        
+        .dark-space.space2 {
+            width: 350px;
+            height: 250px;
+            bottom: 15%;
+            right: 10%;
+        }
+        
+        /* Label for Mönchengladbach */
+        .city-label {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem;
+            color: rgba(255, 200, 100, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(255, 180, 80, 0.6);
+            pointer-events: none;
         }
         
         /* Main Layout - 3 Column Grid */
@@ -408,8 +495,31 @@
     </style>
 </head>
 <body>
-    <!-- Full Animated Star Background -->
-    <div class="stars" id="stars"></div>
+    <!-- Satellite City Background -->
+    <div class="city-background">
+        <!-- Main Mönchengladbach Center -->
+        <div class="city-cluster main"></div>
+        <div class="city-label">MÖNCHENGLADBACH</div>
+        
+        <!-- Districts -->
+        <div class="city-cluster district1"></div>
+        <div class="city-cluster district2"></div>
+        <div class="city-cluster district3"></div>
+        <div class="city-cluster district4"></div>
+        
+        <!-- Suburbs -->
+        <div class="city-cluster suburb1"></div>
+        <div class="city-cluster suburb2"></div>
+        
+        <!-- Highway Network -->
+        <div class="highway h1"></div>
+        <div class="highway h2"></div>
+        <div class="highway h3"></div>
+        
+        <!-- Dark Spaces -->
+        <div class="dark-space space1"></div>
+        <div class="dark-space space2"></div>
+    </div>
 
     <div class="main-container">
         
@@ -534,46 +644,48 @@
     </div>
 
     <script>
-        // Enhanced star background creation
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const numStars = 400; // Increased for fuller coverage
+        // Create city lights for realistic satellite view
+        function createCityLights() {
+            const cityBackground = document.querySelector('.city-background');
+            const numLights = 150;
             
-            // Create regular stars
-            for (let i = 0; i < numStars; i++) {
-                const star = document.createElement('div');
-                star.className = `star ${['small', 'medium', 'large', 'xl'][Math.floor(Math.random() * 4)]}`;
+            for (let i = 0; i < numLights; i++) {
+                const light = document.createElement('div');
+                light.className = 'city-light';
                 
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 4 + 's';
-                star.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                // Cluster lights around main city areas
+                let x, y;
+                if (Math.random() > 0.7) {
+                    // Main city center cluster
+                    x = 45 + Math.random() * 10;
+                    y = 40 + Math.random() * 20;
+                } else if (Math.random() > 0.5) {
+                    // Secondary clusters
+                    x = 20 + Math.random() * 60;
+                    y = 30 + Math.random() * 40;
+                } else {
+                    // Scattered suburban lights
+                    x = Math.random() * 100;
+                    y = Math.random() * 100;
+                }
                 
-                starsContainer.appendChild(star);
-            }
-            
-            // Create shooting stars
-            for (let i = 0; i < 8; i++) {
-                const shootingStar = document.createElement('div');
-                shootingStar.className = 'shooting-star';
-                shootingStar.style.top = Math.random() * 60 + '%';
-                shootingStar.style.left = Math.random() * 100 + '%';
-                shootingStar.style.width = Math.random() * 120 + 80 + 'px';
-                shootingStar.style.animationDelay = Math.random() * 15 + 's';
-                shootingStar.style.animationDuration = (Math.random() * 2 + 4) + 's';
+                light.style.left = x + '%';
+                light.style.top = y + '%';
+                light.style.animationDelay = Math.random() * 3 + 's';
+                light.style.animationDuration = (Math.random() * 2 + 2) + 's';
                 
-                starsContainer.appendChild(shootingStar);
+                cityBackground.appendChild(light);
             }
         }
 
-        // Enhanced parallax effect
+        // Subtle parallax effect for city clusters
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const stars = document.querySelectorAll('.star');
+            const clusters = document.querySelectorAll('.city-cluster');
             
-            stars.forEach((star, index) => {
-                const speed = (index % 4 + 1) * 0.03;
-                star.style.transform = `translateY(${scrolled * speed}px)`;
+            clusters.forEach((cluster, index) => {
+                const speed = (index % 3 + 1) * 0.02;
+                cluster.style.transform += ` translateY(${scrolled * speed}px)`;
             });
         });
 
@@ -597,23 +709,23 @@
             });
         });
 
-        // Enhanced mouse sparkles
+        // City light sparkles on mouse move
         document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.96) {
+            if (Math.random() > 0.97) {
                 const sparkle = document.createElement('div');
-                sparkle.className = 'star small';
+                sparkle.className = 'city-light';
                 sparkle.style.left = e.clientX + 'px';
                 sparkle.style.top = e.clientY + 'px';
                 sparkle.style.position = 'fixed';
                 sparkle.style.pointerEvents = 'none';
-                sparkle.style.animation = 'twinkle 1.5s ease-out forwards';
+                sparkle.style.animation = 'twinkle 1s ease-out forwards';
                 sparkle.style.zIndex = '1000';
                 
                 document.body.appendChild(sparkle);
                 
                 setTimeout(() => {
                     sparkle.remove();
-                }, 1500);
+                }, 1000);
             }
         });
 
@@ -634,7 +746,7 @@
 
         // Initialize everything
         window.addEventListener('load', () => {
-            createStars();
+            createCityLights();
             initAnimations();
         });
     </script>
