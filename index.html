@@ -218,91 +218,106 @@
   </div>
 
   <!-- Map init -->
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
+ <script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
 
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [10, 52],
-      zoom: 4.4,              // 🔍 etwas näher dran
-      bearing: 0,
-      pitch: 0,
-      interactive: false,
-      attributionControl: false
-    });
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',  // Nacht-Look
+    center: [10, 52],
+    zoom: 4.4,
+    bearing: 0,
+    pitch: 0,
+    interactive: false,
+    attributionControl: false
+  });
 
-    map.on('load', () => {
-      // Westeuropa-Bereich + linker Spalten-Padding
-      map.fitBounds(
-        [[-7, 44], [25, 58]],  // Westeuropa
-        { padding: { top: 20, right: 20, bottom: 20, left: 420 }, duration: 0 }
-      );
+  map.on('load', () => {
+    // Westeuropa sichtbar + Platz links für die Spalte
+    map.fitBounds(
+      [[-7, 44], [25, 58]],
+      { padding: { top: 20, right: 20, bottom: 20, left: 420 }, duration: 0 }
+    );
 
-      // Alle Standard-Labels aus
-      for (const layer of map.getStyle().layers) {
-        if (layer.type === 'symbol') {
-          map.setLayoutProperty(layer.id, 'visibility', 'none');
-        }
+    // Alle vorhandenen Layer ausblenden (nur Hintergrund bleibt)
+    for (const layer of map.getStyle().layers) {
+      if (layer.type !== 'background') {
+        map.setLayoutProperty(layer.id, 'visibility', 'none');
       }
+    }
 
-      // Mönchengladbach
-      const city = [6.4428, 51.1805];
-      map.addSource('mg', {
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: [
-            { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
-              geometry: { type: 'Point', coordinates: city } }
-          ]
-        }
-      });
-
-      map.addLayer({
-        id: 'mg-glow',
-        type: 'circle',
-        source: 'mg',
-        paint: {
-          'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
-          'circle-color': 'rgba(240,220,190,0.85)',
-          'circle-blur': 0.8,
-          'circle-opacity': 0.35
-        }
-      });
-
-      map.addLayer({
-        id: 'mg-core',
-        type: 'circle',
-        source: 'mg',
-        paint: {
-          'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
-          'circle-color': 'rgba(250,240,225,0.95)',
-          'circle-blur': 0.15
-        }
-      });
-
-      map.addLayer({
-        id: 'mg-label',
-        type: 'symbol',
-        source: 'mg',
-        layout: {
-          'text-field': ['get','name'],
-          'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
-          'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
-          'text-letter-spacing': 0.25,
-          'text-transform': 'uppercase',
-          'text-offset': [0, 1.8],
-          'text-anchor': 'top',
-          'text-allow-overlap': true
-        },
-        paint: {
-          'text-color': 'rgba(245,235,225,0.96)',
-          'text-halo-color': 'rgba(0,0,0,0.9)',
-          'text-halo-width': 1.8
-        }
-      });
+    // Länder-Umrandungen (admin_level = 0) als Linien – inkl. Küsten (maritime true/false)
+    map.addLayer({
+      id: 'country-outline',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['==', ['get','admin_level'], 0],
+      paint: {
+        'line-color': 'rgba(255,255,255,0.35)',
+        'line-width': 1.1,
+        'line-opacity': 0.85
+      }
     });
-  </script>
-</body>
-</html>
+
+    // Mönchengladbach Daten
+    const city = [6.4428, 51.1805];
+    map.addSource('mg', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
+            geometry: { type: 'Point', coordinates: city } }
+        ]
+      }
+    });
+
+    // Glow
+    map.addLayer({
+      id: 'mg-glow',
+      type: 'circle',
+      source: 'mg',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
+        'circle-color': 'rgba(240,220,190,0.85)',
+        'circle-blur': 0.8,
+        'circle-opacity': 0.35
+      }
+    });
+
+    // Kern
+    map.addLayer({
+      id: 'mg-core',
+      type: 'circle',
+      source: 'mg',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
+        'circle-color': 'rgba(250,240,225,0.95)',
+        'circle-blur': 0.15
+      }
+    });
+
+    // Label (einziges sichtbares)
+    map.addLayer({
+      id: 'mg-label',
+      type: 'symbol',
+      source: 'mg',
+      layout: {
+        'text-field': ['get','name'],
+        'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
+        'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
+        'text-letter-spacing': 0.25,
+        'text-transform': 'uppercase',
+        'text-offset': [0, 1.8],
+        'text-anchor': 'top',
+        'text-allow-overlap': true
+      },
+      paint: {
+        'text-color': 'rgba(245,235,225,0.96)',
+        'text-halo-color': 'rgba(0,0,0,0.9)',
+        'text-halo-width': 1.8
+      }
+    });
+  });
+</script>
