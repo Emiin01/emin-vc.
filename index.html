@@ -12,20 +12,19 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     html,body{height:100%}
-   body {
-  ...
-  overflow-x: hidden;   /* keine horizontale Scrollbalken */
-  overflow-y: auto;     /* vertikal scrollen erlaubt */
-}
-
+    body{
+      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:#0d1117;color:#fff;line-height:1.4;
+      overflow-x:hidden;     /* keine horizontale Scrollbalken */
+      overflow-y:auto;       /* vertikal scrollen erlaubt */
       min-height:100vh;position:relative;
     }
 
-    /* === Satellite background (Night lights Look) === */
+    /* === Satelliten-Hintergrund === */
     #map{
       position:fixed; inset:0; z-index:0;
       /* kühler, weniger gelb, klarer */
-      filter: brightness(.85) contrast(1.15) saturate(.75) hue-rotate(-10deg);
+      filter:brightness(.9) contrast(1.15) saturate(.7) hue-rotate(-10deg);
     }
 
     /* sehr dezente Vignette */
@@ -36,7 +35,7 @@
         linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10));
     }
 
-    /* ===== Dein Layout ===== */
+    /* ===== Layout ===== */
     .main-container{
       display:grid; grid-template-columns:1fr 1fr 1fr;
       min-height:100vh; position:relative; z-index:2;
@@ -197,89 +196,92 @@
   </div>
 
   <!-- Map init (einmalig, ganz unten) -->
-<script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
 
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12', // stabile Basis
-    center: [10, 52],   // Europa
-    zoom: 3.6,
-    bearing: 0,
-    pitch: 0,
-    interactive: false,
-    attributionControl: false
-  });
-
-  map.on('load', () => {
-    // Europa ins Bild
-    map.fitBounds([[-11, 35], [32, 71]], { padding: 20, duration: 0 });
-
-    // Alle Standard-Labels aus (Städte/Länder/POIs)
-    for (const layer of map.getStyle().layers) {
-      if (layer.type === 'symbol') {
-        map.setLayoutProperty(layer.id, 'visibility', 'none');
-      }
-    }
-
-    // Nur MÖNCHENGLADBACH anzeigen
-    const city = [6.4428, 51.1805];
-    map.addSource('mg', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: [
-          { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
-            geometry: { type: 'Point', coordinates: city } }
-        ]
-      }
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12', // stabile Satellitenbasis
+      center: [10, 52],   // Europa
+      zoom: 3.6,
+      bearing: 0,
+      pitch: 0,
+      interactive: false,
+      attributionControl: false
     });
 
-    // dezenter Glow
-    map.addLayer({
-      id: 'mg-glow',
-      type: 'circle',
-      source: 'mg',
-      paint: {
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
-        'circle-color': 'rgba(240,220,190,0.85)',  // neutraler (weniger gelb)
-        'circle-blur': 0.8,
-        'circle-opacity': 0.35
-      }
-    });
+    map.on('load', () => {
+      // Europa ins Bild
+      map.fitBounds([[-11, 35], [32, 71]], { padding: 20, duration: 0 });
 
-    // Kern
-    map.addLayer({
-      id: 'mg-core',
-      type: 'circle',
-      source: 'mg',
-      paint: {
-        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
-        'circle-color': 'rgba(250,240,225,0.95)',
-        'circle-blur': 0.15
+      // Alle Standard-Labels (Städte/Länder/POIs) ausblenden
+      for (const layer of map.getStyle().layers) {
+        if (layer.type === 'symbol') {
+          map.setLayoutProperty(layer.id, 'visibility', 'none');
+        }
       }
-    });
 
-    // Label (einziges sichtbares)
-    map.addLayer({
-      id: 'mg-label',
-      type: 'symbol',
-      source: 'mg',
-      layout: {
-        'text-field': ['get','name'],
-        'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
-        'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
-        'text-letter-spacing': 0.25,
-        'text-transform': 'uppercase',
-        'text-offset': [0, 1.8],
-        'text-anchor': 'top',
-        'text-allow-overlap': true
-      },
-      paint: {
-        'text-color': 'rgba(245,235,225,0.96)',
-        'text-halo-color': 'rgba(0,0,0,0.9)',
-        'text-halo-width': 1.8
-      }
+      // Nur MÖNCHENGLADBACH anzeigen
+      const city = [6.4428, 51.1805];
+      map.addSource('mg', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [
+            { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
+              geometry: { type: 'Point', coordinates: city } }
+          ]
+        }
+      });
+
+      // dezenter Glow
+      map.addLayer({
+        id: 'mg-glow',
+        type: 'circle',
+        source: 'mg',
+        paint: {
+          'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
+          'circle-color': 'rgba(240,220,190,0.85)',
+          'circle-blur': 0.8,
+          'circle-opacity': 0.35
+        }
+      });
+
+      // Kern
+      map.addLayer({
+        id: 'mg-core',
+        type: 'circle',
+        source: 'mg',
+        paint: {
+          'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
+          'circle-color': 'rgba(250,240,225,0.95)',
+          'circle-blur': 0.15
+        }
+      });
+
+      // Label (einziges sichtbares)
+      map.addLayer({
+        id: 'mg-label',
+        type: 'symbol',
+        source: 'mg',
+        layout: {
+          'text-field': ['get','name'],
+          'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
+          'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
+          'text-letter-spacing': 0.25,
+          'text-transform': 'uppercase',
+          'text-offset': [0, 1.8],
+          'text-anchor': 'top',
+          'text-allow-overlap': true,
+          'visibility': 'visible'
+        },
+        paint: {
+          'text-color': 'rgba(245,235,225,0.96)',
+          'text-halo-color': 'rgba(0,0,0,0.9)',
+          'text-halo-width': 1.8
+        }
+      });
     });
-  });
-</script>
+  </script>
+</body>
+</html>
