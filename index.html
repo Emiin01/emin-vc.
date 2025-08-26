@@ -12,10 +12,12 @@
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     html,body{height:100%}
-    body{
-      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:#0d1117;color:#fff;line-height:1.4;
-      overflow:hidden;           /* kein Scrollen */
+   body {
+  ...
+  overflow-x: hidden;   /* keine horizontale Scrollbalken */
+  overflow-y: auto;     /* vertikal scrollen erlaubt */
+}
+
       min-height:100vh;position:relative;
     }
 
