@@ -228,7 +228,7 @@
 
   const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v11',   // dunkler Untergrund
+    style: 'mapbox://styles/mapbox/dark-v11',
     center: [10, 52],
     zoom: 4.4,
     bearing: 0,
@@ -240,18 +240,17 @@
   map.on('load', () => {
     const leftPad = window.innerWidth >= 1024 ? 420 : 16;
 
-    // Westeuropa + Platz links für die Spalte
     map.fitBounds([[-7, 44], [25, 58]], {
       padding: { top: 20, right: 20, bottom: 20, left: leftPad },
       duration: 0
     });
 
-    // Alle Layer außer Hintergrund ausblenden
+    // alles außer Hintergrund verstecken
     for (const l of map.getStyle().layers) {
       if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
     }
 
-    // --- Nachtlichter (NASA Black Marble) ---
+    // NASA Black Marble (Nachtlichter)
     map.addSource('night', {
       type: 'raster',
       tiles: [
@@ -262,7 +261,7 @@
     });
     map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
 
-    // --- Länder-Umrandungen (nur Linien) ---
+    // Länder-Umrisse
     map.addLayer({
       id: 'country-outline-land',
       type: 'line',
@@ -288,7 +287,7 @@
       }
     });
 
-    // --- Mönchengladbach ---
+    // === Mönchengladbach ===
     const city = [6.4428, 51.1805];
     map.addSource('mg', {
       type: 'geojson',
@@ -297,7 +296,7 @@
       ]}
     });
 
-    // weicher Glow (warm, zur Night-Map passend)
+    // Glow
     map.addLayer({
       id: 'mg-glow',
       type: 'circle',
@@ -310,33 +309,33 @@
       }
     });
 
-    // PULSIERENDER Punkt (atmend)
+    // pulsierender Punkt (kleiner & sanfter)
     map.addLayer({
       id: 'mg-pulse',
       type: 'circle',
       source: 'mg',
       paint: {
-        'circle-radius': 10,                  // wird per Animation geändert
+        'circle-radius': 7,
         'circle-color': 'rgba(255,208,150,1)',
-        'circle-opacity': 0.6,
+        'circle-opacity': 0.55,
         'circle-stroke-color': 'rgba(255,230,190,0.9)',
-        'circle-stroke-width': 1.2
+        'circle-stroke-width': 1.1
       }
     });
 
-    // kleiner Kern darüber
+    // kleiner Kernpunkt
     map.addLayer({
       id: 'mg-core',
       type: 'circle',
       source: 'mg',
       paint: {
-        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 3, 5, 5, 7, 7],
+        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],
         'circle-color': '#ffd8a0',
         'circle-opacity': 0.95
       }
     });
 
-    // Label KLEINER + rechts vom Punkt (der Punkt ist „vor“ dem Wort)
+    // Label kleiner und UNTER dem Punkt
     map.addLayer({
       id: 'mg-label',
       type: 'symbol',
@@ -344,11 +343,11 @@
       layout: {
         'text-field': ['get','name'],
         'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
-        'text-size': ['interpolate',['linear'],['zoom'], 3, 14, 5, 16, 7, 18],  // kleiner
+        'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],
         'text-letter-spacing': 0.25,
         'text-transform': 'uppercase',
-        'text-offset': [1.2, 0],             // nach rechts verschoben -> Punkt steht „davor“
-        'text-anchor': 'center',
+        'text-offset': [0, 1.6],   // ↓ unter den Punkt
+        'text-anchor': 'top',      // am oberen Rand des Textes ansetzen
         'text-allow-overlap': true
       },
       paint: {
@@ -358,15 +357,16 @@
       }
     });
 
-    // --- Animation für den pulsierenden Punkt ---
+    // Animation fürs Pulsieren
     const start = Date.now();
     (function animate(){
-      const t = (Date.now() - start) / 1000;      // Sekunden
-      const radius = 8 + Math.sin(t * 2.2) * 4;   // „atmen“
-      const opacity = 0.35 + (Math.sin(t * 2.2) + 1) * 0.25; // 0.35–0.85
+      const t = (Date.now() - start) / 1000;
+      const radius = 6 + Math.sin(t * 2.2) * 3;                 // kleiner
+      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;    // sanfter
       map.setPaintProperty('mg-pulse','circle-radius', radius);
       map.setPaintProperty('mg-pulse','circle-opacity', opacity);
       requestAnimationFrame(animate);
     })();
   });
 </script>
+
