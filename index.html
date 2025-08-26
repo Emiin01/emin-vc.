@@ -13,10 +13,11 @@
         
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #000;
+            background: #0a0a0a;
             color: #fff;
             line-height: 1.4;
             overflow-x: hidden;
+            height: 100vh;
         }
         
         /* Animated Star Background */
@@ -34,390 +35,293 @@
             position: absolute;
             background: #fff;
             border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-        
-        .star::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-            border-radius: 50%;
+            animation: twinkle 4s infinite;
         }
         
         .star.small {
             width: 1px;
             height: 1px;
-            opacity: 0.7;
+            opacity: 0.6;
         }
         
         .star.medium {
             width: 2px;
             height: 2px;
             opacity: 0.8;
-            animation-delay: -1s;
+            animation-delay: -1.5s;
         }
         
         .star.large {
             width: 3px;
             height: 3px;
-            opacity: 0.9;
-            animation-delay: -2s;
+            opacity: 1;
+            animation-delay: -3s;
         }
         
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.2); }
         }
         
-        /* Shooting stars */
-        .shooting-star {
-            position: absolute;
-            height: 1px;
-            background: linear-gradient(90deg, #fff, transparent);
-            animation: shoot 3s linear infinite;
-        }
-        
-        @keyframes shoot {
-            0% {
-                transform: translateX(-100px) translateY(0px);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(1000px) translateY(500px);
-                opacity: 0;
-            }
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Main Layout */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            height: 100vh;
             position: relative;
             z-index: 1;
         }
         
-        /* One Page Layout */
-        .page-wrapper {
-            min-height: 100vh;
+        /* Left Side - Profile */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 80px 60px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-main {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 50px 0;
-            position: relative;
-            z-index: 1;
         }
         
-        /* Hero Section */
-        .hero-section {
-            margin-bottom: 150px;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .hero-section h1 {
-            font-size: clamp(4rem, 12vw, 12rem);
-            font-weight: 900;
-            letter-spacing: -0.05em;
+        .profile-name {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
             margin-bottom: 1rem;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #fff 0%, #ccc 50%, #fff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(255,255,255,0.3);
-        }
-        
-        .hero-name {
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-        
-        .hero-titles {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-        
-        .hero-title {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            font-weight: 600;
-            padding: 15px 30px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .hero-title:hover {
-            border-color: rgba(255,255,255,0.7);
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-5px);
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-            font-weight: 400;
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            line-height: 1.7;
-            opacity: 0.85;
-        }
-        
-        /* Main Content Grid */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 80px;
-            max-width: 1400px;
-            margin: 0 auto 150px;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-        
-        .content-card {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 50px 40px;
-            text-align: center;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .content-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        
-        .content-card:hover::before {
-            opacity: 1;
-        }
-        
-        .content-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.08);
-            box-shadow: 0 30px 80px rgba(255,255,255,0.1);
-        }
-        
-        .content-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 30px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-        
-        .content-card h3 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-        
-        .content-card p {
-            font-size: clamp(1rem, 2vw, 1.1rem);
-            line-height: 1.7;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-        
-        .content-link {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 12px 25px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 30px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.05);
-        }
-        
-        .content-link:hover {
-            background: rgba(255,255,255,0.15);
-            border-color: rgba(255,255,255,0.6);
-            transform: translateY(-2px);
-        }
-        
-        /* Bio Section */
-        .bio-section {
-            max-width: 1000px;
-            margin: 0 auto 150px;
-            text-align: center;
-            animation: fadeInUp 1s ease-out 0.6s both;
-        }
-        
-        .bio-section h2 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 700;
-            margin-bottom: 3rem;
             background: linear-gradient(135deg, #fff 0%, #ccc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .bio-text {
-            font-size: clamp(1.1rem, 2.2vw, 1.3rem);
-            line-height: 1.8;
+        .profile-titles {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .profile-title {
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.8;
+        }
+        
+        .profile-description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.6;
+            opacity: 0.85;
+            max-width: 400px;
+        }
+        
+        /* Quote Section */
+        .quote-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+        }
+        
+        .quote-text {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-style: italic;
+            line-height: 1.5;
             opacity: 0.9;
-            background: rgba(255,255,255,0.03);
+            margin-bottom: 1rem;
+        }
+        
+        .quote-author {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Right Side - Blocks */
+        .blocks-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 60px;
+            gap: 3rem;
+        }
+        
+        .block {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 30px;
-            padding: 60px;
-            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .bio-text p {
-            margin-bottom: 2rem;
+        .block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
         }
         
-        .bio-text p:last-child {
-            margin-bottom: 0;
+        .block:hover::before {
+            left: 100%;
         }
         
-        /* Call to Action */
-        .cta-section {
-            text-align: center;
-            animation: fadeInUp 1s ease-out 0.9s both;
+        .block:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
         
-        .cta-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 300;
-            margin-bottom: 2rem;
-            letter-spacing: -0.02em;
+        .block-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
         }
         
-        .cta-text {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            line-height: 1.7;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto 3rem;
+        .block-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
         
-        .cta-button {
-            display: inline-block;
-            padding: 20px 40px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #000;
-            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
-            text-decoration: none;
-            border-radius: 50px;
+        .block-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .block-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .block-arrow {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-left: none;
+            border-bottom: none;
+            transform: rotate(45deg);
             transition: all 0.3s ease;
-            border: 2px solid #fff;
         }
         
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(255,255,255,0.2);
-            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+        .block:hover .block-arrow {
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: rotate(45deg) translate(5px, -5px);
+        }
+        
+        .block-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+        
+        .block-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .block-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
-            .content-grid {
+        @media (max-width: 1024px) {
+            .main-container {
                 grid-template-columns: 1fr;
-                gap: 40px;
-                margin-bottom: 100px;
+                height: auto;
             }
             
-            .hero-titles {
+            .profile-section {
+                padding: 60px 40px;
+                min-height: 100vh;
+            }
+            
+            .blocks-section {
+                padding: 60px 40px;
+                gap: 2rem;
+            }
+            
+            .block {
+                max-width: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-section, .blocks-section {
+                padding: 40px 20px;
+            }
+            
+            .profile-titles {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.5rem;
             }
             
-            .bio-text {
-                padding: 40px 30px;
+            .block {
+                padding: 30px;
             }
-            
-            .container {
-                padding: 0 15px;
-            }
-            
-            .page-wrapper {
-                padding: 30px 0;
-            }
-        }
-        
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #000;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.3);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255,255,255,0.5);
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Floating animation for cards */
-        .content-card {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .content-card:nth-child(2) { animation-delay: -2s; }
-        .content-card:nth-child(3) { animation-delay: -4s; }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
@@ -425,104 +329,118 @@
     <!-- Animated Star Background -->
     <div class="stars" id="stars"></div>
 
-    <!-- Main One-Page Content -->
-    <div class="page-wrapper">
-        <div class="container">
-            
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <h1>TURUS</h1>
-                <div class="hero-name">EMIN TURUS</div>
-                <div class="hero-titles">
-                    <div class="hero-title">Visionary</div>
-                    <div class="hero-title">Leader</div>
-                    <div class="hero-title">Innovator</div>
-                </div>
-                <p class="hero-subtitle">
-                    Entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
-                </p>
-            </section>
-
-            <!-- Content Grid -->
-            <section class="content-grid">
+    <div class="main-container">
+        
+        <!-- Left Side - Profile -->
+        <div class="profile-section">
+            <div class="profile-main">
+                <div class="profile-name">EMIN<br>TURUS</div>
                 
-                <div class="content-card">
-                    <div class="content-icon">🚀</div>
-                    <h3>Entrepreneur</h3>
-                    <p>Building innovative companies that solve real-world problems through cutting-edge technology and visionary leadership.</p>
-                    <a href="#" class="content-link">Learn More</a>
+                <div class="profile-titles">
+                    <div class="profile-title">VISIONARY</div>
+                    <div class="profile-title">INNOVATOR</div>
                 </div>
-
-                <div class="content-card">
-                    <div class="content-icon">💼</div>
-                    <h3>Investor</h3>
-                    <p>Strategic investments in transformative technologies and promising startups that have the potential to reshape industries.</p>
-                    <a href="#" class="content-link">Portfolio</a>
-                </div>
-
-                <div class="content-card">
-                    <div class="content-icon">🎯</div>
-                    <h3>Visionary</h3>
-                    <p>Identifying future trends and opportunities before they become mainstream, always staying ahead of the innovation curve.</p>
-                    <a href="#" class="content-link">Vision</a>
-                </div>
-
-            </section>
-
-            <!-- Bio Section -->
-            <section class="bio-section">
-                <h2>The Innovation Journey</h2>
-                <div class="bio-text">
-                    <p>Emin Turus represents the new generation of entrepreneurial leaders who understand that true innovation comes from the intersection of technology, vision, and human-centered design. His career spans multiple industries, from early-stage startups to established technology companies, always with a focus on creating meaningful value.</p>
-                    
-                    <p>As an investor, Emin has developed a keen eye for identifying transformative technologies before they reach mainstream adoption. His investment philosophy centers on backing founders who share his commitment to building solutions that address real-world challenges while maintaining the highest standards of ethical business practice.</p>
-                    
-                    <p>What truly sets Emin apart is his ability to see beyond the immediate horizon. While many focus on today's problems, he consistently identifies and develops solutions for tomorrow's challenges. This forward-thinking approach has earned him recognition as one of the most influential voices in the global innovation ecosystem.</p>
-                </div>
-            </section>
-
-            <!-- Call to Action -->
-            <section class="cta-section">
-                <h2 class="cta-title">Shaping Tomorrow</h2>
-                <p class="cta-text">
-                    Ready to be part of the innovation revolution? Connect with Emin Turus to explore opportunities, partnerships, and the future of technology.
+                
+                <p class="profile-description">
+                    Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
                 </p>
-                <a href="#" class="cta-button">Get In Touch</a>
-            </section>
-
+                
+                <div class="social-icons">
+                    <a href="#" class="social-icon">🐦</a>
+                    <a href="#" class="social-icon">📧</a>
+                    <a href="#" class="social-icon">💼</a>
+                    <a href="#" class="social-icon">📱</a>
+                </div>
+            </div>
+            
+            <div class="quote-section">
+                <div class="quote-text">
+                    "Innovation distinguishes between a leader and a follower. The future belongs to those who believe in the beauty of their dreams."
+                </div>
+                <div class="quote-author">— Emin Turus</div>
+            </div>
         </div>
+        
+        <!-- Right Side - Blocks -->
+        <div class="blocks-section">
+            
+            <!-- Block 1: AIGEN AI -->
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-logo">
+                        <div class="block-icon">🤖</div>
+                        <div class="block-name">AIGEN AI</div>
+                    </div>
+                    <div class="block-arrow"></div>
+                </div>
+                <div class="block-description">
+                    Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.
+                </div>
+                <div class="block-tags">
+                    <span class="block-tag">AI/ML</span>
+                    <span class="block-tag">Deep Learning</span>
+                    <span class="block-tag">Innovation</span>
+                </div>
+            </div>
+            
+            <!-- Block 2: Emin Capitals -->
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-logo">
+                        <div class="block-icon">💰</div>
+                        <div class="block-name">EMIN CAPITALS</div>
+                    </div>
+                    <div class="block-arrow"></div>
+                </div>
+                <div class="block-description">
+                    Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.
+                </div>
+                <div class="block-tags">
+                    <span class="block-tag">VC Fund</span>
+                    <span class="block-tag">Startups</span>
+                    <span class="block-tag">Growth</span>
+                </div>
+            </div>
+            
+            <!-- Block 3: Insight -->
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-logo">
+                        <div class="block-icon">💡</div>
+                        <div class="block-name">INSIGHT</div>
+                    </div>
+                    <div class="block-arrow"></div>
+                </div>
+                <div class="block-description">
+                    Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.
+                </div>
+                <div class="block-tags">
+                    <span class="block-tag">Strategy</span>
+                    <span class="block-tag">Consulting</span>
+                    <span class="block-tag">Analysis</span>
+                </div>
+            </div>
+            
+        </div>
+        
     </div>
 
     <script>
         // Create animated star background
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const numStars = 200;
+            const numStars = 300;
             
-            // Create regular stars
             for (let i = 0; i < numStars; i++) {
                 const star = document.createElement('div');
                 star.className = `star ${['small', 'medium', 'large'][Math.floor(Math.random() * 3)]}`;
                 
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 3) + 's';
                 
                 starsContainer.appendChild(star);
-            }
-            
-            // Create shooting stars
-            for (let i = 0; i < 5; i++) {
-                const shootingStar = document.createElement('div');
-                shootingStar.className = 'shooting-star';
-                shootingStar.style.top = Math.random() * 50 + '%';
-                shootingStar.style.left = Math.random() * 100 + '%';
-                shootingStar.style.width = Math.random() * 100 + 50 + 'px';
-                shootingStar.style.animationDelay = Math.random() * 10 + 's';
-                shootingStar.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                
-                starsContainer.appendChild(shootingStar);
             }
         }
 
@@ -532,56 +450,67 @@
             const stars = document.querySelectorAll('.star');
             
             stars.forEach((star, index) => {
-                const speed = (index % 3 + 1) * 0.1;
+                const speed = (index % 3 + 1) * 0.05;
                 star.style.transform = `translateY(${scrolled * speed}px)`;
             });
         });
 
-        // Smooth hover effects for content cards
-        const cards = document.querySelectorAll('.content-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.animationPlayState = 'paused';
+        // Block hover effects with sound-like interaction
+        const blocks = document.querySelectorAll('.block');
+        blocks.forEach((block, index) => {
+            block.addEventListener('mouseenter', () => {
+                // Add subtle scale effect to other blocks
+                blocks.forEach((otherBlock, otherIndex) => {
+                    if (otherIndex !== index) {
+                        otherBlock.style.transform = 'scale(0.95) translateY(5px)';
+                        otherBlock.style.opacity = '0.7';
+                    }
+                });
             });
             
-            card.addEventListener('mouseleave', () => {
-                card.style.animationPlayState = 'running';
+            block.addEventListener('mouseleave', () => {
+                // Reset all blocks
+                blocks.forEach((otherBlock) => {
+                    otherBlock.style.transform = 'scale(1) translateY(0)';
+                    otherBlock.style.opacity = '1';
+                });
             });
         });
 
-        // Initialize stars when page loads
-        window.addEventListener('load', createStars);
-
-        // Add some interactive sparkle effect on mouse move
+        // Interactive mouse sparkles
         document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.98) { // Occasional sparkles
+            if (Math.random() > 0.97) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'star small';
                 sparkle.style.left = e.clientX + 'px';
                 sparkle.style.top = e.clientY + 'px';
                 sparkle.style.position = 'fixed';
                 sparkle.style.pointerEvents = 'none';
-                sparkle.style.animation = 'twinkle 0.5s ease-out forwards';
+                sparkle.style.animation = 'twinkle 1s ease-out forwards';
+                sparkle.style.zIndex = '1000';
                 
                 document.body.appendChild(sparkle);
                 
                 setTimeout(() => {
                     sparkle.remove();
-                }, 500);
+                }, 1000);
             }
         });
 
-        // Smooth scroll for any internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        // Initialize
+        window.addEventListener('load', createStars);
+
+        // Smooth block entrance animation
+        const blockElements = document.querySelectorAll('.block');
+        blockElements.forEach((block, index) => {
+            block.style.opacity = '0';
+            block.style.transform = 'translateY(50px)';
+            
+            setTimeout(() => {
+                block.style.transition = 'all 0.8s ease';
+                block.style.opacity = '1';
+                block.style.transform = 'translateY(0)';
+            }, 200 + (index * 200));
         });
     </script>
 </body>
