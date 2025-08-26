@@ -17,32 +17,46 @@
     }
 
     /* === Satellite background (Mapbox) === */
-    #map { filter: brightness(.7) contrast(1.28) saturate(.95); }
-      position:fixed;inset:0;z-index:0;
-      filter:brightness(.55) contrast(1.12) saturate(.85);
+    #map{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      /* klarer Look */
+      filter: brightness(.70) contrast(1.25) saturate(.95);
     }
-    /* Vignette/Farbton wie im Screenshot */
+
+    /* dezente Vignette (sehr leicht, damit nix zu dunkel wird) */
     .map-overlay{
       position:fixed;inset:0;z-index:1;pointer-events:none;
       background:
-        radial-gradient(1200px 800px at 50% 55%, rgba(255,185,90,.08), transparent 60%),
-        radial-gradient(1400px 900px at 10% 15%, rgba(0,0,0,.55), transparent 55%),
-        radial-gradient(1400px 900px at 90% 85%, rgba(0,0,0,.55), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35));
+        radial-gradient(1200px 800px at 50% 55%, rgba(255,185,90,.03), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.12));
     }
 
-    /* ===== Deine bestehende Seite ===== */
-    .main-container{display:grid;grid-template-columns:1fr 1fr 1fr;min-height:100vh;position:relative;z-index:2}
-  .profile-section,.blocks-section,.vision-section { background: rgba(0,0,0,0.16); }
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:80px 50px;
-  background:rgba(0,0,0,.28);
-  border-right:1px solid rgba(255,255,255,.08);
-}
-
+    /* ===== Dein Layout ===== */
+    .main-container{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      min-height:100vh;
+      position:relative;
+      z-index:2; /* Content über der Map */
     }
+
+    .profile-section,
+    .blocks-section,
+    .vision-section{
+      background: rgba(0,0,0,0.16);   /* etwas transparenter, damit Europa sichtbar ist */
+      backdrop-filter: none;
+    }
+
+    .profile-section{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:80px 50px;
+      border-right:1px solid rgba(255,255,255,.08);
+    }
+
     .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center}
     .profile-name{
       font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:1rem;
@@ -54,11 +68,7 @@
     .profile-title{font-size:1rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;opacity:.85}
     .profile-description{font-size:clamp(1rem,1.8vw,1.1rem);line-height:1.6;opacity:.9;max-width:350px}
     .social-icons{display:flex;gap:1rem;margin-top:2rem}
-    .social-icon{
-      width:40px;height:40px;background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.18);border-radius:10px;display:flex;align-items:center;justify-content:center;
-      color:#fff;text-decoration:none;transition:.3s;font-size:1.2rem
-    }
+    .social-icon{width:40px;height:40px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:.3s;font-size:1.2rem}
     .social-icon:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45);transform:translateY(-3px)}
     .quote-section{border-top:1px solid rgba(255,255,255,.1);padding-top:2rem}
     .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
@@ -66,22 +76,15 @@
 
     .blocks-section{
       display:flex;flex-direction:column;justify-content:center;align-items:center;
-      padding:80px 30px;gap:2rem;background:rgba(0,0,0,.18);
-      border-right:1px solid rgba(255,255,255,.05)
+      padding:80px 30px;gap:2rem;border-right:1px solid rgba(255,255,255,.05)
     }
-    .block{
-      width:100%;max-width:400px;background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer
-    }
+    .block{width:100%;max-width:400px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer}
     .block::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
     .block:hover::before{left:100%}
     .block:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);box-shadow:0 25px 50px rgba(0,0,0,.6)}
     .block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
     .block-logo{display:flex;align-items:center;gap:.8rem}
-    .block-icon{
-      width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
-      border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)
-    }
+    .block-icon{width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)}
     .block-name{font-size:1.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
     .block-arrow{width:20px;height:20px;border:2px solid rgba(255,255,255,.4);border-left:none;border-bottom:none;transform:rotate(45deg);transition:.3s}
     .block:hover .block-arrow{border-color:rgba(255,255,255,.8);transform:rotate(45deg) translate(4px,-4px)}
@@ -89,11 +92,8 @@
     .block-tags{display:flex;gap:.4rem;flex-wrap:wrap}
     .block-tag{padding:.25rem .7rem;background:rgba(255,255,255,.1);border-radius:12px;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;border:1px solid rgba(255,255,255,.15)}
 
-    .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px;background:rgba(0,0,0,.18)}
-    .vision-title{
-      font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;
-      background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
-    }
+    .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
+    .vision-title{font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
     .vision-content p{margin-bottom:1.5rem}.vision-content p:last-child{margin-bottom:0}
 
@@ -115,9 +115,8 @@
   <div id="map"></div>
   <div class="map-overlay"></div>
 
-  <!-- Deine bestehende Seite -->
+  <!-- Dein Content -->
   <div class="main-container">
-    <!-- Left -->
     <div class="profile-section">
       <div class="profile-main">
         <div class="profile-name">EMIN<br/>TURUS</div>
@@ -141,7 +140,6 @@
       </div>
     </div>
 
-    <!-- Middle -->
     <div class="blocks-section">
       <div class="block">
         <div class="block-header">
@@ -192,7 +190,6 @@
       </div>
     </div>
 
-    <!-- Right -->
     <div class="vision-section">
       <h2 class="vision-title">Vision & Philosophy</h2>
       <div class="vision-content">
@@ -205,84 +202,86 @@
     </div>
   </div>
 
-  <!-- Map init (am Ende, nachdem #map existiert) -->
+  <!-- Map init -->
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
 
-    // Europa-Ansicht
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/satellite-v9', // wenn du Labels willst: 'mapbox://styles/mapbox/satellite-streets-v12'
-  center: [10, 52],   // grob Mitte Europa
-  zoom: 3.6,          // rausgezoomt
-  bearing: -5,
-  pitch: 0,
-  interactive: false
-});
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12', // Satellit + Labels
+      center: [10, 52],   // Mitte Europa
+      zoom: 3.6,
+      bearing: -5,
+      pitch: 0,
+      interactive: false
+    });
 
-map.on('load', () => {
-  // Sicherstellen, dass ganz Europa ins Bild passt (Portugal bis Skandinavien)
-  map.fitBounds([[-11, 35], [32, 71]], { padding: 20, bearing: -5, duration: 0 });
+    map.on('load', () => {
+      // Europa sicher im Bild
+      map.fitBounds([[-11, 35], [32, 71]], { padding: 20, bearing: -5, duration: 0 });
 
-  const city = [6.4428, 51.1805]; // Mönchengladbach
+      const city = [6.4428, 51.1805]; // Mönchengladbach
 
-  // Quelle
-  map.addSource('mg', {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: [
-        { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
-          geometry: { type: 'Point', coordinates: city } }
-      ]
-    }
-  });
+      // Quelle
+      map.addSource('mg', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [
+            { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
+              geometry: { type: 'Point', coordinates: city } }
+          ]
+        }
+      });
 
-  // weicher Glow, damit man die Stelle auch im Zoom-out sieht
-  map.addLayer({
-    id: 'mg-glow',
-    type: 'circle',
-    source: 'mg',
-    paint: {
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
-      'circle-color': 'rgba(255,185,90,0.85)',
-      'circle-blur': 0.8,
-      'circle-opacity': 0.45
-    }
-  });
+      // Glow (aus Zoom-Entfernung sichtbar)
+      map.addLayer({
+        id: 'mg-glow',
+        type: 'circle',
+        source: 'mg',
+        paint: {
+          'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
+          'circle-color': 'rgba(255,185,90,0.85)',
+          'circle-blur': 0.8,
+          'circle-opacity': 0.45
+        }
+      });
 
-  // Kern
-  map.addLayer({
-    id: 'mg-core',
-    type: 'circle',
-    source: 'mg',
-    paint: {
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
-      'circle-color': 'rgba(255,200,120,0.95)',
-      'circle-blur': 0.2,
-      'circle-opacity': 0.95
-    }
-  });
+      // Kern
+      map.addLayer({
+        id: 'mg-core',
+        type: 'circle',
+        source: 'mg',
+        paint: {
+          'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
+          'circle-color': 'rgba(255,200,120,0.95)',
+          'circle-blur': 0.2,
+          'circle-opacity': 0.95
+        }
+      });
 
-  // Label – größer und mit starkem Halo, damit es auf Europa-Zoom lesbar bleibt
-  map.addLayer({
-    id: 'mg-label',
-    type: 'symbol',
-    source: 'mg',
-    layout: {
-      'text-field': ['get','name'],
-      'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Regular'],
-      'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
-      'text-letter-spacing': 0.25,
-      'text-transform': 'uppercase',
-      'text-offset': [0, 1.8],
-      'text-anchor': 'top',
-      'text-allow-overlap': true
-    },
-    paint: {
-      'text-color': 'rgba(255,200,120,0.95)',
-      'text-halo-color': 'rgba(0,0,0,0.8)',
-      'text-halo-width': 1.6
-    }
-  });
-});
+      // Label (groß + starker Halo)
+      map.addLayer({
+        id: 'mg-label',
+        type: 'symbol',
+        source: 'mg',
+        layout: {
+          'text-field': ['get','name'],
+          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Regular'],
+          'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
+          'text-letter-spacing': 0.25,
+          'text-transform': 'uppercase',
+          'text-offset': [0, 1.8],
+          'text-anchor': 'top',
+          'text-allow-overlap': true
+        },
+        paint: {
+          'text-color': 'rgba(255,200,120,0.95)',
+          'text-halo-color': 'rgba(0,0,0,0.8)',
+          'text-halo-width': 1.6
+        }
+      });
+    });
+  </script>
+</body>
+</html>
