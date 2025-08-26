@@ -20,14 +20,12 @@
       min-height:100vh;position:relative;
     }
 
-    /* === Satellite background (Night lights Look) === */
+    /* === Satelliten-Hintergrund === */
     #map{
       position:fixed; inset:0; z-index:0;
-      /* kühler, weniger gelb, klarer */
       filter: brightness(.85) contrast(1.15) saturate(.75) hue-rotate(-10deg);
     }
 
-    /* sehr dezente Vignette */
     .map-overlay{
       position:fixed; inset:0; z-index:1; pointer-events:none;
       background:
@@ -35,7 +33,7 @@
         linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10));
     }
 
-    /* ===== Dein Layout ===== */
+    /* ===== Layout ===== */
     .main-container{
       display:grid; grid-template-columns:1fr 1fr 1fr;
       min-height:100vh; position:relative; z-index:2;
@@ -66,7 +64,7 @@
       opacity:.8; margin-bottom:.6rem;
     }
     .social-icons{display:flex;gap:1rem}
-    .social-icons--quote{gap:.6rem;margin-bottom:1.2rem} /* Abstand vor dem Zitat */
+    .social-icons--quote{gap:.6rem;margin-bottom:1.2rem}
     .social-icon{
       width:40px;height:40px;background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.18);border-radius:10px;
@@ -131,7 +129,7 @@
         <p class="profile-description">
           Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
         </p>
-        <!-- alter Emoji-Block ENTFERNT -->
+        <!-- alter Emoji-Block entfernt -->
       </div>
 
       <!-- Icons über dem Zitat -->
@@ -219,15 +217,15 @@
     </div>
   </div>
 
-  <!-- Map init (einmalig, ganz unten) -->
+  <!-- Map init -->
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
 
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12', // stabile Satellitenbasis
-      center: [10, 52],   // Europa
-      zoom: 3.6,
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+      center: [10, 52],
+      zoom: 4.4,              // 🔍 etwas näher dran
       bearing: 0,
       pitch: 0,
       interactive: false,
@@ -235,17 +233,20 @@
     });
 
     map.on('load', () => {
-      // Europa ins Bild
-      map.fitBounds([[-11, 35], [32, 71]], { padding: 20, duration: 0 });
+      // Westeuropa-Bereich + linker Spalten-Padding
+      map.fitBounds(
+        [[-7, 44], [25, 58]],  // Westeuropa
+        { padding: { top: 20, right: 20, bottom: 20, left: 420 }, duration: 0 }
+      );
 
-      // Alle Standard-Labels (Städte/Länder/POIs) ausblenden
+      // Alle Standard-Labels aus
       for (const layer of map.getStyle().layers) {
         if (layer.type === 'symbol') {
           map.setLayoutProperty(layer.id, 'visibility', 'none');
         }
       }
 
-      // Nur MÖNCHENGLADBACH anzeigen
+      // Mönchengladbach
       const city = [6.4428, 51.1805];
       map.addSource('mg', {
         type: 'geojson',
@@ -258,7 +259,6 @@
         }
       });
 
-      // dezenter Glow
       map.addLayer({
         id: 'mg-glow',
         type: 'circle',
@@ -271,7 +271,6 @@
         }
       });
 
-      // Kern
       map.addLayer({
         id: 'mg-core',
         type: 'circle',
@@ -283,7 +282,6 @@
         }
       });
 
-      // Label (einziges sichtbares)
       map.addLayer({
         id: 'mg-label',
         type: 'symbol',
@@ -296,8 +294,7 @@
           'text-transform': 'uppercase',
           'text-offset': [0, 1.8],
           'text-anchor': 'top',
-          'text-allow-overlap': true,
-          'visibility': 'visible'
+          'text-allow-overlap': true
         },
         paint: {
           'text-color': 'rgba(245,235,225,0.96)',
