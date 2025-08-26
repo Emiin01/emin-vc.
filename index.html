@@ -108,7 +108,65 @@
     }
   </style>
 </head>
+  <script>
+  mapboxgl.accessToken = "DEIN_MAPBOX_TOKEN"; // <-- hier den Token reinkopieren
+
+  const map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/mapbox/satellite-v9",
+    center: [6.4428, 51.1805], // Mönchengladbach
+    zoom: 7.6,
+    interactive: false
+  });
+
+  map.on("load", () => {
+    const mg = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": { "name": "MÖNCHENGLADBACH" },
+          "geometry": { "type": "Point", "coordinates": [6.4428, 51.1805] }
+        }
+      ]
+    };
+    map.addSource("mg", { type: "geojson", data: mg });
+    map.addLayer({
+      id: "mg-label",
+      type: "symbol",
+      source: "mg",
+      layout: {
+        "text-field": ["get", "name"],
+        "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Regular"],
+        "text-size": 14,
+        "text-transform": "uppercase",
+        "text-offset": [0, 2],
+        "text-anchor": "top"
+      },
+      paint: {
+        "text-color": "rgba(255,200,120,0.9)",
+        "text-halo-color": "rgba(0,0,0,0.6)",
+        "text-halo-width": 1.2
+      }
+    });
+  });
+</script>
+
 <body>
+  <div id="map"></div>
+<style>
+  #map {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    filter: brightness(.55) contrast(1.1) saturate(.85);
+  }
+  .main-container {
+    position: relative;
+    z-index: 2; /* damit dein Inhalt über der Map liegt */
+  }
+</style>
+
   <!-- Fixed satellite background -->
   <div id="map"></div>
   <div class="map-overlay"></div>
