@@ -197,13 +197,13 @@
   </div>
 
   <!-- Map init (einmalig, ganz unten) -->
- <script>
+<script>
   mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
 
   const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v11',   // dunkle Basiskarte
-    center: [10, 52],
+    style: 'mapbox://styles/mapbox/satellite-streets-v12', // stabile Basis
+    center: [10, 52],   // Europa
     zoom: 3.6,
     bearing: 0,
     pitch: 0,
@@ -212,69 +212,73 @@
   });
 
   map.on('load', () => {
-    // Night-lights (NASA Black Marble) als Raster-Overlay
-    map.addSource('night', {
-      type: 'raster',
-      tiles: [
-        'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'
-      ],
-      tileSize: 256,
-      attribution: 'NASA Black Marble'
-    });
-    map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
-
-    // Europa im Bild
+    // Europa ins Bild
     map.fitBounds([[-11, 35], [32, 71]], { padding: 20, duration: 0 });
 
-    // ✅ Alle Standard-Labels (Städte/Länder/POIs) ausblenden
+    // Alle Standard-Labels aus (Städte/Länder/POIs)
     for (const layer of map.getStyle().layers) {
       if (layer.type === 'symbol') {
         map.setLayoutProperty(layer.id, 'visibility', 'none');
       }
     }
 
-    // Mönchengladbach als einziges Label
+    // Nur MÖNCHENGLADBACH anzeigen
     const city = [6.4428, 51.1805];
     map.addSource('mg', {
       type: 'geojson',
-      data: { type:'FeatureCollection', features:[
-        { type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }
-      ]}
-    });
-
-    map.addLayer({
-      id:'mg-glow', type:'circle', source:'mg',
-      paint:{
-        'circle-radius':['interpolate',['linear'],['zoom'],3,10,5,25,7,60],
-        'circle-color':'rgba(255,220,170,0.85)',
-        'circle-blur':0.8, 'circle-opacity':0.35
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          { type: 'Feature', properties: { name: 'MÖNCHENGLADBACH' },
+            geometry: { type: 'Point', coordinates: city } }
+        ]
       }
     });
 
+    // dezenter Glow
     map.addLayer({
-      id:'mg-core', type:'circle', source:'mg',
-      paint:{
-        'circle-radius':['interpolate',['linear'],['zoom'],3,3,5,6,7,10],
-        'circle-color':'rgba(255,230,200,0.95)', 'circle-blur':0.15
+      id: 'mg-glow',
+      type: 'circle',
+      source: 'mg',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 10, 5, 25, 7, 60],
+        'circle-color': 'rgba(240,220,190,0.85)',  // neutraler (weniger gelb)
+        'circle-blur': 0.8,
+        'circle-opacity': 0.35
       }
     });
 
+    // Kern
     map.addLayer({
-      id:'mg-label', type:'symbol', source:'mg',
-      layout:{
-        'text-field':['get','name'],
-        'text-font':['DIN Offc Pro Medium','Arial Unicode MS Regular'],
-        'text-size':['interpolate',['linear'],['zoom'],3,16,5,18,7,22],
-        'text-letter-spacing':0.25,
-        'text-transform':'uppercase',
-        'text-offset':[0,1.8],
-        'text-anchor':'top',
+      id: 'mg-core',
+      type: 'circle',
+      source: 'mg',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 3, 5, 6, 7, 10],
+        'circle-color': 'rgba(250,240,225,0.95)',
+        'circle-blur': 0.15
+      }
+    });
+
+    // Label (einziges sichtbares)
+    map.addLayer({
+      id: 'mg-label',
+      type: 'symbol',
+      source: 'mg',
+      layout: {
+        'text-field': ['get','name'],
+        'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
+        'text-size': ['interpolate', ['linear'], ['zoom'], 3, 16, 5, 18, 7, 22],
+        'text-letter-spacing': 0.25,
+        'text-transform': 'uppercase',
+        'text-offset': [0, 1.8],
+        'text-anchor': 'top',
         'text-allow-overlap': true
       },
-      paint:{
-        'text-color':'rgba(255,235,210,0.95)',
-        'text-halo-color':'rgba(0,0,0,0.9)',
-        'text-halo-width':1.8
+      paint: {
+        'text-color': 'rgba(245,235,225,0.96)',
+        'text-halo-color': 'rgba(0,0,0,0.9)',
+        'text-halo-width': 1.8
       }
     });
   });
