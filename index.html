@@ -77,10 +77,14 @@
     .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
 
     .blocks-section{
-      display:flex;flex-direction:column;justify-content:center;align-items:center;
-      padding:80px 30px;gap:2rem; border-right:1px solid rgba(255,255,255,.05)
-    }
-
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;         /* Cards über die ganze Spaltenbreite */
+  padding: 80px 30px;
+  gap: 22px;                    /* Sicherheitsabstand zu anderen Elementen */
+  border-right: 1px solid rgba(255,255,255,.05);
+}
     .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
     .vision-title{font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
@@ -104,8 +108,15 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap:20px;
     }
-    @media (max-width:1024px){
-      .blocks-grid{ grid-template-columns:1fr; max-width:600px; }
+    /* Mittelspalte: Cards untereinander, volle Spaltenbreite */
+.blocks-grid{
+  width: 100%;
+  max-width: none;        /* keine künstliche Begrenzung */
+  display: grid;
+  grid-template-columns: 1fr;  /* immer eine Spalte */
+  gap: 22px;                   /* Abstand zwischen den Cards */
+}
+
     }
     .card{
       display:block;
