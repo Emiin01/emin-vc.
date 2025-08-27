@@ -32,14 +32,32 @@
 
     /* ===== Layout ===== */
     .main-container{
-      display:grid; grid-template-columns:1fr 1fr 1fr;
-      min-height:100vh; position:relative; z-index:2;
-    }
+  display:grid;
+  /* Links fix, Mitte flexibel, Rechts fix – so gibt’s keine Überlappung */
+  grid-template-columns:
+    clamp(280px, 28vw, 420px)
+    minmax(560px, 1fr)
+    clamp(360px, 32vw, 520px);
+  column-gap: 40px;            /* Abstand zwischen den Spalten */
+  min-height:100vh;
+  position:relative;
+  z-index:2;
+}
 
+    }
     .profile-section,.blocks-section,.vision-section{
       background: rgba(0,0,0,0.16);
     }
-
+.vision-section{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:80px 50px;
+  /* Lesbare Zeilenlänge & Abstand zum Rand */
+  max-width: 720px;
+  margin-right: max(50px, env(safe-area-inset-right) + 20px);
+  min-width: 0; /* verhindert, dass Grid-Overflow den Text schiebt */
+}
     /* Linke Spalte */
     .profile-section{
       display:flex; flex-direction:column; justify-content:space-between;
