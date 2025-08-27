@@ -21,14 +21,10 @@
     }
 
     /* === Satelliten-Hintergrund === */
-   #map{
-  position:fixed; inset:0; z-index:0;
-  /* für Nachtbild: keine starke Filter verfälschen */
-  filter: brightness(.95) contrast(1.08);
-}
-
-}
-
+    #map{
+      position:fixed; inset:0; z-index:0;
+      /* für Nachtbild: keine starke Filter verfälschen */
+      filter: brightness(.95) contrast(1.08);
     }
 
     .map-overlay{
@@ -84,13 +80,20 @@
       display:flex;flex-direction:column;justify-content:center;align-items:center;
       padding:80px 30px;gap:2rem; border-right:1px solid rgba(255,255,255,.05)
     }
-    .block{width:100%;max-width:400px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer}
+    .block{
+      width:100%;max-width:400px;
+      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);
+      border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer
+    }
     .block::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
     .block:hover::before{left:100%}
     .block:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);box-shadow:0 25px 50px rgba(0,0,0,.6)}
     .block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
     .block-logo{display:flex;align-items:center;gap:.8rem}
-    .block-icon{width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)}
+    .block-icon{
+      width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
+      border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)
+    }
     .block-name{font-size:1.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
     .block-arrow{width:20px;height:20px;border:2px solid rgba(255,255,255,.4);border-left:none;border-bottom:none;transform:rotate(45deg);transition:.3s}
     .block:hover .block-arrow{border-color:rgba(255,255,255,.8);transform:rotate(45deg) translate(4px,-4px)}
@@ -113,6 +116,17 @@
       .profile-section{min-height:100vh}
       .blocks-section{gap:1.5rem}
       .block{max-width:none;padding:30px}
+    }
+
+    /* ===== OVERRIDES: Mittlere Karten bis zu den Linien (volle Spaltenbreite) ===== */
+    .blocks-section{
+      align-items:stretch;              /* nicht zentrieren, sondern ganze Breite nutzen */
+      padding-left:28px;
+      padding-right:28px;               /* kleiner Innenabstand zu den Linien */
+    }
+    .blocks-section .block{
+      max-width:none;                   /* 400px-Limit aufheben */
+      width:100%;                       /* Card füllt die Spaltenbreite */
     }
   </style>
 </head>
@@ -369,3 +383,5 @@
     })();
   });
 </script>
+</body>
+</html>
