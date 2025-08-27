@@ -20,17 +20,14 @@
       min-height:100vh;position:relative;
     }
 
-    /* === Satelliten-Hintergrund === */
+    /* === Map Hintergrund === */
     #map{
       position:fixed; inset:0; z-index:0;
       filter: brightness(.95) contrast(1.08);
     }
-
     .map-overlay{
       position:fixed; inset:0; z-index:1; pointer-events:none;
-      background:
-        radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.02), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10));
+      background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10));
     }
 
     /* ===== Layout ===== */
@@ -43,13 +40,14 @@
       background: rgba(0,0,0,0.16);
     }
 
+    /* Linke Spalte */
     .profile-section{
       display:flex; flex-direction:column; justify-content:space-between;
       padding:80px 50px; border-right:1px solid rgba(255,255,255,.08);
     }
     .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center}
     .profile-name{
-      font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:1rem;
+      font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;text-transform:uppercase;margin-bottom:1rem;
       background:linear-gradient(135deg,#fff 0%,#e0e0e0 50%,#fff 100%);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       text-shadow:0 0 20px rgba(255,255,255,.18)
@@ -72,17 +70,16 @@
     .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
     .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
 
-    /* === Mittelspalte === */
+    /* Mittelspalte */
     .blocks-section{
       display:flex;
       flex-direction:column;
-      justify-content:space-between;      /* verteilt Karten gleichmäßig */
+      justify-content:space-between;
       align-items:stretch;
       padding:80px 40px;
       border-right:1px solid rgba(255,255,255,.05);
       min-height:100vh;
     }
-
     .blocks-grid{
       display:flex;
       flex-direction:column;
@@ -90,7 +87,6 @@
       gap:24px;
       flex:1;
     }
-
     .card{
       display:block;
       text-decoration:none;
@@ -123,13 +119,9 @@
     .card-desc{ font-size:.95rem; line-height:1.55; opacity:.88; margin-bottom:14px; }
     .card-tags{ display:flex; gap:6px; flex-wrap:wrap; }
     .card-tag{ padding:.28rem .65rem; border-radius:12px; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.15);}
-    .card-badge{
-      position:absolute; top:12px; right:12px;
-      font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
-      padding:.2rem .5rem; border-radius:999px;
-      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); opacity:.9;
-    }
+    .card-badge{ position:absolute; top:12px; right:12px; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; padding:.2rem .5rem; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); opacity:.9;}
 
+    /* Rechte Spalte */
     .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
     .vision-title{font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
@@ -147,3 +139,69 @@
   </style>
 </head>
 <body>
+
+  <!-- Map Hintergrund -->
+  <div id="map"></div>
+  <div class="map-overlay"></div>
+
+  <div class="main-container">
+    <!-- Linke Spalte -->
+    <div class="profile-section">
+      <div class="profile-main">
+        <div class="profile-name">EMIN<br/>TURUS</div>
+        <div class="profile-titles">
+          <div class="profile-title">VISIONARY</div>
+          <div class="profile-title">INNOVATOR</div>
+        </div>
+        <p class="profile-description">
+          Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
+        </p>
+      </div>
+      <div class="quote-section">
+        <div class="follow-title">Follow me</div>
+        <div class="social-icons social-icons--quote">
+          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener">X</a>
+          <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener">IG</a>
+        </div>
+        <div class="quote-text">"The best way to predict the future is to create it."</div>
+        <div class="quote-author">— Peter Drucker</div>
+      </div>
+    </div>
+
+    <!-- Mitte -->
+    <div class="blocks-section">
+      <div class="blocks-grid">
+        <a class="card"><span class="card-badge">Live</span><div class="card-header"><div class="card-left"><div class="card-icon">🤖</div><div class="card-title">AIGEN AI</div></div><div class="card-arrow"></div></div><p class="card-desc">Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.</p><div class="card-tags"><span class="card-tag">AI/ML</span><span class="card-tag">Deep Learning</span><span class="card-tag">Innovation</span></div></a>
+        <a class="card"><span class="card-badge">Fund</span><div class="card-header"><div class="card-left"><div class="card-icon">💰</div><div class="card-title">EMIN CAPITALS</div></div><div class="card-arrow"></div></div><p class="card-desc">Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.</p><div class="card-tags"><span class="card-tag">VC</span><span class="card-tag">Startups</span><span class="card-tag">Growth</span></div></a>
+        <a class="card"><span class="card-badge">Advisory</span><div class="card-header"><div class="card-left"><div class="card-icon">💡</div><div class="card-title">INSIGHT</div></div><div class="card-arrow"></div></div><p class="card-desc">Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.</p><div class="card-tags"><span class="card-tag">Strategy</span><span class="card-tag">Consulting</span><span class="card-tag">Analysis</span></div></a>
+      </div>
+    </div>
+
+    <!-- Rechte Spalte -->
+    <div class="vision-section">
+      <h2 class="vision-title">Vision & Philosophy</h2>
+      <div class="vision-content">
+        <p>In an era defined by exponential technological advancement, I believe ...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Script -->
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/dark-v11',
+      center: [10, 52],
+      zoom: 4.4,
+      interactive: false,
+      attributionControl: false
+    });
+    map.on('load', () => {
+      for (const l of map.getStyle().layers) {
+        if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
+      }
+    });
+  </script>
+</body>
+</html>
