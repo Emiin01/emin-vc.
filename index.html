@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Emin Turus</title>
 
+  <!-- Mapbox GL -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
@@ -13,117 +14,116 @@
     html,body{height:100%}
     body{
       font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:#0d1117;color:#fff;line-height:1.5;
-      overflow-x:hidden; overflow-y:auto;
-      min-height:100vh; position:relative;
+      background:#0d1117;color:#fff;line-height:1.4;
+      overflow-x:hidden;    /* keine horizontale Scrollbalken */
+      overflow-y:auto;      /* vertikal scrollen erlaubt */
+      min-height:100vh;position:relative;
     }
 
-    /* === Map Hintergrund === */
-    #map{position:fixed; inset:0; z-index:0; filter:brightness(.95) contrast(1.08)}
-    .map-overlay{position:fixed; inset:0; z-index:1; pointer-events:none;
-      background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10));}
+    /* === Satelliten-Hintergrund === */
+   #map{
+  position:fixed; inset:0; z-index:0;
+  /* für Nachtbild: keine starke Filter verfälschen */
+  filter: brightness(.95) contrast(1.08);
+}
 
-    /* ===== 3-Spalten-Layout ===== */
+}
+
+    }
+
+    .map-overlay{
+      position:fixed; inset:0; z-index:1; pointer-events:none;
+      background:
+        radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.02), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10));
+    }
+
+    /* ===== Layout ===== */
     .main-container{
-      display:grid;
-      grid-template-columns:
-        clamp(280px, 28vw, 420px)      /* links  */
-        minmax(620px, 1fr)             /* mitte  */
-        clamp(360px, 32vw, 520px);     /* rechts */
-      column-gap:40px;
-      min-height:100vh;
-      position:relative; z-index:2;
+      display:grid; grid-template-columns:1fr 1fr 1fr;
+      min-height:100vh; position:relative; z-index:2;
     }
 
-    .profile-section,.blocks-section,.vision-section{ background:rgba(0,0,0,0.16) }
+    .profile-section,.blocks-section,.vision-section{
+      background: rgba(0,0,0,0.16); backdrop-filter:none;
+    }
+    .profile-section{
+      display:flex; flex-direction:column; justify-content:space-between;
+      padding:80px 50px; border-right:1px solid rgba(255,255,255,.08);
+    }
 
-    /* Linke Spalte */
-    .profile-section{display:flex; flex-direction:column; justify-content:space-between;
-      padding:80px 50px; border-right:1px solid rgba(255,255,255,.08)}
-    .profile-main{flex:1; display:flex; flex-direction:column; justify-content:center}
+    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center}
     .profile-name{
-      font-size:clamp(2.5rem,4vw,3.5rem); font-weight:800; text-transform:uppercase; margin-bottom:1rem;
+      font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:1rem;
       background:linear-gradient(135deg,#fff 0%,#e0e0e0 50%,#fff 100%);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-      text-shadow:0 0 20px rgba(255,255,255,.18);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      text-shadow:0 0 20px rgba(255,255,255,.18)
     }
-    .profile-titles{display:flex; flex-direction:column; gap:.5rem; margin-bottom:2rem}
-    .profile-title{font-size:1rem; font-weight:500; text-transform:uppercase; letter-spacing:.3em; opacity:.85}
-    .profile-description{font-size:clamp(1rem,1.8vw,1.1rem); line-height:1.6; opacity:.9; max-width:350px}
+    .profile-titles{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem}
+    .profile-title{font-size:1rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;opacity:.85}
+    .profile-description{font-size:clamp(1rem,1.8vw,1.1rem);line-height:1.6;opacity:.9;max-width:350px}
 
-    .quote-section{border-top:1px solid rgba(255,255,255,.1); padding-top:2rem}
-    .follow-title{font-size:.9rem; letter-spacing:.12em; text-transform:uppercase; opacity:.8; margin-bottom:.6rem}
-    .social-icons{display:flex; gap:1rem}
-    .social-icons--quote{gap:.6rem; margin-bottom:1.2rem}
+    .quote-section{border-top:1px solid rgba(255,255,255,.1);padding-top:2rem}
+    .follow-title{
+      font-size:.9rem; letter-spacing:.12em; text-transform:uppercase;
+      opacity:.8; margin-bottom:.6rem;
+    }
+    .social-icons{display:flex;gap:1rem}
+    .social-icons--quote{gap:.6rem;margin-bottom:1.2rem}
     .social-icon{
-      width:40px; height:40px; background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.18); border-radius:10px;
-      display:flex; align-items:center; justify-content:center;
-      color:#fff; text-decoration:none; transition:.3s; font-size:1.1rem;
+      width:40px;height:40px;background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.18);border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;text-decoration:none;transition:.3s;font-size:1.2rem
     }
-    .social-icon:hover{background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.45); transform:translateY(-3px)}
-    .quote-text{font-size:clamp(1rem,1.8vw,1.2rem); font-style:italic; margin-bottom:1rem}
-    .quote-author{font-size:.9rem; opacity:.7; text-transform:uppercase; letter-spacing:.1em}
+    .social-icon:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45);transform:translateY(-3px)}
+    .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
+    .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
 
-    /* Mittelspalte (breiter + gleichmäßig verteilt) */
     .blocks-section{
-      display:flex; flex-direction:column; justify-content:space-between; align-items:stretch;
-      padding:80px 40px; border-right:1px solid rgba(255,255,255,.05); min-height:100vh;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      padding:80px 30px;gap:2rem; border-right:1px solid rgba(255,255,255,.05)
     }
-    .blocks-grid{display:flex; flex-direction:column; justify-content:space-between; gap:24px; flex:1}
+    .block{width:100%;max-width:400px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer}
+    .block::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
+    .block:hover::before{left:100%}
+    .block:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);box-shadow:0 25px 50px rgba(0,0,0,.6)}
+    .block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+    .block-logo{display:flex;align-items:center;gap:.8rem}
+    .block-icon{width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)}
+    .block-name{font-size:1.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+    .block-arrow{width:20px;height:20px;border:2px solid rgba(255,255,255,.4);border-left:none;border-bottom:none;transform:rotate(45deg);transition:.3s}
+    .block:hover .block-arrow{border-color:rgba(255,255,255,.8);transform:rotate(45deg) translate(4px,-4px)}
+    .block-description{font-size:.95rem;line-height:1.5;opacity:.85;margin-bottom:1.2rem}
+    .block-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+    .block-tag{padding:.25rem .7rem;background:rgba(255,255,255,.1);border-radius:12px;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;border:1px solid rgba(255,255,255,.15)}
 
-    .card{
-      display:block; text-decoration:none; color:inherit;
-      background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12);
-      border-radius:18px; padding:24px; position:relative; overflow:hidden;
-      transition:transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
-      min-height:230px;
-    }
-    .card:hover{transform:translateY(-6px); border-color:rgba(255,255,255,0.35);
-      background:rgba(255,255,255,0.07); box-shadow:0 18px 50px rgba(0,0,0,.55)}
-    .card-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px}
-    .card-left{display:flex; align-items:center; gap:12px}
-    .card-icon{
-      width:44px; height:44px; display:flex; align-items:center; justify-content:center;
-      border-radius:12px; border:1px solid rgba(255,255,255,0.18);
-      background:linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
-    }
-    .card-icon--img img{width:26px; height:26px; display:block; filter:saturate(0) brightness(1.25) contrast(.95)}
-    .card-title{font-size:1.1rem; font-weight:750; letter-spacing:.05em; text-transform:uppercase}
-    .card-arrow{width:20px; height:20px; border:2px solid rgba(255,255,255,.45); border-left:none; border-bottom:none; transform:rotate(45deg)}
-    .card-desc{font-size:.95rem; line-height:1.55; opacity:.88; margin-bottom:14px}
-    .card-tags{display:flex; gap:6px; flex-wrap:wrap}
-    .card-tag{padding:.28rem .65rem; border-radius:12px; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
-      background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.15)}
-    .card-badge{position:absolute; top:12px; right:12px; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
-      padding:.2rem .5rem; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); opacity:.9}
-
-    /* Rechte Spalte */
-    .vision-section{display:flex; flex-direction:column; justify-content:center; padding:80px 50px}
-    .vision-title{font-size:clamp(2rem,3vw,2.5rem); font-weight:600; margin-bottom:2rem;
-      background:linear-gradient(135deg,#fff 0%,#ddd 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text}
-    .vision-content{font-size:clamp(1rem,1.5vw,1.1rem); line-height:1.7; opacity:.95}
-    .vision-content p{margin-bottom:1.5rem} .vision-content p:last-child{margin-bottom:0}
+    .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
+    .vision-title{font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
+    .vision-content p{margin-bottom:1.5rem}.vision-content p:last-child{margin-bottom:0}
 
     @media (max-width:1200px){
-      .main-container{grid-template-columns:1fr 1fr; grid-template-rows:auto auto}
+      .main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
       .vision-section{grid-column:1 / -1}
     }
     @media (max-width:768px){
       .main-container{grid-template-columns:1fr}
       .profile-section,.blocks-section,.vision-section{padding:60px 30px}
-      .blocks-grid{gap:18px}
+      .profile-section{min-height:100vh}
+      .blocks-section{gap:1.5rem}
+      .block{max-width:none;padding:30px}
     }
   </style>
 </head>
 <body>
 
-  <!-- Map -->
+  <!-- Fixed satellite background -->
   <div id="map"></div>
   <div class="map-overlay"></div>
 
+  <!-- Dein Content -->
   <div class="main-container">
-    <!-- Links -->
     <div class="profile-section">
       <div class="profile-main">
         <div class="profile-name">EMIN<br/>TURUS</div>
@@ -134,159 +134,238 @@
         <p class="profile-description">
           Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
         </p>
+        <!-- alter Emoji-Block entfernt -->
       </div>
+
+      <!-- Icons über dem Zitat -->
       <div class="quote-section">
         <div class="follow-title">Follow me</div>
         <div class="social-icons social-icons--quote">
-          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X">X</a>
-          <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <!-- X -->
+          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+              <path d="M17.53 3h3.07l-7.4 8.48L21.5 21h-6.05l-4.75-6.38L5 21H1.93l7.86-9.01L2.8 3h6.2l4.3 5.78L17.53 3z"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+          </a>
         </div>
+
         <div class="quote-text">"The best way to predict the future is to create it."</div>
         <div class="quote-author">— Peter Drucker</div>
       </div>
     </div>
 
-    <!-- Mitte -->
     <div class="blocks-section">
-      <div class="blocks-grid">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-logo">
+            <div class="block-icon">🤖</div>
+            <div class="block-name">AIGEN AI</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">AI/ML</span><span class="block-tag">Deep Learning</span><span class="block-tag">Innovation</span>
+        </div>
+      </div>
 
-        <!-- Card 1: AIGEN AI (with your logo) -->
-        <a class="card" href="#" aria-label="AIGEN AI">
-          <span class="card-badge">Live</span>
-          <div class="card-header">
-            <div class="card-left">
-              <div class="card-icon card-icon--img">
-                <img alt="Aigen logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIkAAAB2CAIAAABzgidSAAAQAElEQVR4AVS8...SNIPPED..."/>
-              </div>
-              <div class="card-title">AIGEN AI</div>
-            </div>
-            <div class="card-arrow"></div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-logo">
+            <div class="block-icon">💰</div>
+            <div class="block-name">EMIN CAPITALS</div>
           </div>
-          <p class="card-desc">
-            Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.
-          </p>
-          <div class="card-tags">
-            <span class="card-tag">AI/ML</span><span class="card-tag">DEEP LEARNING</span><span class="card-tag">INNOVATION</span>
-          </div>
-        </a>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">VC Fund</span><span class="block-tag">Startups</span><span class="block-tag">Growth</span>
+        </div>
+      </div>
 
-        <!-- Card 2 -->
-        <a class="card" href="#" aria-label="EMIN CAPITALS">
-          <span class="card-badge">Fund</span>
-          <div class="card-header">
-            <div class="card-left">
-              <div class="card-icon">💰</div>
-              <div class="card-title">EMIN CAPITALS</div>
-            </div>
-            <div class="card-arrow"></div>
+      <div class="block">
+        <div class="block-header">
+          <div class="block-logo">
+            <div class="block-icon">💡</div>
+            <div class="block-name">INSIGHT</div>
           </div>
-          <p class="card-desc">
-            Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.
-          </p>
-          <div class="card-tags">
-            <span class="card-tag">VC</span><span class="card-tag">STARTUPS</span><span class="card-tag">GROWTH</span>
-          </div>
-        </a>
-
-        <!-- Card 3 -->
-        <a class="card" href="#" aria-label="INSIGHT">
-          <span class="card-badge">Advisory</span>
-          <div class="card-header">
-            <div class="card-left">
-              <div class="card-icon">💡</div>
-              <div class="card-title">INSIGHT</div>
-            </div>
-            <div class="card-arrow"></div>
-          </div>
-          <p class="card-desc">
-            Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.
-          </p>
-          <div class="card-tags">
-            <span class="card-tag">STRATEGY</span><span class="card-tag">CONSULTING</span><span class="card-tag">ANALYSIS</span>
-          </div>
-        </a>
-
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">Strategy</span><span class="block-tag">Consulting</span><span class="block-tag">Analysis</span>
+        </div>
       </div>
     </div>
 
-    <!-- Rechts -->
     <div class="vision-section">
       <h2 class="vision-title">Vision & Philosophy</h2>
       <div class="vision-content">
-        <p>In an era defined by exponential technological advancement, I believe that the intersection of artificial intelligence, strategic investment, and visionary leadership holds the key to solving humanity’s greatest challenges.</p>
-        <p>My journey as an entrepreneur and investor has taught me that true innovation doesn’t just happen—it’s crafted through deliberate action, strategic thinking, and an unwavering commitment to creating value that transcends traditional boundaries.</p>
-        <p>Through AIGEN AI, I’m developing cutting-edge artificial intelligence solutions that don’t just automate processes, but fundamentally reimagine how we interact with technology. Through Emin Capitals, I’m backing the next generation of entrepreneurs who share my vision of a more connected, efficient, and equitable world.</p>
-        <p>The future isn’t something that happens to us—it’s something we actively create through our choices, investments, and innovations today. Every line of code, every strategic partnership, and every bold decision is a brushstroke in painting tomorrow’s reality.</p>
+        <p>In an era defined by exponential technological advancement, I believe that the intersection of artificial intelligence, strategic investment, and visionary leadership holds the key to solving humanity's greatest challenges.</p>
+        <p>My journey as an entrepreneur and investor has taught me that true innovation doesn't just happen—it's crafted through deliberate action, strategic thinking, and an unwavering commitment to creating value that transcends traditional boundaries.</p>
+        <p>Through AIGEN AI, I'm developing cutting-edge artificial intelligence solutions that don't just automate processes, but fundamentally reimagine how we interact with technology. Through Emin Capitals, I'm backing the next generation of entrepreneurs who share my vision of a more connected, efficient, and equitable world.</p>
+        <p>The future isn't something that happens to us—it's something we actively create through our choices, investments, and innovations today. Every line of code, every strategic partnership, and every bold decision is a brushstroke in painting tomorrow's reality.</p>
         <p>My mission is simple: to identify, nurture, and scale technologies that will define the next decade while building sustainable businesses that create lasting value for all stakeholders.</p>
       </div>
     </div>
   </div>
 
   <!-- Map init -->
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
 
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/dark-v11',
-      center: [10, 52],
-      zoom: 4.4,
-      bearing: 0,
-      pitch: 0,
-      interactive: false,
-      attributionControl: false
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [10, 52],
+    zoom: 4.4,
+    bearing: 0,
+    pitch: 0,
+    interactive: false,
+    attributionControl: false
+  });
+
+  map.on('load', () => {
+    const leftPad = window.innerWidth >= 1024 ? 420 : 16;
+
+    map.fitBounds([[-7, 44], [25, 58]], {
+      padding: { top: 20, right: 20, bottom: 20, left: leftPad },
+      duration: 0
     });
 
-    map.on('load', () => {
-      // keep default background; hide only labels
-      for (const l of map.getStyle().layers) {
-        if (l.type === 'symbol') map.setLayoutProperty(l.id, 'visibility', 'none');
+    // alles außer Hintergrund verstecken
+    for (const l of map.getStyle().layers) {
+      if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
+    }
+
+    // NASA Black Marble (Nachtlichter)
+    map.addSource('night', {
+      type: 'raster',
+      tiles: [
+        'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'
+      ],
+      tileSize: 256,
+      attribution: 'NASA Black Marble'
+    });
+    map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
+
+    // Länder-Umrisse
+    map.addLayer({
+      id: 'country-outline-land',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
+      paint: {
+        'line-color': 'rgba(255,255,255,0.70)',
+        'line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],
+        'line-blur': 0.2
       }
-
-      // NASA Black Marble (night lights)
-      map.addSource('night', {
-        type: 'raster',
-        tiles: [
-          'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'
-        ],
-        tileSize: 256,
-        attribution: 'NASA Black Marble'
-      });
-      map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 }}, map.getStyle().layers[0]?.id);
-
-      // Country outlines
-      map.addLayer({
-        id: 'country-outline-land',
-        type: 'line',
-        source: 'composite',
-        'source-layer': 'admin',
-        filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
-        paint: {
-          'line-color': 'rgba(255,255,255,0.70)',
-          'line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],
-          'line-blur': 0.2
-        }
-      });
-      map.addLayer({
-        id: 'country-outline-coast',
-        type: 'line',
-        source: 'composite',
-        'source-layer': 'admin',
-        filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
-        paint: {
-          'line-color': 'rgba(255,255,255,0.55)',
-          'line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],
-          'line-blur': 0.2
-        }
-      });
-
-      // Fit view so the middle column doesn't overlap
-      const leftPad = window.innerWidth >= 1024 ? 440 : 16;
-      map.fitBounds([[-7, 44], [25, 58]], {
-        padding: { top: 20, right: 20, bottom: 20, left: leftPad },
-        duration: 0
-      });
     });
-  </script>
-</body>
-</html>
+    map.addLayer({
+      id: 'country-outline-coast',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
+      paint: {
+        'line-color': 'rgba(255,255,255,0.55)',
+        'line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],
+        'line-blur': 0.2
+      }
+    });
+
+    // === Mönchengladbach ===
+    const city = [6.4428, 51.1805];
+    map.addSource('mg', {
+      type: 'geojson',
+      data: { type:'FeatureCollection', features:[
+        { type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }
+      ]}
+    });
+
+    // Glow
+    map.addLayer({
+      id: 'mg-glow',
+      type: 'circle',
+      source: 'mg',
+      paint: {
+        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],
+        'circle-color': 'rgba(255,190,120,0.85)',
+        'circle-blur': 0.9,
+        'circle-opacity': 0.38
+      }
+    });
+
+    // pulsierender Punkt (kleiner & sanfter)
+    map.addLayer({
+      id: 'mg-pulse',
+      type: 'circle',
+      source: 'mg',
+      paint: {
+        'circle-radius': 7,
+        'circle-color': 'rgba(255,208,150,1)',
+        'circle-opacity': 0.55,
+        'circle-stroke-color': 'rgba(255,230,190,0.9)',
+        'circle-stroke-width': 1.1
+      }
+    });
+
+    // kleiner Kernpunkt
+    map.addLayer({
+      id: 'mg-core',
+      type: 'circle',
+      source: 'mg',
+      paint: {
+        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],
+        'circle-color': '#ffd8a0',
+        'circle-opacity': 0.95
+      }
+    });
+
+    // Label kleiner und UNTER dem Punkt
+    map.addLayer({
+      id: 'mg-label',
+      type: 'symbol',
+      source: 'mg',
+      layout: {
+        'text-field': ['get','name'],
+        'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
+        'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],
+        'text-letter-spacing': 0.25,
+        'text-transform': 'uppercase',
+        'text-offset': [0, 1.6],   // ↓ unter den Punkt
+        'text-anchor': 'top',      // am oberen Rand des Textes ansetzen
+        'text-allow-overlap': true
+      },
+      paint: {
+        'text-color': 'rgba(255,210,150,0.98)',
+        'text-halo-color': 'rgba(0,0,0,0.9)',
+        'text-halo-width': 2.0
+      }
+    });
+
+    // Animation fürs Pulsieren
+    const start = Date.now();
+    (function animate(){
+      const t = (Date.now() - start) / 1000;
+      const radius = 6 + Math.sin(t * 2.2) * 3;                 // kleiner
+      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;    // sanfter
+      map.setPaintProperty('mg-pulse','circle-radius', radius);
+      map.setPaintProperty('mg-pulse','circle-opacity', opacity);
+      requestAnimationFrame(animate);
+    })();
+  });
+</script>
