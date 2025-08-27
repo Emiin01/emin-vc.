@@ -32,32 +32,40 @@
 
     /* ===== Layout ===== */
     .main-container{
-  display:grid;
-  /* Links fix, Mitte flexibel, Rechts fix – so gibt’s keine Überlappung */
-  grid-template-columns:
-    clamp(280px, 28vw, 420px)
-    minmax(560px, 1fr)
-    clamp(360px, 32vw, 520px);
-  column-gap: 40px;            /* Abstand zwischen den Spalten */
-  min-height:100vh;
-  position:relative;
-  z-index:2;
-}
-
+      display:grid;
+      /* Links fix, Mitte flexibel, Rechts fix – keine Überlappung */
+      grid-template-columns:
+        clamp(280px, 28vw, 420px)
+        minmax(560px, 1fr)
+        clamp(360px, 32vw, 520px);
+      column-gap: 40px;
+      min-height:100vh;
+      position:relative;
+      z-index:2;
     }
+
     .profile-section,.blocks-section,.vision-section{
       background: rgba(0,0,0,0.16);
     }
-.vision-section{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:80px 50px;
-  /* Lesbare Zeilenlänge & Abstand zum Rand */
-  max-width: 720px;
-  margin-right: max(50px, env(safe-area-inset-right) + 20px);
-  min-width: 0; /* verhindert, dass Grid-Overflow den Text schiebt */
-}
+
+    /* Rechte Spalte (einmalig definieren) */
+    .vision-section{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:80px 50px;
+      max-width:720px;
+      margin-right:max(50px, env(safe-area-inset-right) + 20px);
+      min-width:0; /* verhindert Grid-Overflow */
+    }
+    .vision-title{
+      font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;
+      background:linear-gradient(135deg,#fff 0%,#ddd 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+    }
+    .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
+    .vision-content p{margin-bottom:1.5rem}.vision-content p:last-child{margin-bottom:0}
+
     /* Linke Spalte */
     .profile-section{
       display:flex; flex-direction:column; justify-content:space-between;
@@ -94,7 +102,7 @@
       flex-direction:column;
       justify-content:space-between;
       align-items:stretch;
-      padding:80px 40px;
+      padding:80px 24px;                 /* ← etwas breiter gemacht (vorher 40px) */
       border-right:1px solid rgba(255,255,255,.05);
       min-height:100vh;
     }
@@ -104,6 +112,7 @@
       justify-content:space-between;
       gap:24px;
       flex:1;
+      max-width:none;                    /* volle Breite der Spalte */
     }
     .card{
       display:block;
@@ -117,7 +126,11 @@
       overflow: hidden;
       transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
       min-height:230px;
+      width:100%;                        /* volle Breite */
+      max-width:none;
     }
+    .card, .card:visited, .card:hover, .card:active { color: inherit; } /* nie lila/blau */
+
     .card:hover{
       transform: translateY(-6px);
       border-color: rgba(255,255,255,0.35);
@@ -132,18 +145,18 @@
       background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
       font-size:22px;
     }
+    /* Bild-Icon für AIGEN */
+    .card-icon--img{ padding:0; }
+    .card-icon--img img{
+      width:26px; height:26px; display:block; object-fit:contain;
+    }
+
     .card-title{ font-size:1.1rem; font-weight:750; letter-spacing:.05em; text-transform:uppercase; }
     .card-arrow{ width:20px; height:20px; border:2px solid rgba(255,255,255,.45); border-left:none; border-bottom:none; transform:rotate(45deg);}
     .card-desc{ font-size:.95rem; line-height:1.55; opacity:.88; margin-bottom:14px; }
     .card-tags{ display:flex; gap:6px; flex-wrap:wrap; }
     .card-tag{ padding:.28rem .65rem; border-radius:12px; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.15);}
     .card-badge{ position:absolute; top:12px; right:12px; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; padding:.2rem .5rem; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); opacity:.9;}
-
-    /* Rechte Spalte */
-    .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
-    .vision-title{font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
-    .vision-content p{margin-bottom:1.5rem}.vision-content p:last-child{margin-bottom:0}
 
     @media (max-width:1200px){
       .main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
@@ -189,9 +202,69 @@
     <!-- Mitte -->
     <div class="blocks-section">
       <div class="blocks-grid">
-        <a class="card"><span class="card-badge">Live</span><div class="card-header"><div class="card-left"><div class="card-icon">🤖</div><div class="card-title">AIGEN AI</div></div><div class="card-arrow"></div></div><p class="card-desc">Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.</p><div class="card-tags"><span class="card-tag">AI/ML</span><span class="card-tag">Deep Learning</span><span class="card-tag">Innovation</span></div></a>
-        <a class="card"><span class="card-badge">Fund</span><div class="card-header"><div class="card-left"><div class="card-icon">💰</div><div class="card-title">EMIN CAPITALS</div></div><div class="card-arrow"></div></div><p class="card-desc">Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.</p><div class="card-tags"><span class="card-tag">VC</span><span class="card-tag">Startups</span><span class="card-tag">Growth</span></div></a>
-        <a class="card"><span class="card-badge">Advisory</span><div class="card-header"><div class="card-left"><div class="card-icon">💡</div><div class="card-title">INSIGHT</div></div><div class="card-arrow"></div></div><p class="card-desc">Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.</p><div class="card-tags"><span class="card-tag">Strategy</span><span class="card-tag">Consulting</span><span class="card-tag">Analysis</span></div></a>
+
+        <!-- Card 1: AIGEN AI (Logo statt Emoji) -->
+        <a class="card" href="#">
+          <span class="card-badge">Live</span>
+          <div class="card-header">
+            <div class="card-left">
+              <div class="card-icon card-icon--img">
+                <img src="./aigen-logo.png" alt="Aigen AI">
+              </div>
+              <div class="card-title">AIGEN AI</div>
+            </div>
+            <div class="card-arrow"></div>
+          </div>
+          <p class="card-desc">
+            Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.
+          </p>
+          <div class="card-tags">
+            <span class="card-tag">AI/ML</span>
+            <span class="card-tag">Deep Learning</span>
+            <span class="card-tag">Innovation</span>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a class="card" href="#">
+          <span class="card-badge">Fund</span>
+          <div class="card-header">
+            <div class="card-left">
+              <div class="card-icon">💰</div>
+              <div class="card-title">EMIN CAPITALS</div>
+            </div>
+            <div class="card-arrow"></div>
+          </div>
+          <p class="card-desc">
+            Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.
+          </p>
+          <div class="card-tags">
+            <span class="card-tag">VC</span>
+            <span class="card-tag">Startups</span>
+            <span class="card-tag">Growth</span>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a class="card" href="#">
+          <span class="card-badge">Advisory</span>
+          <div class="card-header">
+            <div class="card-left">
+              <div class="card-icon">💡</div>
+              <div class="card-title">INSIGHT</div>
+            </div>
+            <div class="card-arrow"></div>
+          </div>
+          <p class="card-desc">
+            Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.
+          </p>
+          <div class="card-tags">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag">Consulting</span>
+            <span class="card-tag">Analysis</span>
+          </div>
+        </a>
+
       </div>
     </div>
 
