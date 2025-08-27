@@ -45,17 +45,15 @@
     }
     /* Mittelspalte: oben / Mitte / unten gleichmäßig verteilt,
    mit sauberem Rand oben/unten und links/rechts */
-.blocks-section{
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;                 /* 1. Karte oben, 3. Karte unten */
-  align-items:stretch;                           /* Karten volle Spaltenbreite */
-  min-height:100vh;                              /* volle Höhe der Spalte */
-  padding: clamp(56px, 8vh, 96px)                /* oben */
-           clamp(28px, 3vw, 48px)                /* rechts/links */
-           max(56px, env(safe-area-inset-bottom) + 24px); /* unten inkl. iPhone-Safe-Area */
-  gap: clamp(20px, 2vh, 28px);                   /* Abstand zwischen Karten */
-  border-right:1px solid rgba(255,255,255,.05);
+/* Karten in der Mittelspalte: volle Breite der Spalte, keine extra Max-Width */
+.blocks-section .block{
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+
+/* (optional) gleiche Grundhöhe, damit es sehr symmetrisch aussieht */
+.blocks-section .block{ min-height: 230px; } /* passe 230–260px nach Geschmack an */
 }
 
     }
@@ -110,10 +108,12 @@
       .main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
       .vision-section{grid-column:1 / -1}
     }
-    @media (max-width:768px){
-      .main-container{grid-template-columns:1fr}
-      .profile-section,.blocks-section,.vision-section{padding:60px 30px}
-      .profile-section{min-height:100vh}
+    @media (max-width: 768px){
+  .blocks-section{
+    padding: 48px 20px max(48px, env(safe-area-inset-bottom) + 20px);
+    gap: 18px;
+  }
+}
     }
 
     /* ---- Middle cards (klickbar, responsive) ---- */
