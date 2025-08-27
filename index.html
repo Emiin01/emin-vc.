@@ -76,14 +76,18 @@
     .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
     .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
 
-    .blocks-section{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;         /* Cards über die ganze Spaltenbreite */
-  padding: 80px 30px;
-  gap: 22px;                    /* Sicherheitsabstand zu anderen Elementen */
-  border-right: 1px solid rgba(255,255,255,.05);
+    /* Mittelspalte: nimmt die ganze Höhe ein und verteilt 3 Karten gleichmäßig */
+.blocks-section{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;      /* 1. Karte oben, 2. mittig, 3. unten */
+  align-items:stretch;                /* Karten volle Spaltenbreite */
+  gap:24px;                           /* Abstand zwischen den Karten */
+  padding:80px 40px;
+  border-right:1px solid rgba(255,255,255,.05);
+  min-height:100vh;                   /* damit die Spalte die volle Höhe nutzt */
+}
+
 }
     .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
     .vision-title{font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
