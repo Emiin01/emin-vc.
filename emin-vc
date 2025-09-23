@@ -108,7 +108,7 @@
     .socials a:hover svg{opacity:1;transform:scale(1.15)}
 
     /* LEFT COLUMN höher positionieren (nur Desktop) */
-    .left{transform:translateY(-24px);}        /* ← hier Höhe nach Geschmack anpassen */
+    .left{transform:translateY(-44px);}        /* ← hier Höhe nach Geschmack anpassen */
     @media (max-width:1100px){
       .wrap{grid-template-columns:1fr;gap:20px}
       .stack{height:auto}
