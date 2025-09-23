@@ -36,6 +36,7 @@
       gap:32px;
       min-height:100svh;
       padding:var(--pad);
+      align-items:stretch;                  /* Spalten gleich hoch */
     }
     .col{display:flex;flex-direction:column;min-height:0}
 
@@ -51,7 +52,7 @@
     .quote .by{color:var(--muted);font-size:12px}
 
     .photo{
-      flex:1;                    /* nimmt den restlichen Platz – großes Bild unten */
+      flex:1;                    /* nimmt restlichen Platz – großes Bild unten */
       border:1px solid var(--line);
       border-radius:var(--radius);
       overflow:hidden;
@@ -60,15 +61,25 @@
     .photo img{width:100%;height:100%;object-fit:cover;display:block}
 
     /* MIDDLE COLUMN */
-    .stack{display:flex;flex-direction:column;gap:18px;height:100%}
+    /* alt: .stack war flex -> jetzt Grid, damit die Höhe perfekt aufgeht */
+    .stack{
+      display:grid;
+      grid-template-rows: 1fr 1fr;   /* zwei gleich hohe Reihen */
+      gap:18px;
+      height:100%;
+      min-height:0;
+    }
     .card{
       position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
       background:linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.02));
       transition:transform .2s ease, box-shadow .2s ease;
+      display:flex;flex-direction:column;min-height:0;
     }
     .card:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    .card.tall{flex:1}       /* große Karte */
-    .card.medium{flex:0 0 42%} /* mittlere Höhe */
+    /* überschreibt alte Flexhöhen – beide Karten füllen ihre Grid-Zeile */
+    .stack .card.tall,
+    .stack .card.medium{flex:unset;height:100%}
+
     .card .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.18;filter:grayscale(1) contrast(1.05)}
     .content{position:relative;padding:18px 20px}
     .kicker{font-size:12px;letter-spacing:.6px;color:#a9b3c7;margin-bottom:6px}
@@ -90,17 +101,18 @@
     .about h3{margin:0 0 8px 0}
     .about p{margin:0 0 10px;color:var(--muted);line-height:1.55}
 
-    /* Socials (unten links, wie in Skizze) */
+    /* Socials (unten links) */
     .socials{position:fixed;left:var(--pad);bottom:var(--pad);display:flex;gap:16px;align-items:center}
     .socials a{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center}
     .socials svg{width:22px;height:22px;fill:#fff;opacity:.9;transition:transform .2s ease}
     .socials a:hover svg{opacity:1;transform:scale(1.15)}
 
-    /* Responsive */
+    /* LEFT COLUMN höher positionieren (nur Desktop) */
+    .left{transform:translateY(-16px);}        /* ← hier Höhe nach Geschmack anpassen */
     @media (max-width:1100px){
       .wrap{grid-template-columns:1fr;gap:20px}
-      .card.tall,.card.medium{flex:unset}
       .stack{height:auto}
+      .left{transform:none;}
       .logo-top{justify-content:flex-start}
     }
   </style>
@@ -109,7 +121,7 @@
   <div class="wrap">
 
     <!-- LEFT COLUMN -->
-    <aside class="col">
+    <aside class="col left"> <!-- ← nur diese Klasse 'left' ergänzt -->
       <!-- Zitat-Box oben -->
       <div class="quote">
         <p>“The best way to predict the future is to create it.”</p>
@@ -125,18 +137,18 @@
     <!-- MIDDLE COLUMN -->
     <main class="col">
       <div class="stack">
-        <!-- Emin Capitals (groß) -->
+        <!-- Emin Capitals -->
         <article class="card tall">
           <div class="bg" style="background-image:url('card-emin.jpg')"></div>
           <div class="content">
             <div class="kicker">CAPITAL</div>
             <div class="title">Emin Capitals</div>
-            <div class="subtitle">Investment firm focused on AI‑native infrastructure and early‑stage innovation.</div>
+            <div class="subtitle">Investment firm focused on AI-native infrastructure and early-stage innovation.</div>
             <a class="ext" href="#">↗</a>
           </div>
         </article>
 
-        <!-- Insights (darunter) -->
+        <!-- Insights -->
         <article class="card medium">
           <div class="bg" style="background-image:url('card-insights.jpg')"></div>
           <div class="content">
@@ -151,12 +163,10 @@
 
     <!-- RIGHT COLUMN -->
     <aside class="col">
-      <!-- Logo oben rechts -->
       <div class="logo-top">
         <img src="logo.png" alt="Aigen Logo" onerror="this.style.display='none'">
       </div>
 
-      <!-- Aigen (Core Product) groß in der Mitte -->
       <article class="card tall">
         <div class="bg" style="background-image:url('card-aigen.jpg')"></div>
         <div class="content">
@@ -167,16 +177,15 @@
         </div>
       </article>
 
-      <!-- About unten -->
       <section class="about">
         <h3>About</h3>
         <p>Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</p>
-        <p>Focused on combining building and investing to create long‑term impact in AI and crypto.</p>
+        <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
       </section>
     </aside>
   </div>
 
-  <!-- Socials (unten links) -->
+  <!-- Socials -->
   <div class="socials">
     <a href="https://x.com/" target="_blank" aria-label="X">
       <svg viewBox="0 0 24 24"><path d="M18.244 2H21l-6.52 7.46L22.5 22h-6.93l-4.54-5.87L5.77 22H3l6.96-7.96L1.5 2h7.03l4.1 5.39L18.244 2Zm-1.214 18h1.88L7.06 4h-1.9l11.87 16Z"/></svg>
