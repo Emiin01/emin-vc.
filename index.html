@@ -28,8 +28,8 @@
     .profile-section{
       display:flex;flex-direction:column;justify-content:space-between;
       padding:80px 50px;border-right:1px solid rgba(255,255,255,.08);
-      align-items:center;  /* ZENTRIERT */
-      text-align:center;   /* TEXT ZENTRIERT */
+      align-items:center;
+      text-align:center;
     }
 
     .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
@@ -43,8 +43,22 @@
     .profile-title{font-size:1rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;opacity:.85}
     .profile-description{font-size:clamp(1rem,1.8vw,1.1rem);line-height:1.6;opacity:.9;max-width:350px;text-align:center}
 
-    /* Social Icons - ZENTRIERT unter dem Text */
-    .social-icons{display:flex;gap:1rem;margin-top:2rem;justify-content:center}
+    /* Bottom Section - Quote ÜBER Icons */
+    .bottom-section{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:1.5rem;
+      width:100%;
+    }
+
+    /* Quote Section */
+    .quote-section{text-align:center;width:100%}
+    .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
+    .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
+
+    /* Social Icons UNTER dem Quote */
+    .social-icons{display:flex;gap:1rem;justify-content:center}
     .social-icon{
       width:40px;height:40px;background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.18);border-radius:10px;
@@ -54,12 +68,7 @@
     .social-icon:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45);transform:translateY(-3px)}
     .social-icon svg{width:22px;height:22px}
 
-    /* Quote Section - ZENTRIERT ganz unten */
-    .quote-section{border-top:1px solid rgba(255,255,255,.1);padding-top:2rem;text-align:center;width:100%}
-    .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
-    .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
-
-    /* MIDDLE & RIGHT COLUMNS - unverändert */
+    /* MIDDLE & RIGHT COLUMNS */
     .blocks-section{display:flex;flex-direction:column;justify-content:center;align-items:stretch;padding:80px 28px;gap:2rem;border-right:1px solid rgba(255,255,255,.05)}
     .block{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer}
     .block::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
@@ -90,7 +99,7 @@
   <div class="map-overlay"></div>
 
   <div class="main-container">
-    <!-- LEFT COLUMN - ALLES ZENTRIERT -->
+    <!-- LEFT COLUMN -->
     <div class="profile-section">
       <div class="profile-main">
         <div class="profile-name">EMIN<br/>TURUS</div>
@@ -101,8 +110,17 @@
         <p class="profile-description">
           Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
         </p>
-        
-        <!-- Social Icons unter dem Text -->
+      </div>
+
+      <!-- Bottom Section: Quote ÜBER Icons -->
+      <div class="bottom-section">
+        <!-- Quote zuerst -->
+        <div class="quote-section">
+          <div class="quote-text">"The best way to predict the future is to create it."</div>
+          <div class="quote-author">— Peter Drucker</div>
+        </div>
+
+        <!-- Icons darunter -->
         <div class="social-icons">
           <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X">
             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -116,15 +134,9 @@
           </a>
         </div>
       </div>
-
-      <!-- Quote ganz unten -->
-      <div class="quote-section">
-        <div class="quote-text">"The best way to predict the future is to create it."</div>
-        <div class="quote-author">— Peter Drucker</div>
-      </div>
     </div>
 
-    <!-- MIDDLE COLUMN - unverändert -->
+    <!-- MIDDLE COLUMN -->
     <div class="blocks-section">
       <div class="block">
         <div class="block-header">
@@ -175,7 +187,7 @@
       </div>
     </div>
 
-    <!-- RIGHT COLUMN - unverändert -->
+    <!-- RIGHT COLUMN -->
     <div class="vision-section">
       <h2 class="vision-title">Vision & Philosophy</h2>
       <div class="vision-content">
