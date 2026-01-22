@@ -27,16 +27,14 @@
       position:fixed;
       inset:0;
       z-index:0;
-      filter:brightness(1.35) contrast(1.25) saturate(1.2);
+      filter:brightness(1.5) contrast(1.35) saturate(1.3);
     }
     .map-overlay{
       position:fixed;
       inset:0;
       z-index:1;
       pointer-events:none;
-      background:
-        radial-gradient(1200px 800px at 50% 50%, rgba(0,0,0,.15), transparent 75%),
-        linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.05));
+      background:transparent;
     }
 
     .main-container{
@@ -49,8 +47,8 @@
       margin:0 auto;
     }
     .profile-section,.blocks-section,.vision-section{
-      background:rgba(0,0,0,0.45);
-      backdrop-filter:blur(16px);
+      background:rgba(0,0,0,0.6);
+      backdrop-filter:blur(8px);
     }
     
     /* LEFT COLUMN */
@@ -59,7 +57,7 @@
       flex-direction:column;
       justify-content:space-between;
       padding:70px 55px 60px;
-      border-right:1px solid rgba(255,255,255,.06);
+      border-right:1px solid rgba(255,255,255,.08);
       align-items:center;
       text-align:center;
     }
@@ -117,16 +115,16 @@
       align-items:center;
       padding:70px 50px;
       gap:2.5rem;
-      border-right:1px solid rgba(255,255,255,.04);
+      border-right:1px solid rgba(255,255,255,.06);
     }
     .block{
       width:100%;
       max-width:680px;
       background:linear-gradient(135deg, 
-        rgba(255,255,255,.08) 0%, 
-        rgba(255,255,255,.03) 100%);
-      backdrop-filter:blur(24px);
-      border:1px solid rgba(255,255,255,.15);
+        rgba(0,0,0,.75) 0%, 
+        rgba(0,0,0,.65) 100%);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.18);
       border-radius:24px;
       padding:45px 48px;
       transition:all .4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -134,8 +132,8 @@
       overflow:hidden;
       cursor:pointer;
       box-shadow:
-        0 8px 32px rgba(0,0,0,.3),
-        inset 0 1px 0 rgba(255,255,255,.1);
+        0 10px 40px rgba(0,0,0,.5),
+        inset 0 1px 0 rgba(255,255,255,.12);
     }
     
     /* Subtle shimmer effect */
@@ -146,7 +144,7 @@
       left:-50%;
       width:200%;
       height:200%;
-      background:radial-gradient(circle, rgba(255,255,255,.1) 0%, transparent 70%);
+      background:radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
       opacity:0;
       transition:opacity .6s ease;
     }
@@ -162,7 +160,7 @@
       left:-100%;
       background:linear-gradient(90deg, 
         transparent, 
-        rgba(255,255,255,.06), 
+        rgba(255,255,255,.08), 
         transparent);
       transition:left .8s ease;
     }
@@ -172,14 +170,14 @@
     
     .block:hover{
       transform:translateY(-6px) scale(1.01);
-      border-color:rgba(255,255,255,.25);
+      border-color:rgba(255,255,255,.28);
       background:linear-gradient(135deg, 
-        rgba(255,255,255,.1) 0%, 
-        rgba(255,255,255,.05) 100%);
+        rgba(0,0,0,.7) 0%, 
+        rgba(0,0,0,.6) 100%);
       box-shadow:
-        0 20px 60px rgba(0,0,0,.5),
-        0 0 0 1px rgba(255,200,100,.15),
-        inset 0 1px 0 rgba(255,255,255,.15);
+        0 25px 70px rgba(0,0,0,.65),
+        0 0 0 1px rgba(255,200,100,.2),
+        inset 0 1px 0 rgba(255,255,255,.16);
     }
     
     .block-header{
@@ -195,7 +193,7 @@
       font-weight:500;
       letter-spacing:.02em;
       color:#fff;
-      text-shadow:0 2px 8px rgba(0,0,0,.3);
+      text-shadow:0 2px 10px rgba(0,0,0,.4);
     }
     .block-coming-soon{
       font-family:"Inter",sans-serif;
@@ -203,25 +201,25 @@
       font-weight:400;
       text-transform:uppercase;
       letter-spacing:.18em;
-      opacity:.4;
+      opacity:.5;
       font-style:normal;
-      color:rgba(255,200,100,.8);
+      color:rgba(255,200,100,.85);
     }
     
     .block-arrow{
       width:22px;
       height:22px;
-      border:1.5px solid rgba(255,255,255,.3);
+      border:1.5px solid rgba(255,255,255,.35);
       border-left:none;
       border-bottom:none;
       transform:rotate(45deg);
       transition:all .4s ease;
       flex-shrink:0;
       margin-top:5px;
-      opacity:.6;
+      opacity:.7;
     }
     .block:hover .block-arrow{
-      border-color:rgba(255,200,100,.9);
+      border-color:rgba(255,200,100,1);
       transform:rotate(45deg) translate(5px,-5px);
       opacity:1;
     }
@@ -230,30 +228,30 @@
       font-family:"Inter",sans-serif;
       font-size:1.08rem;
       line-height:1.75;
-      opacity:.6;
+      opacity:.7;
       margin-bottom:1.5rem;
       font-weight:300;
-      color:#e8e8e8;
+      color:#f0f0f0;
     }
     .block-tags{display:flex;gap:.65rem;flex-wrap:wrap}
     .block-tag{
       font-family:"Inter",sans-serif;
       padding:.45rem .95rem;
-      background:rgba(255,255,255,.08);
-      backdrop-filter:blur(10px);
+      background:rgba(255,255,255,.1);
+      backdrop-filter:blur(8px);
       border-radius:20px;
       font-size:.75rem;
       text-transform:uppercase;
       letter-spacing:.1em;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.15);
       font-weight:400;
-      color:#d0d0d0;
-      opacity:.85;
+      color:#e0e0e0;
+      opacity:.9;
       transition:all .3s ease;
     }
     .block-tag:hover{
-      background:rgba(255,200,100,.15);
-      border-color:rgba(255,200,100,.35);
+      background:rgba(255,200,100,.2);
+      border-color:rgba(255,200,100,.4);
       color:#fff;
       opacity:1;
     }
@@ -444,7 +442,7 @@
       </div>
     </div>
 
-    <!-- MIDDLE COLUMN - ELEGANT GLASMORPHISM -->
+    <!-- MIDDLE COLUMN -->
     <div class="blocks-section">
       <div class="block">
         <div class="block-header">
@@ -548,7 +546,7 @@
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v11',
     center: [6.4428, 51.1805],
-    zoom: 5.5,
+    zoom: 5.8,
     bearing: 0,
     pitch: 0,
     interactive: false,
@@ -579,7 +577,7 @@
       source: 'composite',
       'source-layer': 'admin',
       filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
-      paint: {'line-color': 'rgba(255,255,255,0.85)','line-width': ['interpolate',['linear'],['zoom'], 3, 1, 5, 1.5, 7, 2.2],'line-blur': 0.1}
+      paint: {'line-color': 'rgba(255,255,255,0.9)','line-width': ['interpolate',['linear'],['zoom'], 3, 1.2, 5, 1.8, 7, 2.5],'line-blur': 0}
     });
     map.addLayer({
       id: 'country-outline-coast',
@@ -587,7 +585,7 @@
       source: 'composite',
       'source-layer': 'admin',
       filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
-      paint: {'line-color': 'rgba(255,255,255,0.70)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],'line-blur': 0.1}
+      paint: {'line-color': 'rgba(255,255,255,0.75)','line-width': ['interpolate',['linear'],['zoom'], 3, 1, 5, 1.4, 7, 2],'line-blur': 0}
     });
 
     const city = [6.4428, 51.1805];
@@ -596,16 +594,16 @@
       data: { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }]}
     });
 
-    map.addLayer({id: 'mg-glow',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 20, 5, 40, 7, 85],'circle-color': 'rgba(255,190,120,1)','circle-blur': 0.85,'circle-opacity': 0.55}});
-    map.addLayer({id: 'mg-pulse',type: 'circle',source: 'mg',paint: {'circle-radius': 10,'circle-color': 'rgba(255,208,150,1)','circle-opacity': 0.75,'circle-stroke-color': 'rgba(255,230,190,1)','circle-stroke-width': 1.5}});
-    map.addLayer({id: 'mg-core',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 4, 5, 6, 7, 8],'circle-color': '#ffd8a0','circle-opacity': 1}});
-    map.addLayer({id: 'mg-label',type: 'symbol',source: 'mg',layout: {'text-field': ['get','name'],'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],'text-size': ['interpolate',['linear'],['zoom'], 3, 15, 5, 18, 7, 21],'text-letter-spacing': 0.28,'text-transform': 'uppercase','text-offset': [0, 1.8],'text-anchor': 'top','text-allow-overlap': true},paint: {'text-color': 'rgba(255,220,160,1)','text-halo-color': 'rgba(0,0,0,0.95)','text-halo-width': 2.5}});
+    map.addLayer({id: 'mg-glow',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 25, 5, 50, 7, 100],'circle-color': 'rgba(255,190,120,1)','circle-blur': 0.75,'circle-opacity': 0.7}});
+    map.addLayer({id: 'mg-pulse',type: 'circle',source: 'mg',paint: {'circle-radius': 12,'circle-color': 'rgba(255,208,150,1)','circle-opacity': 0.85,'circle-stroke-color': 'rgba(255,240,200,1)','circle-stroke-width': 2}});
+    map.addLayer({id: 'mg-core',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 5, 5, 7, 7, 10],'circle-color': '#ffe0b0','circle-opacity': 1}});
+    map.addLayer({id: 'mg-label',type: 'symbol',source: 'mg',layout: {'text-field': ['get','name'],'text-font': ['DIN Offc Pro Bold','Arial Unicode MS Bold'],'text-size': ['interpolate',['linear'],['zoom'], 3, 16, 5, 19, 7, 23],'text-letter-spacing': 0.3,'text-transform': 'uppercase','text-offset': [0, 2],'text-anchor': 'top','text-allow-overlap': true},paint: {'text-color': 'rgba(255,230,170,1)','text-halo-color': 'rgba(0,0,0,1)','text-halo-width': 3}});
 
     const start = Date.now();
     (function animate(){
       const t = (Date.now() - start) / 1000;
-      const radius = 9 + Math.sin(t * 2.2) * 4;
-      const opacity = 0.45 + (Math.sin(t * 2.2) + 1) * 0.25;
+      const radius = 11 + Math.sin(t * 2.2) * 5;
+      const opacity = 0.55 + (Math.sin(t * 2.2) + 1) * 0.25;
       map.setPaintProperty('mg-pulse','circle-radius', radius);
       map.setPaintProperty('mg-pulse','circle-opacity', opacity);
       requestAnimationFrame(animate);
