@@ -4,10 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Emin Turus</title>
-
-  <!-- Mapbox GL -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   
   <!-- Professional Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,18 +15,80 @@
     html,body{height:100%;overflow:hidden}
     body{
       font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:#1a1a1a;
+      background:#0a0a0a;
       color:#e8e8e8;
       line-height:1.6;
       position:relative;
       font-weight:300;
     }
 
-    #map{
+    /* Hintergrundbild - NASA Earth at Night */
+    .background-map{
       position:fixed;
       inset:0;
       z-index:0;
-      background:#1a1a1a;
+      background-image:url('https://eoimages.gsfc.nasa.gov/images/imagerecords/144000/144898/europe_vir_2016_lrg.jpg');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      filter:brightness(0.6) contrast(1.2);
+    }
+    
+    /* Mönchengladbach Marker */
+    .city-marker{
+      position:fixed;
+      left:42%;
+      top:38%;
+      z-index:1;
+      transform:translate(-50%, -50%);
+    }
+    
+    .marker-glow{
+      position:absolute;
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,190,120,0.6) 0%, transparent 70%);
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      animation:glow 3s ease-in-out infinite;
+    }
+    
+    @keyframes glow{
+      0%, 100%{transform:translate(-50%, -50%) scale(1);opacity:0.6}
+      50%{transform:translate(-50%, -50%) scale(1.3);opacity:0.8}
+    }
+    
+    .marker-dot{
+      position:relative;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:#ffd8a0;
+      box-shadow:0 0 20px rgba(255,200,100,0.8);
+      animation:pulse 2s ease-in-out infinite;
+      z-index:2;
+    }
+    
+    @keyframes pulse{
+      0%, 100%{transform:scale(1)}
+      50%{transform:scale(1.3)}
+    }
+    
+    .marker-label{
+      position:absolute;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      white-space:nowrap;
+      font-size:12px;
+      font-weight:500;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+      color:#ffd8a0;
+      text-shadow:0 0 10px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.9);
+      z-index:2;
     }
     
     .map-overlay{
@@ -38,7 +96,7 @@
       inset:0;
       z-index:1;
       pointer-events:none;
-      background:radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,.2), rgba(0,0,0,.35));
+      background:radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,.2), rgba(0,0,0,.4));
     }
 
     .main-container{
@@ -125,9 +183,7 @@
     .block{
       width:100%;
       max-width:680px;
-      background:linear-gradient(135deg, 
-        rgba(0,0,0,.8) 0%, 
-        rgba(0,0,0,.7) 100%);
+      background:linear-gradient(135deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.7) 100%);
       backdrop-filter:blur(8px);
       border:1px solid rgba(255,255,255,.2);
       border-radius:24px;
@@ -136,18 +192,14 @@
       position:relative;
       overflow:hidden;
       cursor:pointer;
-      box-shadow:
-        0 10px 40px rgba(0,0,0,.6),
-        inset 0 1px 0 rgba(255,255,255,.15);
+      box-shadow:0 10px 40px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.15);
     }
     
     .block::before{
       content:"";
       position:absolute;
-      top:-50%;
-      left:-50%;
-      width:200%;
-      height:200%;
+      top:-50%;left:-50%;
+      width:200%;height:200%;
       background:radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
       opacity:0;
       transition:opacity .6s ease;
@@ -157,8 +209,7 @@
     .block::after{
       content:"";
       position:absolute;
-      inset:0;
-      left:-100%;
+      inset:0;left:-100%;
       background:linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
       transition:left .8s ease;
     }
@@ -286,17 +337,12 @@
     .timeline{position:relative;padding-left:38px}
     
     .timeline::before{
-      content:"";
-      position:absolute;
-      left:0;top:0;
-      width:1px;height:100%;
+      content:"";position:absolute;left:0;top:0;width:1px;height:100%;
       background:rgba(255,255,255,.1);
     }
     
     .timeline-progress{
-      position:absolute;
-      left:0;top:0;
-      width:1px;height:0;
+      position:absolute;left:0;top:0;width:1px;height:0;
       background:linear-gradient(to bottom, rgba(255,200,100,.6), rgba(255,200,100,.2));
       animation:progressGrow 3s ease-out forwards;
     }
@@ -320,17 +366,13 @@
     }
     
     .milestone::before{
-      content:"";
-      position:absolute;
-      left:-41px;top:5px;
-      width:7px;height:7px;
-      border-radius:50%;
+      content:"";position:absolute;left:-41px;top:5px;width:7px;height:7px;border-radius:50%;
       background:rgba(255,200,100,.8);
       box-shadow:0 0 10px rgba(255,200,100,.4);
-      animation:pulse 2s ease-in-out infinite;
+      animation:milestonePulse 2s ease-in-out infinite;
     }
     
-    @keyframes pulse{
+    @keyframes milestonePulse{
       0%, 100%{transform:scale(1);opacity:.8}
       50%{transform:scale(1.3);opacity:1}
     }
@@ -375,7 +417,16 @@
 </head>
 <body>
 
-  <div id="map"></div>
+  <!-- NASA Earth at Night Hintergrund -->
+  <div class="background-map"></div>
+  
+  <!-- Mönchengladbach Marker -->
+  <div class="city-marker">
+    <div class="marker-glow"></div>
+    <div class="marker-dot"></div>
+    <div class="marker-label">MÖNCHENGLADBACH</div>
+  </div>
+  
   <div class="map-overlay"></div>
 
   <div class="main-container">
@@ -507,146 +558,5 @@
     </div>
   </div>
 
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
-
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/dark-v11',
-  center: [10, 52],
-  zoom: 4.4,
-  interactive: false,
-  attributionControl: false
-});
-
-map.on('load', function() {
-  console.log('Map loaded!');
-  
-  // Padding für Content
-  const leftPad = window.innerWidth >= 1024 ? 360 : 16;
-  map.fitBounds([[-7, 44], [25, 58]], {
-    padding: { top: 20, right: 20, bottom: 20, left: leftPad },
-    duration: 0
-  });
-
-  // Verstecke Standard-Layer
-  const layers = map.getStyle().layers;
-  layers.forEach(function(layer) {
-    if (layer.type !== 'background') {
-      map.setLayoutProperty(layer.id, 'visibility', 'none');
-    }
-  });
-
-  // NASA Satelliten-Karte
-  map.addSource('night', {
-    type: 'raster',
-    tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'],
-    tileSize: 256,
-    attribution: 'NASA Black Marble'
-  });
-  
-  map.addLayer({
-    id: 'night',
-    type: 'raster',
-    source: 'night',
-    paint: { 'raster-opacity': 0.95 }
-  });
-
-  // Ländergrenzen
-  map.addLayer({
-    id: 'country-land',
-    type: 'line',
-    source: 'composite',
-    'source-layer': 'admin',
-    filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
-    paint: {
-      'line-color': 'rgba(255,255,255,0.7)',
-      'line-width': 1
-    }
-  });
-
-  // Mönchengladbach
-  map.addSource('mg', {
-    type: 'geojson',
-    data: {
-      type: 'FeatureCollection',
-      features: [{
-        type: 'Feature',
-        properties: { name: 'MÖNCHENGLADBACH' },
-        geometry: { type: 'Point', coordinates: [6.4428, 51.1805] }
-      }]
-    }
-  });
-
-  map.addLayer({
-    id: 'mg-glow',
-    type: 'circle',
-    source: 'mg',
-    paint: {
-      'circle-radius': 20,
-      'circle-color': '#ffbe7a',
-      'circle-blur': 0.9,
-      'circle-opacity': 0.4
-    }
-  });
-
-  map.addLayer({
-    id: 'mg-pulse',
-    type: 'circle',
-    source: 'mg',
-    paint: {
-      'circle-radius': 7,
-      'circle-color': '#ffd09 6',
-      'circle-opacity': 0.6
-    }
-  });
-
-  map.addLayer({
-    id: 'mg-core',
-    type: 'circle',
-    source: 'mg',
-    paint: {
-      'circle-radius': 3,
-      'circle-color': '#ffd8a0'
-    }
-  });
-
-  map.addLayer({
-    id: 'mg-label',
-    type: 'symbol',
-    source: 'mg',
-    layout: {
-      'text-field': 'MÖNCHENGLADBACH',
-      'text-font': ['DIN Offc Pro Medium'],
-      'text-size': 14,
-      'text-letter-spacing': 0.25,
-      'text-transform': 'uppercase',
-      'text-offset': [0, 1.6],
-      'text-anchor': 'top'
-    },
-    paint: {
-      'text-color': '#ffd2a0',
-      'text-halo-color': '#000',
-      'text-halo-width': 2
-    }
-  });
-
-  // Animation
-  let start = Date.now();
-  function animate() {
-    let t = (Date.now() - start) / 1000;
-    let r = 6 + Math.sin(t * 2.2) * 3;
-    let o = 0.3 + (Math.sin(t * 2.2) + 1) * 0.22;
-    map.setPaintProperty('mg-pulse', 'circle-radius', r);
-    map.setPaintProperty('mg-pulse', 'circle-opacity', o);
-    requestAnimationFrame(animate);
-  }
-  animate();
-});
-
-map.on('error', function(e) {
-  console.error('Map error:', e);
-});
-</script>
 </body>
 </html>
