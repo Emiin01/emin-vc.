@@ -9,127 +9,170 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   
-  <!-- Elegante Schriftart -->
+  <!-- Professional Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     html,body{height:100%}
     body{
-      font-family:"Montserrat",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:#0d1117;color:#fff;line-height:1.4;
+      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:#0a0a0a;color:#e8e8e8;line-height:1.6;
       overflow-x:hidden;overflow-y:auto;min-height:100vh;position:relative;
+      font-weight:300;
     }
 
-    #map{position:fixed;inset:0;z-index:0;filter:brightness(.95) contrast(1.08)}
-    .map-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.02), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10))}
+    #map{position:fixed;inset:0;z-index:0;filter:brightness(.92) contrast(1.1)}
+    .map-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.015), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.12))}
 
-    .main-container{display:grid;grid-template-columns:1fr 1fr 1fr;min-height:100vh;position:relative;z-index:2}
-    .profile-section,.blocks-section,.vision-section{background:rgba(0,0,0,0.16);backdrop-filter:none}
+    .main-container{display:grid;grid-template-columns:380px 1fr 420px;min-height:100vh;position:relative;z-index:2;max-width:1800px;margin:0 auto}
+    .profile-section,.blocks-section,.vision-section{background:rgba(0,0,0,0.12);backdrop-filter:blur(8px)}
     
-    /* LEFT COLUMN */
+    /* LEFT COLUMN - Ultra Clean */
     .profile-section{
       display:flex;flex-direction:column;justify-content:space-between;
-      padding:80px 50px;border-right:1px solid rgba(255,255,255,.08);
+      padding:100px 60px 80px;border-right:1px solid rgba(255,255,255,.06);
       align-items:center;text-align:center;
     }
 
-    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
+    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:280px}
     .profile-name{
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2.8rem,4.5vw,4rem);font-weight:300;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1.5rem;
-      background:linear-gradient(135deg,#fff 0%,#e0e0e0 50%,#fff 100%);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      text-shadow:0 0 20px rgba(255,255,255,.18)
+      font-family:"Playfair Display",serif;
+      font-size:2.8rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem;
+      color:#fff;line-height:1.2;
     }
-    .profile-titles{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem;align-items:center}
+    .profile-titles{display:flex;flex-direction:column;gap:.8rem;margin-bottom:3rem;align-items:center}
     .profile-title{
-      font-family:"Montserrat",sans-serif;
-      font-size:.95rem;font-weight:300;text-transform:uppercase;letter-spacing:.4em;opacity:.85
+      font-family:"Inter",sans-serif;
+      font-size:.72rem;font-weight:400;text-transform:uppercase;letter-spacing:.25em;opacity:.5;color:#fff
     }
     .profile-description{
-      font-family:"Montserrat",sans-serif;
-      font-size:clamp(1rem,1.8vw,1.05rem);line-height:1.7;opacity:.9;max-width:350px;text-align:center;font-weight:300
+      font-family:"Inter",sans-serif;
+      font-size:.95rem;line-height:1.8;opacity:.65;text-align:center;font-weight:300;color:#d0d0d0
     }
 
     /* Bottom Section */
-    .bottom-section{display:flex;flex-direction:column;align-items:center;gap:1.8rem;width:100%}
+    .bottom-section{display:flex;flex-direction:column;align-items:center;gap:2.5rem;width:100%}
 
-    .quote-section{text-align:center;width:100%}
+    .quote-section{text-align:center;width:100%;max-width:280px}
     .quote-text{
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(1.1rem,2vw,1.3rem);font-style:italic;line-height:1.6;opacity:.95;margin-bottom:1rem;font-weight:400
+      font-family:"Playfair Display",serif;
+      font-size:1.05rem;font-style:italic;line-height:1.7;opacity:.8;margin-bottom:1.2rem;font-weight:400;color:#e0e0e0
     }
     .quote-author{
-      font-family:"Montserrat",sans-serif;
-      font-size:.85rem;opacity:.7;text-transform:uppercase;letter-spacing:.15em;font-weight:300
+      font-family:"Inter",sans-serif;
+      font-size:.7rem;opacity:.45;text-transform:uppercase;letter-spacing:.2em;font-weight:400;color:#c0c0c0
     }
 
     .social-icons{display:flex;gap:1rem;justify-content:center}
     .social-icon{
-      width:40px;height:40px;background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.18);border-radius:10px;
+      width:36px;height:36px;background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.1);border-radius:8px;
       display:flex;align-items:center;justify-content:center;
-      color:#fff;text-decoration:none;transition:.3s;font-size:1.2rem
+      color:#fff;text-decoration:none;transition:all .3s ease;
     }
-    .social-icon:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45);transform:translateY(-3px)}
-    .social-icon svg{width:22px;height:22px}
+    .social-icon:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .social-icon svg{width:18px;height:18px;opacity:.7}
+    .social-icon:hover svg{opacity:1}
 
-    /* MIDDLE COLUMN - Boxes vertikal zentriert */
+    /* MIDDLE COLUMN - Minimalist Cards */
     .blocks-section{
       display:flex;flex-direction:column;justify-content:center;align-items:center;
-      padding:60px 28px;gap:1.5rem;border-right:1px solid rgba(255,255,255,.05)
+      padding:80px 40px;gap:1.8rem;border-right:1px solid rgba(255,255,255,.04)
     }
     .block{
-      width:100%;max-width:500px;
-      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);
-      border-radius:20px;padding:32px 35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer
+      width:100%;max-width:520px;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;padding:28px 32px;
+      transition:all .35s cubic-bezier(0.4, 0, 0.2, 1);
+      position:relative;overflow:hidden;cursor:pointer;
     }
-    .block::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
+    .block::before{
+      content:"";position:absolute;inset:0;left:-100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);
+      transition:left .6s ease
+    }
     .block:hover::before{left:100%}
-    .block:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);box-shadow:0 25px 50px rgba(0,0,0,.6)}
-    .block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-    .block-logo{display:flex;align-items:center;gap:.8rem}
-    .block-icon{width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)}
+    .block:hover{
+      transform:translateY(-4px);
+      border-color:rgba(255,255,255,.15);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 20px 40px rgba(0,0,0,.4)
+    }
+    
+    .block-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.8rem}
+    .block-title-wrapper{display:flex;flex-direction:column;gap:.4rem}
     .block-name{
-      font-family:"Montserrat",sans-serif;
-      font-size:1.3rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em
+      font-family:"Inter",sans-serif;
+      font-size:1.1rem;font-weight:500;letter-spacing:.04em;color:#fff
     }
     .block-coming-soon{
-      font-family:"Montserrat",sans-serif;
-      font-size:.75rem;font-weight:400;text-transform:uppercase;letter-spacing:.12em;
-      opacity:.6;margin-left:.8rem;font-style:italic
+      font-family:"Inter",sans-serif;
+      font-size:.65rem;font-weight:400;text-transform:uppercase;letter-spacing:.15em;
+      opacity:.35;font-style:normal;color:#b0b0b0
     }
-    .block-arrow{width:20px;height:20px;border:2px solid rgba(255,255,255,.4);border-left:none;border-bottom:none;transform:rotate(45deg);transition:.3s}
-    .block:hover .block-arrow{border-color:rgba(255,255,255,.8);transform:rotate(45deg) translate(4px,-4px)}
+    
+    .block-arrow{
+      width:18px;height:18px;border:1.5px solid rgba(255,255,255,.25);
+      border-left:none;border-bottom:none;transform:rotate(45deg);transition:all .3s ease;
+      flex-shrink:0;margin-top:2px
+    }
+    .block:hover .block-arrow{
+      border-color:rgba(255,255,255,.6);
+      transform:rotate(45deg) translate(3px,-3px)
+    }
+    
     .block-description{
-      font-family:"Montserrat",sans-serif;
-      font-size:.9rem;line-height:1.6;opacity:.85;margin-bottom:1rem;font-weight:300
+      font-family:"Inter",sans-serif;
+      font-size:.88rem;line-height:1.65;opacity:.55;margin-bottom:1rem;font-weight:300;color:#c8c8c8
     }
-    .block-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+    .block-tags{display:flex;gap:.5rem;flex-wrap:wrap}
     .block-tag{
-      font-family:"Montserrat",sans-serif;
-      padding:.25rem .7rem;background:rgba(255,255,255,.1);border-radius:12px;
-      font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;border:1px solid rgba(255,255,255,.15);font-weight:400
+      font-family:"Inter",sans-serif;
+      padding:.35rem .75rem;
+      background:rgba(255,255,255,.05);
+      border-radius:6px;
+      font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;
+      border:1px solid rgba(255,255,255,.08);
+      font-weight:400;color:#b0b0b0;opacity:.8
     }
 
-    /* RIGHT COLUMN */
-    .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
+    /* RIGHT COLUMN - Cleaner Text */
+    .vision-section{
+      display:flex;flex-direction:column;justify-content:center;
+      padding:100px 60px;max-width:500px
+    }
     .vision-title{
-      font-family:"Cormorant Garamond",serif;
-      font-size:clamp(2.2rem,3.5vw,2.8rem);font-weight:400;margin-bottom:2rem;
-      background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+      font-family:"Playfair Display",serif;
+      font-size:2rem;font-weight:500;margin-bottom:2.5rem;
+      color:#fff;letter-spacing:.02em;line-height:1.3
     }
     .vision-content{
-      font-family:"Montserrat",sans-serif;
-      font-size:clamp(1rem,1.5vw,1.05rem);line-height:1.8;opacity:.95;font-weight:300
+      font-family:"Inter",sans-serif;
+      font-size:.95rem;line-height:1.9;opacity:.65;font-weight:300;color:#d0d0d0
     }
-    .vision-content p{margin-bottom:1.5rem}.vision-content p:last-child{margin-bottom:0}
+    .vision-content p{margin-bottom:2rem}
+    .vision-content p:last-child{margin-bottom:0}
 
-    @media (max-width:1200px){.main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}.vision-section{grid-column:1 / -1}}
-    @media (max-width:768px){.main-container{grid-template-columns:1fr}.profile-section,.blocks-section,.vision-section{padding:60px 30px}.profile-section{min-height:100vh}.blocks-section{gap:1.5rem;padding-left:28px;padding-right:28px}.block{max-width:none;padding:30px}}
+    @media (max-width:1400px){
+      .main-container{grid-template-columns:340px 1fr 400px}
+      .profile-section{padding:80px 50px}
+      .vision-section{padding:80px 50px}
+    }
+    @media (max-width:1200px){
+      .main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+      .vision-section{grid-column:1 / -1;max-width:none;padding:80px 60px}
+    }
+    @media (max-width:768px){
+      .main-container{grid-template-columns:1fr}
+      .profile-section,.blocks-section,.vision-section{padding:60px 30px}
+      .profile-section{min-height:100vh}
+      .blocks-section{gap:1.5rem;padding:60px 30px}
+      .block{max-width:none;padding:26px 28px}
+    }
   </style>
 </head>
 <body>
@@ -147,7 +190,7 @@
           <div class="profile-title">INNOVATOR</div>
         </div>
         <p class="profile-description">
-          Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
+          Building the future at the intersection of artificial intelligence and strategic capital.
         </p>
       </div>
 
@@ -176,49 +219,55 @@
     <div class="blocks-section">
       <div class="block">
         <div class="block-header">
-          <div class="block-logo">
-            <div class="block-icon">🤖</div>
-            <div class="block-name">AIGEN AI<span class="block-coming-soon">Coming Soon</span></div>
+          <div class="block-title-wrapper">
+            <div class="block-name">AIGEN AI</div>
+            <div class="block-coming-soon">Coming Soon</div>
           </div>
           <div class="block-arrow"></div>
         </div>
         <div class="block-description">
-          Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.
+          Revolutionary AI solutions transforming industries through cutting-edge machine learning and neural networks.
         </div>
         <div class="block-tags">
-          <span class="block-tag">AI/ML</span><span class="block-tag">Deep Learning</span><span class="block-tag">Innovation</span>
+          <span class="block-tag">AI/ML</span>
+          <span class="block-tag">Deep Learning</span>
+          <span class="block-tag">Innovation</span>
         </div>
       </div>
 
       <div class="block">
         <div class="block-header">
-          <div class="block-logo">
-            <div class="block-icon">💰</div>
-            <div class="block-name">EMIN CAPITALS<span class="block-coming-soon">Coming Soon</span></div>
+          <div class="block-title-wrapper">
+            <div class="block-name">EMIN CAPITALS</div>
+            <div class="block-coming-soon">Coming Soon</div>
           </div>
           <div class="block-arrow"></div>
         </div>
         <div class="block-description">
-          Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.
+          Strategic venture capital investing in transformative technologies and disruptive startups.
         </div>
         <div class="block-tags">
-          <span class="block-tag">VC Fund</span><span class="block-tag">Startups</span><span class="block-tag">Growth</span>
+          <span class="block-tag">VC Fund</span>
+          <span class="block-tag">Startups</span>
+          <span class="block-tag">Growth</span>
         </div>
       </div>
 
       <div class="block">
         <div class="block-header">
-          <div class="block-logo">
-            <div class="block-icon">💡</div>
-            <div class="block-name">INSIGHT<span class="block-coming-soon">Coming Soon</span></div>
+          <div class="block-title-wrapper">
+            <div class="block-name">INSIGHT</div>
+            <div class="block-coming-soon">Coming Soon</div>
           </div>
           <div class="block-arrow"></div>
         </div>
         <div class="block-description">
-          Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.
+          Strategic consulting providing deep market insights and future trend analysis.
         </div>
         <div class="block-tags">
-          <span class="block-tag">Strategy</span><span class="block-tag">Consulting</span><span class="block-tag">Analysis</span>
+          <span class="block-tag">Strategy</span>
+          <span class="block-tag">Consulting</span>
+          <span class="block-tag">Analysis</span>
         </div>
       </div>
     </div>
@@ -227,11 +276,11 @@
     <div class="vision-section">
       <h2 class="vision-title">Vision & Philosophy</h2>
       <div class="vision-content">
-        <p>In an era defined by exponential technological advancement, I believe that the intersection of artificial intelligence, strategic investment, and visionary leadership holds the key to solving humanity's greatest challenges.</p>
-        <p>My journey as an entrepreneur and investor has taught me that true innovation doesn't just happen—it's crafted through deliberate action, strategic thinking, and an unwavering commitment to creating value that transcends traditional boundaries.</p>
-        <p>Through AIGEN AI, I'm developing cutting-edge artificial intelligence solutions that don't just automate processes, but fundamentally reimagine how we interact with technology. Through Emin Capitals, I'm backing the next generation of entrepreneurs who share my vision of a more connected, efficient, and equitable world.</p>
-        <p>The future isn't something that happens to us—it's something we actively create through our choices, investments, and innovations today. Every line of code, every strategic partnership, and every bold decision is a brushstroke in painting tomorrow's reality.</p>
-        <p>My mission is simple: to identify, nurture, and scale technologies that will define the next decade while building sustainable businesses that create lasting value for all stakeholders.</p>
+        <p>In an era defined by exponential technological advancement, I believe that the intersection of AI, strategic investment, and visionary leadership holds the key to solving humanity's greatest challenges.</p>
+        
+        <p>True innovation doesn't just happen—it's crafted through deliberate action, strategic thinking, and an unwavering commitment to creating value that transcends boundaries.</p>
+        
+        <p>My mission is simple: identify, nurture, and scale technologies that will define the next decade while building sustainable businesses that create lasting value.</p>
       </div>
     </div>
   </div>
@@ -250,7 +299,7 @@
   });
 
   map.on('load', () => {
-    const leftPad = window.innerWidth >= 1024 ? 420 : 16;
+    const leftPad = window.innerWidth >= 1024 ? 380 : 16;
     map.fitBounds([[-7, 44], [25, 58]], {
       padding: { top: 20, right: 20, bottom: 20, left: leftPad },
       duration: 0
