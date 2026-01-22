@@ -1,1 +1,617 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emin Turus</title>
+
+  <!-- Mapbox GL -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  
+  <!-- Professional Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%;overflow:hidden}
+    body{
+      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:#0a0a0a;color:#e8e8e8;line-height:1.6;
+      position:relative;font-weight:300;
+    }
+
+    /* KEIN FILTER - Komplett scharf! */
+    #map{
+      position:fixed;
+      inset:0;
+      z-index:0;
+    }
+    
+    /* KEIN Overlay mehr */
+    .map-overlay{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:transparent;
+    }
+
+    .main-container{
+      display:grid;
+      grid-template-columns:360px 1fr 440px;
+      height:100vh;
+      position:relative;
+      z-index:2;
+      max-width:1900px;
+      margin:0 auto;
+    }
+    
+    /* Dunkle Spalten für Kontrast */
+    .profile-section,.blocks-section,.vision-section{
+      background:rgba(0,0,0,0.75);
+      backdrop-filter:blur(5px);
+    }
+    
+    /* LEFT COLUMN */
+    .profile-section{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:70px 55px 60px;
+      border-right:1px solid rgba(255,255,255,.1);
+      align-items:center;
+      text-align:center;
+    }
+
+    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:280px}
+    .profile-name{
+      font-family:"Playfair Display",serif;
+      font-size:3rem;
+      font-weight:400;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      margin-bottom:2rem;
+      color:#fff;
+      line-height:1.2;
+    }
+    .profile-titles{display:flex;flex-direction:column;gap:.8rem;margin-bottom:2.5rem;align-items:center}
+    .profile-title{
+      font-family:"Inter",sans-serif;
+      font-size:.75rem;font-weight:400;text-transform:uppercase;letter-spacing:.25em;opacity:.5;color:#fff
+    }
+    .profile-description{
+      font-family:"Inter",sans-serif;
+      font-size:1rem;line-height:1.75;opacity:.65;text-align:center;font-weight:300;color:#d0d0d0
+    }
+
+    .bottom-section{display:flex;flex-direction:column;align-items:center;gap:2.2rem;width:100%}
+    .quote-section{text-align:center;width:100%;max-width:280px}
+    .quote-text{
+      font-family:"Playfair Display",serif;
+      font-size:1.1rem;font-style:italic;line-height:1.65;opacity:.8;margin-bottom:1.1rem;font-weight:400;color:#e0e0e0
+    }
+    .quote-author{
+      font-family:"Inter",sans-serif;
+      font-size:.72rem;opacity:.45;text-transform:uppercase;letter-spacing:.2em;font-weight:400;color:#c0c0c0
+    }
+
+    .social-icons{display:flex;gap:1.1rem;justify-content:center}
+    .social-icon{
+      width:38px;height:38px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:8px;
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;text-decoration:none;transition:all .3s ease;
+    }
+    .social-icon:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);transform:translateY(-2px)}
+    .social-icon svg{width:19px;height:19px;opacity:.7}
+    .social-icon:hover svg{opacity:1}
+
+    /* MIDDLE COLUMN - ELEGANT */
+    .blocks-section{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:70px 50px;
+      gap:2.5rem;
+      border-right:1px solid rgba(255,255,255,.08);
+    }
+    .block{
+      width:100%;
+      max-width:680px;
+      background:linear-gradient(135deg, 
+        rgba(0,0,0,.8) 0%, 
+        rgba(0,0,0,.7) 100%);
+      backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:24px;
+      padding:45px 48px;
+      transition:all .4s cubic-bezier(0.4, 0, 0.2, 1);
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      box-shadow:
+        0 10px 40px rgba(0,0,0,.6),
+        inset 0 1px 0 rgba(255,255,255,.15);
+    }
+    
+    .block::before{
+      content:"";
+      position:absolute;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
+      background:radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
+      opacity:0;
+      transition:opacity .6s ease;
+    }
+    .block:hover::before{
+      opacity:1;
+    }
+    
+    .block::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      left:-100%;
+      background:linear-gradient(90deg, 
+        transparent, 
+        rgba(255,255,255,.08), 
+        transparent);
+      transition:left .8s ease;
+    }
+    .block:hover::after{
+      left:100%;
+    }
+    
+    .block:hover{
+      transform:translateY(-6px) scale(1.01);
+      border-color:rgba(255,255,255,.3);
+      background:linear-gradient(135deg, 
+        rgba(0,0,0,.75) 0%, 
+        rgba(0,0,0,.65) 100%);
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.7),
+        0 0 0 1px rgba(255,200,100,.25),
+        inset 0 1px 0 rgba(255,255,255,.2);
+    }
+    
+    .block-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      margin-bottom:1.3rem;
+    }
+    .block-title-wrapper{display:flex;flex-direction:column;gap:.55rem}
+    .block-name{
+      font-family:"Playfair Display",serif;
+      font-size:1.65rem;
+      font-weight:500;
+      letter-spacing:.02em;
+      color:#fff;
+      text-shadow:0 2px 10px rgba(0,0,0,.5);
+    }
+    .block-coming-soon{
+      font-family:"Inter",sans-serif;
+      font-size:.72rem;
+      font-weight:400;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      opacity:.5;
+      font-style:normal;
+      color:rgba(255,200,100,.9);
+    }
+    
+    .block-arrow{
+      width:22px;
+      height:22px;
+      border:1.5px solid rgba(255,255,255,.4);
+      border-left:none;
+      border-bottom:none;
+      transform:rotate(45deg);
+      transition:all .4s ease;
+      flex-shrink:0;
+      margin-top:5px;
+      opacity:.7;
+    }
+    .block:hover .block-arrow{
+      border-color:rgba(255,200,100,1);
+      transform:rotate(45deg) translate(5px,-5px);
+      opacity:1;
+    }
+    
+    .block-description{
+      font-family:"Inter",sans-serif;
+      font-size:1.08rem;
+      line-height:1.75;
+      opacity:.75;
+      margin-bottom:1.5rem;
+      font-weight:300;
+      color:#f0f0f0;
+    }
+    .block-tags{display:flex;gap:.65rem;flex-wrap:wrap}
+    .block-tag{
+      font-family:"Inter",sans-serif;
+      padding:.45rem .95rem;
+      background:rgba(255,255,255,.12);
+      backdrop-filter:blur(5px);
+      border-radius:20px;
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      border:1px solid rgba(255,255,255,.18);
+      font-weight:400;
+      color:#e8e8e8;
+      opacity:.9;
+      transition:all .3s ease;
+    }
+    .block-tag:hover{
+      background:rgba(255,200,100,.25);
+      border-color:rgba(255,200,100,.5);
+      color:#fff;
+      opacity:1;
+    }
+
+    /* RIGHT COLUMN */
+    .vision-section{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:70px 55px;
+      max-width:500px;
+    }
+    .vision-title{
+      font-family:"Playfair Display",serif;
+      font-size:2.1rem;
+      font-weight:500;
+      margin-bottom:2.2rem;
+      color:#fff;
+      letter-spacing:.02em;
+      line-height:1.3;
+    }
+    .vision-content{
+      font-family:"Inter",sans-serif;
+      font-size:1rem;
+      line-height:1.85;
+      opacity:.65;
+      font-weight:300;
+      color:#d0d0d0;
+    }
+    .vision-content p{margin-bottom:1.8rem}
+    .vision-content p:last-child{margin-bottom:0}
+
+    /* TIMELINE */
+    .journey-timeline{
+      margin-top:3rem;
+      padding-top:2.4rem;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .timeline-title{
+      font-family:"Inter",sans-serif;
+      font-size:.72rem;
+      font-weight:400;
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      opacity:.4;
+      margin-bottom:2rem;
+      color:#c0c0c0;
+    }
+    
+    .timeline{
+      position:relative;
+      padding-left:38px;
+    }
+    
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      width:1px;
+      height:100%;
+      background:rgba(255,255,255,.1);
+    }
+    
+    .timeline-progress{
+      position:absolute;
+      left:0;
+      top:0;
+      width:1px;
+      height:0;
+      background:linear-gradient(to bottom, rgba(255,200,100,.6), rgba(255,200,100,.2));
+      animation:progressGrow 3s ease-out forwards;
+    }
+    
+    @keyframes progressGrow{
+      to{height:100%}
+    }
+    
+    .milestone{
+      position:relative;
+      margin-bottom:1.75rem;
+      opacity:0;
+      animation:fadeInUp .6s ease-out forwards;
+    }
+    
+    .milestone:nth-child(2){animation-delay:.3s}
+    .milestone:nth-child(3){animation-delay:.6s}
+    .milestone:nth-child(4){animation-delay:.9s}
+    
+    @keyframes fadeInUp{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    
+    .milestone::before{
+      content:"";
+      position:absolute;
+      left:-41px;
+      top:5px;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:rgba(255,200,100,.8);
+      box-shadow:0 0 10px rgba(255,200,100,.4);
+      animation:pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse{
+      0%, 100%{transform:scale(1);opacity:.8}
+      50%{transform:scale(1.3);opacity:1}
+    }
+    
+    .milestone-year{
+      font-family:"Inter",sans-serif;
+      font-size:.72rem;
+      font-weight:500;
+      color:rgba(255,200,100,.9);
+      margin-bottom:.35rem;
+      letter-spacing:.1em;
+    }
+    
+    .milestone-label{
+      font-family:"Inter",sans-serif;
+      font-size:.88rem;
+      font-weight:400;
+      color:#e0e0e0;
+      opacity:.7;
+      line-height:1.45;
+    }
+
+    @media (max-width:1600px){
+      .main-container{grid-template-columns:340px 1fr 420px}
+      .profile-section{padding:65px 50px 55px}
+      .vision-section{padding:65px 50px}
+      .block{max-width:620px;padding:42px 45px}
+    }
+    @media (max-width:1200px){
+      .main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;height:auto;overflow-y:auto}
+      .vision-section{grid-column:1 / -1;max-width:none;padding:70px 60px}
+      html,body{overflow:auto}
+    }
+    @media (max-width:768px){
+      .main-container{grid-template-columns:1fr}
+      .profile-section,.blocks-section,.vision-section{padding:60px 35px}
+      .profile-section{min-height:100vh}
+      .blocks-section{gap:2rem;padding:60px 35px}
+      .block{max-width:none;padding:38px 38px}
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+  <div class="map-overlay"></div>
+
+  <div class="main-container">
+    <!-- LEFT COLUMN -->
+    <div class="profile-section">
+      <div class="profile-main">
+        <div class="profile-name">EMIN<br/>TURUS</div>
+        <div class="profile-titles">
+          <div class="profile-title">VISIONARY</div>
+          <div class="profile-title">INNOVATOR</div>
+        </div>
+        <p class="profile-description">
+          Building the future at the intersection of artificial intelligence and strategic capital.
+        </p>
+      </div>
+
+      <div class="bottom-section">
+        <div class="quote-section">
+          <div class="quote-text">"The best way to predict the future is to create it."</div>
+          <div class="quote-author">— Peter Drucker</div>
+        </div>
+
+        <div class="social-icons">
+          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.53 3h3.07l-7.4 8.48L21.5 21h-6.05l-4.75-6.38L5 21H1.93l7.86-9.01L2.8 3h6.2l4.3 5.78L17.53 3z"/>
+            </svg>
+          </a>
+          <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE COLUMN -->
+    <div class="blocks-section">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-title-wrapper">
+            <div class="block-name">AIGEN AI</div>
+            <div class="block-coming-soon">Coming Soon</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Revolutionary AI solutions transforming industries through cutting-edge machine learning and neural networks.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">AI/ML</span>
+          <span class="block-tag">Deep Learning</span>
+          <span class="block-tag">Innovation</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header">
+          <div class="block-title-wrapper">
+            <div class="block-name">EMIN CAPITALS</div>
+            <div class="block-coming-soon">Coming Soon</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic venture capital investing in transformative technologies and disruptive startups.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">VC Fund</span>
+          <span class="block-tag">Startups</span>
+          <span class="block-tag">Growth</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header">
+          <div class="block-title-wrapper">
+            <div class="block-name">INSIGHT</div>
+            <div class="block-coming-soon">Coming Soon</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic consulting providing deep market insights and future trend analysis.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">Strategy</span>
+          <span class="block-tag">Consulting</span>
+          <span class="block-tag">Analysis</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="vision-section">
+      <h2 class="vision-title">Vision & Philosophy</h2>
+      <div class="vision-content">
+        <p>In an era defined by exponential technological advancement, I believe that the intersection of AI, strategic investment, and visionary leadership holds the key to solving humanity's greatest challenges.</p>
+        
+        <p>True innovation doesn't just happen—it's crafted through deliberate action, strategic thinking, and an unwavering commitment to creating value that transcends boundaries.</p>
+        
+        <p>My mission is simple: identify, nurture, and scale technologies that will define the next decade while building sustainable businesses that create lasting value.</p>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="journey-timeline">
+        <div class="timeline-title">The Journey</div>
+        <div class="timeline">
+          <div class="timeline-progress"></div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2020</div>
+            <div class="milestone-label">Founded first venture in AI technology</div>
+          </div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2022</div>
+            <div class="milestone-label">Launched strategic investment initiatives</div>
+          </div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2024</div>
+            <div class="milestone-label">Expanded into venture capital ecosystem</div>
+          </div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2025</div>
+            <div class="milestone-label">Building the future of AI & capital</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [10, 52],
+    zoom: 4.4,
+    bearing: 0,
+    pitch: 0,
+    interactive: false,
+    attributionControl: false
+  });
+
+  map.on('load', () => {
+    const leftPad = window.innerWidth >= 1024 ? 360 : 16;
+    map.fitBounds([[-7, 44], [25, 58]], {
+      padding: { top: 20, right: 20, bottom: 20, left: leftPad },
+      duration: 0
+    });
+
+    for (const l of map.getStyle().layers) {
+      if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
+    }
+
+    map.addSource('night', {
+      type: 'raster',
+      tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'],
+      tileSize: 256
+    });
+    map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
+
+    map.addLayer({
+      id: 'country-outline-land',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
+      paint: {'line-color': 'rgba(255,255,255,0.70)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],'line-blur': 0.2}
+    });
+    map.addLayer({
+      id: 'country-outline-coast',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
+      paint: {'line-color': 'rgba(255,255,255,0.55)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],'line-blur': 0.2}
+    });
+
+    const city = [6.4428, 51.1805];
+    map.addSource('mg', {
+      type: 'geojson',
+      data: { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }]}
+    });
+
+    map.addLayer({id: 'mg-glow',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],'circle-color': 'rgba(255,190,120,0.85)','circle-blur': 0.9,'circle-opacity': 0.38}});
+    map.addLayer({id: 'mg-pulse',type: 'circle',source: 'mg',paint: {'circle-radius': 7,'circle-color': 'rgba(255,208,150,1)','circle-opacity': 0.55,'circle-stroke-color': 'rgba(255,230,190,0.9)','circle-stroke-width': 1.1}});
+    map.addLayer({id: 'mg-core',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],'circle-color': '#ffd8a0','circle-opacity': 0.95}});
+    map.addLayer({id: 'mg-label',type: 'symbol',source: 'mg',layout: {'text-field': ['get','name'],'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],'text-letter-spacing': 0.25,'text-transform': 'uppercase','text-offset': [0, 1.6],'text-anchor': 'top','text-allow-overlap': true},paint: {'text-color': 'rgba(255,210,150,0.98)','text-halo-color': 'rgba(0,0,0,0.9)','text-halo-width': 2.0}});
+
+    const start = Date.now();
+    (function animate(){
+      const t = (Date.now() - start) / 1000;
+      const radius = 6 + Math.sin(t * 2.2) * 3;
+      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;
+      map.setPaintProperty('mg-pulse','circle-radius', radius);
+      map.setPaintProperty('mg-pulse','circle-opacity', opacity);
+      requestAnimationFrame(animate);
+    })();
+  });
+</script>
+</body>
+</html>
