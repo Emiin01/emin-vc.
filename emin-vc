@@ -1,198 +1,262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AigenAI — Builder · Investor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emin Turus</title>
+
+  <!-- Mapbox GL -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
   <style>
-    :root{
-      --bg0:#0a0f19;--bg1:#0b1220;--glass:rgba(255,255,255,.08);
-      --fg:#e7edf6;--muted:#b8c1d3;--line:rgba(255,255,255,.12);
-      --pad:32px;--radius:14px;--colMax:560px;
-    }
-    *{box-sizing:border-box}
+    *{margin:0;padding:0;box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);
-      background:linear-gradient(160deg,var(--bg1),var(--bg0));
-    }
-    /* starfield */
-    body::before{
-      content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;mix-blend-mode:screen;
-      background-image:
-        radial-gradient(1.5px 1.5px at 12% 22%, rgba(255,255,255,.45) 50%, transparent 51%),
-        radial-gradient(2px 2px at 28% 18%, rgba(255,255,255,.28) 50%, transparent 51%),
-        radial-gradient(1px 1px at 35% 80%, rgba(255,255,255,.34) 50%, transparent 51%),
-        radial-gradient(1.2px 1.2px at 60% 32%, rgba(255,255,255,.26) 50%, transparent 51%),
-        radial-gradient(1.4px 1.4px at 78% 64%, rgba(255,255,255,.24) 50%, transparent 51%),
-        radial-gradient(2px 2px at 88% 20%, rgba(255,255,255,.22) 50%, transparent 51%);
+      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:#0d1117;color:#fff;line-height:1.4;
+      overflow-x:hidden;overflow-y:auto;min-height:100vh;position:relative;
     }
 
-    /* grid layout */
-    .wrap{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;   /* 3 Spalten */
-      gap:32px;
-      min-height:100svh;
-      padding:var(--pad);
-      align-items:stretch;                  /* Spalten gleich hoch */
+    #map{position:fixed;inset:0;z-index:0;filter:brightness(.95) contrast(1.08)}
+    .map-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.02), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10))}
+
+    .main-container{display:grid;grid-template-columns:1fr 1fr 1fr;min-height:100vh;position:relative;z-index:2}
+    .profile-section,.blocks-section,.vision-section{background:rgba(0,0,0,0.16);backdrop-filter:none}
+    
+    /* LEFT COLUMN - ALLES ZENTRIERT */
+    .profile-section{
+      display:flex;flex-direction:column;justify-content:space-between;
+      padding:80px 50px;border-right:1px solid rgba(255,255,255,.08);
+      align-items:center;  /* ZENTRIERT */
+      text-align:center;   /* TEXT ZENTRIERT */
     }
-    .col{display:flex;flex-direction:column;min-height:0}
 
-    /* LEFT COLUMN */
-    .quote{
-      background:var(--glass);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:18px;
-      margin-bottom:18px;
+    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
+    .profile-name{
+      font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:1rem;
+      background:linear-gradient(135deg,#fff 0%,#e0e0e0 50%,#fff 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      text-shadow:0 0 20px rgba(255,255,255,.18)
     }
-    .quote p{margin:0 0 8px 0;color:#dbe3f3;line-height:1.55;font-size:14px}
-    .quote .by{color:var(--muted);font-size:12px}
+    .profile-titles{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem;align-items:center}
+    .profile-title{font-size:1rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;opacity:.85}
+    .profile-description{font-size:clamp(1rem,1.8vw,1.1rem);line-height:1.6;opacity:.9;max-width:350px;text-align:center}
 
-    .photo{
-      flex:1;                    /* nimmt restlichen Platz – großes Bild unten */
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      overflow:hidden;
-      background:linear-gradient(to bottom, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    /* Social Icons - ZENTRIERT unter dem Text */
+    .social-icons{display:flex;gap:1rem;margin-top:2rem;justify-content:center}
+    .social-icon{
+      width:40px;height:40px;background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.18);border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;text-decoration:none;transition:.3s;font-size:1.2rem
     }
-    .photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .social-icon:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45);transform:translateY(-3px)}
+    .social-icon svg{width:22px;height:22px}
 
-    /* MIDDLE COLUMN */
-    /* alt: .stack war flex -> jetzt Grid, damit die Höhe perfekt aufgeht */
-    .stack{
-      display:grid;
-      grid-template-rows: 1fr 1fr;   /* zwei gleich hohe Reihen */
-      gap:18px;
-      height:100%;
-      min-height:0;
-    }
-    .card{
-      position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-      background:linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      transition:transform .2s ease, box-shadow .2s ease;
-      display:flex;flex-direction:column;min-height:0;
-    }
-    .card:hover{transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    /* überschreibt alte Flexhöhen – beide Karten füllen ihre Grid-Zeile */
-    .stack .card.tall,
-    .stack .card.medium{flex:unset;height:100%}
+    /* Quote Section - ZENTRIERT ganz unten */
+    .quote-section{border-top:1px solid rgba(255,255,255,.1);padding-top:2rem;text-align:center;width:100%}
+    .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
+    .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
 
-    .card .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.18;filter:grayscale(1) contrast(1.05)}
-    .content{position:relative;padding:18px 20px}
-    .kicker{font-size:12px;letter-spacing:.6px;color:#a9b3c7;margin-bottom:6px}
-    .title{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
-    .subtitle{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.5}
-    .ext{position:absolute;right:12px;bottom:12px;font-size:12px;color:#cfd6e6;text-decoration:none}
+    /* MIDDLE & RIGHT COLUMNS - unverändert */
+    .blocks-section{display:flex;flex-direction:column;justify-content:center;align-items:stretch;padding:80px 28px;gap:2rem;border-right:1px solid rgba(255,255,255,.05)}
+    .block{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer}
+    .block::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
+    .block:hover::before{left:100%}
+    .block:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);box-shadow:0 25px 50px rgba(0,0,0,.6)}
+    .block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+    .block-logo{display:flex;align-items:center;gap:.8rem}
+    .block-icon{width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)}
+    .block-name{font-size:1.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+    .block-arrow{width:20px;height:20px;border:2px solid rgba(255,255,255,.4);border-left:none;border-bottom:none;transform:rotate(45deg);transition:.3s}
+    .block:hover .block-arrow{border-color:rgba(255,255,255,.8);transform:rotate(45deg) translate(4px,-4px)}
+    .block-description{font-size:.95rem;line-height:1.5;opacity:.85;margin-bottom:1.2rem}
+    .block-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+    .block-tag{padding:.25rem .7rem;background:rgba(255,255,255,.1);border-radius:12px;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;border:1px solid rgba(255,255,255,.15)}
 
-    /* RIGHT COLUMN */
-    .logo-top{display:flex;justify-content:flex-end;margin-bottom:18px}
-    .logo-top img{max-height:56px;max-width:180px;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(0,0,0,.25))}
+    .vision-section{display:flex;flex-direction:column;justify-content:center;padding:80px 50px}
+    .vision-title{font-size:clamp(2rem,3vw,2.5rem);font-weight:600;margin-bottom:2rem;background:linear-gradient(135deg,#fff 0%,#ddd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
+    .vision-content p{margin-bottom:1.5rem}.vision-content p:last-child{margin-bottom:0}
 
-    .about{
-      margin-top:18px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:var(--glass);
-      padding:18px;
-    }
-    .about h3{margin:0 0 8px 0}
-    .about p{margin:0 0 10px;color:var(--muted);line-height:1.55}
-
-    /* Socials (unten links) */
-    .socials{position:fixed;left:var(--pad);bottom:var(--pad);display:flex;gap:16px;align-items:center}
-    .socials a{display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center}
-    .socials svg{width:22px;height:22px;fill:#fff;opacity:.9;transition:transform .2s ease}
-    .socials a:hover svg{opacity:1;transform:scale(1.15)}
-
-    /* LEFT COLUMN höher positionieren (nur Desktop) */
-    .left{transform:translateY(-44px);}        /* ← hier Höhe nach Geschmack anpassen */
-    @media (max-width:1100px){
-      .wrap{grid-template-columns:1fr;gap:20px}
-      .stack{height:auto}
-      .left{transform:none;}
-      .logo-top{justify-content:flex-start}
-    }
+    @media (max-width:1200px){.main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}.vision-section{grid-column:1 / -1}}
+    @media (max-width:768px){.main-container{grid-template-columns:1fr}.profile-section,.blocks-section,.vision-section{padding:60px 30px}.profile-section{min-height:100vh}.blocks-section{gap:1.5rem;padding-left:28px;padding-right:28px}.block{padding:30px}}
   </style>
 </head>
 <body>
-  <div class="wrap">
 
-    <!-- LEFT COLUMN -->
-    <aside class="col left"> <!-- ← nur diese Klasse 'left' ergänzt -->
-      <!-- Zitat-Box oben -->
-      <div class="quote">
-        <p>“The best way to predict the future is to create it.”</p>
-        <div class="by">— Peter Drucker</div>
-      </div>
+  <div id="map"></div>
+  <div class="map-overlay"></div>
 
-      <!-- Großes Bild unten -->
-      <div class="photo">
-        <img src="portrait.jpg" alt="Portrait / Bild" onerror="this.style.display='none'">
-      </div>
-    </aside>
-
-    <!-- MIDDLE COLUMN -->
-    <main class="col">
-      <div class="stack">
-        <!-- Emin Capitals -->
-        <article class="card tall">
-          <div class="bg" style="background-image:url('card-emin.jpg')"></div>
-          <div class="content">
-            <div class="kicker">CAPITAL</div>
-            <div class="title">Emin Capitals</div>
-            <div class="subtitle">Investment firm focused on AI-native infrastructure and early-stage innovation.</div>
-            <a class="ext" href="#">↗</a>
-          </div>
-        </article>
-
-        <!-- Insights -->
-        <article class="card medium">
-          <div class="bg" style="background-image:url('card-insights.jpg')"></div>
-          <div class="content">
-            <div class="kicker">INSIGHTS</div>
-            <div class="title">Insights</div>
-            <div class="subtitle">Thought leadership on the future of AI, agents and scale.</div>
-            <a class="ext" href="#">↗</a>
-          </div>
-        </article>
-      </div>
-    </main>
-
-    <!-- RIGHT COLUMN -->
-    <aside class="col">
-      <div class="logo-top">
-        <img src="logo.png" alt="Aigen Logo" onerror="this.style.display='none'">
-      </div>
-
-      <article class="card tall">
-        <div class="bg" style="background-image:url('card-aigen.jpg')"></div>
-        <div class="content">
-          <div class="kicker">CORE PRODUCT</div>
-          <div class="title">AigenAI</div>
-          <div class="subtitle">Autonomous AI agents engineered for scale and execution.</div>
-          <a class="ext" href="#">↗</a>
+  <div class="main-container">
+    <!-- LEFT COLUMN - ALLES ZENTRIERT -->
+    <div class="profile-section">
+      <div class="profile-main">
+        <div class="profile-name">EMIN<br/>TURUS</div>
+        <div class="profile-titles">
+          <div class="profile-title">VISIONARY</div>
+          <div class="profile-title">INNOVATOR</div>
         </div>
-      </article>
+        <p class="profile-description">
+          Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
+        </p>
+        
+        <!-- Social Icons unter dem Text -->
+        <div class="social-icons">
+          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.53 3h3.07l-7.4 8.48L21.5 21h-6.05l-4.75-6.38L5 21H1.93l7.86-9.01L2.8 3h6.2l4.3 5.78L17.53 3z"/>
+            </svg>
+          </a>
+          <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
 
-      <section class="about">
-        <h3>About</h3>
-        <p>Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and capital.</p>
-        <p>Focused on combining building and investing to create long-term impact in AI and crypto.</p>
-      </section>
-    </aside>
+      <!-- Quote ganz unten -->
+      <div class="quote-section">
+        <div class="quote-text">"The best way to predict the future is to create it."</div>
+        <div class="quote-author">— Peter Drucker</div>
+      </div>
+    </div>
+
+    <!-- MIDDLE COLUMN - unverändert -->
+    <div class="blocks-section">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-logo">
+            <div class="block-icon">🤖</div>
+            <div class="block-name">AIGEN AI</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Revolutionary artificial intelligence solutions transforming industries through cutting-edge machine learning and neural networks.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">AI/ML</span><span class="block-tag">Deep Learning</span><span class="block-tag">Innovation</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header">
+          <div class="block-logo">
+            <div class="block-icon">💰</div>
+            <div class="block-name">EMIN CAPITALS</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic venture capital fund investing in transformative technologies and disruptive startups that reshape global markets.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">VC Fund</span><span class="block-tag">Startups</span><span class="block-tag">Growth</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header">
+          <div class="block-logo">
+            <div class="block-icon">💡</div>
+            <div class="block-name">INSIGHT</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic consulting and thought leadership providing deep market insights and future trend analysis for forward-thinking organizations.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">Strategy</span><span class="block-tag">Consulting</span><span class="block-tag">Analysis</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN - unverändert -->
+    <div class="vision-section">
+      <h2 class="vision-title">Vision & Philosophy</h2>
+      <div class="vision-content">
+        <p>In an era defined by exponential technological advancement, I believe that the intersection of artificial intelligence, strategic investment, and visionary leadership holds the key to solving humanity's greatest challenges.</p>
+        <p>My journey as an entrepreneur and investor has taught me that true innovation doesn't just happen—it's crafted through deliberate action, strategic thinking, and an unwavering commitment to creating value that transcends traditional boundaries.</p>
+        <p>Through AIGEN AI, I'm developing cutting-edge artificial intelligence solutions that don't just automate processes, but fundamentally reimagine how we interact with technology. Through Emin Capitals, I'm backing the next generation of entrepreneurs who share my vision of a more connected, efficient, and equitable world.</p>
+        <p>The future isn't something that happens to us—it's something we actively create through our choices, investments, and innovations today. Every line of code, every strategic partnership, and every bold decision is a brushstroke in painting tomorrow's reality.</p>
+        <p>My mission is simple: to identify, nurture, and scale technologies that will define the next decade while building sustainable businesses that create lasting value for all stakeholders.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Socials -->
-  <div class="socials">
-    <a href="https://x.com/" target="_blank" aria-label="X">
-      <svg viewBox="0 0 24 24"><path d="M18.244 2H21l-6.52 7.46L22.5 22h-6.93l-4.54-5.87L5.77 22H3l6.96-7.96L1.5 2h7.03l4.1 5.39L18.244 2Zm-1.214 18h1.88L7.06 4h-1.9l11.87 16Z"/></svg>
-    </a>
-    <a href="https://instagram.com/" target="_blank" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3a6 6 0 1 1 0 12A6 6 0 0 1 12 7Zm0 2.2A3.8 3.8 0 1 0 15.8 13 3.8 3.8 0 0 0 12 9.2Zm5.35-3.15a1.15 1.15 0 1 1-1.15 1.15 1.15 1.15 0 0 1 1.15-1.15Z"/></svg>
-    </a>
-  </div>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [10, 52],
+    zoom: 4.4,
+    bearing: 0,
+    pitch: 0,
+    interactive: false,
+    attributionControl: false
+  });
+
+  map.on('load', () => {
+    const leftPad = window.innerWidth >= 1024 ? 420 : 16;
+    map.fitBounds([[-7, 44], [25, 58]], {
+      padding: { top: 20, right: 20, bottom: 20, left: leftPad },
+      duration: 0
+    });
+
+    for (const l of map.getStyle().layers) {
+      if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
+    }
+
+    map.addSource('night', {
+      type: 'raster',
+      tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'],
+      tileSize: 256
+    });
+    map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
+
+    map.addLayer({
+      id: 'country-outline-land',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
+      paint: {'line-color': 'rgba(255,255,255,0.70)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],'line-blur': 0.2}
+    });
+    map.addLayer({
+      id: 'country-outline-coast',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
+      paint: {'line-color': 'rgba(255,255,255,0.55)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],'line-blur': 0.2}
+    });
+
+    const city = [6.4428, 51.1805];
+    map.addSource('mg', {
+      type: 'geojson',
+      data: { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }]}
+    });
+
+    map.addLayer({id: 'mg-glow',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],'circle-color': 'rgba(255,190,120,0.85)','circle-blur': 0.9,'circle-opacity': 0.38}});
+    map.addLayer({id: 'mg-pulse',type: 'circle',source: 'mg',paint: {'circle-radius': 7,'circle-color': 'rgba(255,208,150,1)','circle-opacity': 0.55,'circle-stroke-color': 'rgba(255,230,190,0.9)','circle-stroke-width': 1.1}});
+    map.addLayer({id: 'mg-core',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],'circle-color': '#ffd8a0','circle-opacity': 0.95}});
+    map.addLayer({id: 'mg-label',type: 'symbol',source: 'mg',layout: {'text-field': ['get','name'],'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],'text-letter-spacing': 0.25,'text-transform': 'uppercase','text-offset': [0, 1.6],'text-anchor': 'top','text-allow-overlap': true},paint: {'text-color': 'rgba(255,210,150,0.98)','text-halo-color': 'rgba(0,0,0,0.9)','text-halo-width': 2.0}});
+
+    const start = Date.now();
+    (function animate(){
+      const t = (Date.now() - start) / 1000;
+      const radius = 6 + Math.sin(t * 2.2) * 3;
+      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;
+      map.setPaintProperty('mg-pulse','circle-radius', radius);
+      map.setPaintProperty('mg-pulse','circle-opacity', opacity);
+      requestAnimationFrame(animate);
+    })();
+  });
+</script>
 </body>
 </html>
