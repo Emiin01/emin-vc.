@@ -15,57 +15,36 @@
     body{
       font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
       background:#0d1117;color:#fff;line-height:1.4;
-      overflow-x:hidden;    /* keine horizontale Scrollbalken */
-      overflow-y:auto;      /* vertikal scrollen erlaubt */
-      min-height:100vh;position:relative;
+      overflow-x:hidden;overflow-y:auto;min-height:100vh;position:relative;
     }
 
-    /* === Satelliten-Hintergrund === */
-    #map{
-      position:fixed; inset:0; z-index:0;
-      /* für Nachtbild: keine starke Filter verfälschen */
-      filter: brightness(.95) contrast(1.08);
-    }
+    #map{position:fixed;inset:0;z-index:0;filter:brightness(.95) contrast(1.08)}
+    .map-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.02), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10))}
 
-    .map-overlay{
-      position:fixed; inset:0; z-index:1; pointer-events:none;
-      background:
-        radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.02), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.10));
-    }
-
-    /* ===== Layout ===== */
-    .main-container{
-      display:grid; grid-template-columns:1fr 1fr 1fr;
-      min-height:100vh; position:relative; z-index:2;
-    }
-
-    .profile-section,.blocks-section,.vision-section{
-      background: rgba(0,0,0,0.16); backdrop-filter:none;
-    }
+    .main-container{display:grid;grid-template-columns:1fr 1fr 1fr;min-height:100vh;position:relative;z-index:2}
+    .profile-section,.blocks-section,.vision-section{background:rgba(0,0,0,0.16);backdrop-filter:none}
+    
+    /* LEFT COLUMN - ALLES ZENTRIERT */
     .profile-section{
-      display:flex; flex-direction:column; justify-content:space-between;
-      padding:80px 50px; border-right:1px solid rgba(255,255,255,.08);
+      display:flex;flex-direction:column;justify-content:space-between;
+      padding:80px 50px;border-right:1px solid rgba(255,255,255,.08);
+      align-items:center;  /* ZENTRIERT */
+      text-align:center;   /* TEXT ZENTRIERT */
     }
 
-    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center}
+    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
     .profile-name{
       font-size:clamp(2.5rem,4vw,3.5rem);font-weight:800;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:1rem;
       background:linear-gradient(135deg,#fff 0%,#e0e0e0 50%,#fff 100%);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
       text-shadow:0 0 20px rgba(255,255,255,.18)
     }
-    .profile-titles{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem}
+    .profile-titles{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem;align-items:center}
     .profile-title{font-size:1rem;font-weight:500;text-transform:uppercase;letter-spacing:.3em;opacity:.85}
-    .profile-description{font-size:clamp(1rem,1.8vw,1.1rem);line-height:1.6;opacity:.9;max-width:350px}
+    .profile-description{font-size:clamp(1rem,1.8vw,1.1rem);line-height:1.6;opacity:.9;max-width:350px;text-align:center}
 
-    .quote-section{border-top:1px solid rgba(255,255,255,.1);padding-top:2rem}
-    .follow-title{
-      font-size:.9rem; letter-spacing:.12em; text-transform:uppercase;
-      opacity:.8; margin-bottom:.6rem;
-    }
-    .social-icons{display:flex;gap:1rem}
-    .social-icons--quote{gap:.6rem;margin-bottom:1.2rem}
+    /* Social Icons - ZENTRIERT unter dem Text */
+    .social-icons{display:flex;gap:1rem;margin-top:2rem;justify-content:center}
     .social-icon{
       width:40px;height:40px;background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.18);border-radius:10px;
@@ -73,27 +52,22 @@
       color:#fff;text-decoration:none;transition:.3s;font-size:1.2rem
     }
     .social-icon:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45);transform:translateY(-3px)}
+    .social-icon svg{width:22px;height:22px}
+
+    /* Quote Section - ZENTRIERT ganz unten */
+    .quote-section{border-top:1px solid rgba(255,255,255,.1);padding-top:2rem;text-align:center;width:100%}
     .quote-text{font-size:clamp(1rem,1.8vw,1.2rem);font-style:italic;line-height:1.5;opacity:.95;margin-bottom:1rem}
     .quote-author{font-size:.9rem;opacity:.7;text-transform:uppercase;letter-spacing:.1em}
 
-    .blocks-section{
-      display:flex;flex-direction:column;justify-content:center;align-items:center;
-      padding:80px 30px;gap:2rem; border-right:1px solid rgba(255,255,255,.05)
-    }
-    .block{
-      width:100%;max-width:400px;
-      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);
-      border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer
-    }
+    /* MIDDLE & RIGHT COLUMNS - unverändert */
+    .blocks-section{display:flex;flex-direction:column;justify-content:center;align-items:stretch;padding:80px 28px;gap:2rem;border-right:1px solid rgba(255,255,255,.05)}
+    .block{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:35px;transition:.4s;position:relative;overflow:hidden;cursor:pointer}
     .block::before{content:"";position:absolute;inset:0;left:-100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .6s}
     .block:hover::before{left:100%}
     .block:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);box-shadow:0 25px 50px rgba(0,0,0,.6)}
     .block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
     .block-logo{display:flex;align-items:center;gap:.8rem}
-    .block-icon{
-      width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
-      border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)
-    }
+    .block-icon{width:45px;height:45px;background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)}
     .block-name{font-size:1.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
     .block-arrow{width:20px;height:20px;border:2px solid rgba(255,255,255,.4);border-left:none;border-bottom:none;transform:rotate(45deg);transition:.3s}
     .block:hover .block-arrow{border-color:rgba(255,255,255,.8);transform:rotate(45deg) translate(4px,-4px)}
@@ -106,38 +80,17 @@
     .vision-content{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7;opacity:.95}
     .vision-content p{margin-bottom:1.5rem}.vision-content p:last-child{margin-bottom:0}
 
-    @media (max-width:1200px){
-      .main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
-      .vision-section{grid-column:1 / -1}
-    }
-    @media (max-width:768px){
-      .main-container{grid-template-columns:1fr}
-      .profile-section,.blocks-section,.vision-section{padding:60px 30px}
-      .profile-section{min-height:100vh}
-      .blocks-section{gap:1.5rem}
-      .block{max-width:none;padding:30px}
-    }
-
-    /* ===== OVERRIDES: Mittlere Karten bis zu den Linien (volle Spaltenbreite) ===== */
-    .blocks-section{
-      align-items:stretch;              /* nicht zentrieren, sondern ganze Breite nutzen */
-      padding-left:28px;
-      padding-right:28px;               /* kleiner Innenabstand zu den Linien */
-    }
-    .blocks-section .block{
-      max-width:none;                   /* 400px-Limit aufheben */
-      width:100%;                       /* Card füllt die Spaltenbreite */
-    }
+    @media (max-width:1200px){.main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}.vision-section{grid-column:1 / -1}}
+    @media (max-width:768px){.main-container{grid-template-columns:1fr}.profile-section,.blocks-section,.vision-section{padding:60px 30px}.profile-section{min-height:100vh}.blocks-section{gap:1.5rem;padding-left:28px;padding-right:28px}.block{padding:30px}}
   </style>
 </head>
 <body>
 
-  <!-- Fixed satellite background -->
   <div id="map"></div>
   <div class="map-overlay"></div>
 
-  <!-- Dein Content -->
   <div class="main-container">
+    <!-- LEFT COLUMN - ALLES ZENTRIERT -->
     <div class="profile-section">
       <div class="profile-main">
         <div class="profile-name">EMIN<br/>TURUS</div>
@@ -148,32 +101,30 @@
         <p class="profile-description">
           Emin Turus is an entrepreneur, investor, and visionary leader shaping the future at the intersection of innovation and technology.
         </p>
-        <!-- alter Emoji-Block entfernt -->
-      </div>
-
-      <!-- Icons über dem Zitat -->
-      <div class="quote-section">
-        <div class="follow-title">Follow me</div>
-        <div class="social-icons social-icons--quote">
-          <!-- X -->
-          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X (Twitter)">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+        
+        <!-- Social Icons unter dem Text -->
+        <div class="social-icons">
+          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.53 3h3.07l-7.4 8.48L21.5 21h-6.05l-4.75-6.38L5 21H1.93l7.86-9.01L2.8 3h6.2l4.3 5.78L17.53 3z"/>
             </svg>
           </a>
-          <!-- Instagram -->
           <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
             </svg>
           </a>
         </div>
+      </div>
 
+      <!-- Quote ganz unten -->
+      <div class="quote-section">
         <div class="quote-text">"The best way to predict the future is to create it."</div>
         <div class="quote-author">— Peter Drucker</div>
       </div>
     </div>
 
+    <!-- MIDDLE COLUMN - unverändert -->
     <div class="blocks-section">
       <div class="block">
         <div class="block-header">
@@ -224,6 +175,7 @@
       </div>
     </div>
 
+    <!-- RIGHT COLUMN - unverändert -->
     <div class="vision-section">
       <h2 class="vision-title">Vision & Philosophy</h2>
       <div class="vision-content">
@@ -236,10 +188,8 @@
     </div>
   </div>
 
-  <!-- Map init -->
 <script>
   mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
-
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v11',
@@ -253,40 +203,29 @@
 
   map.on('load', () => {
     const leftPad = window.innerWidth >= 1024 ? 420 : 16;
-
     map.fitBounds([[-7, 44], [25, 58]], {
       padding: { top: 20, right: 20, bottom: 20, left: leftPad },
       duration: 0
     });
 
-    // alles außer Hintergrund verstecken
     for (const l of map.getStyle().layers) {
       if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
     }
 
-    // NASA Black Marble (Nachtlichter)
     map.addSource('night', {
       type: 'raster',
-      tiles: [
-        'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'
-      ],
-      tileSize: 256,
-      attribution: 'NASA Black Marble'
+      tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'],
+      tileSize: 256
     });
     map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
 
-    // Länder-Umrisse
     map.addLayer({
       id: 'country-outline-land',
       type: 'line',
       source: 'composite',
       'source-layer': 'admin',
       filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
-      paint: {
-        'line-color': 'rgba(255,255,255,0.70)',
-        'line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],
-        'line-blur': 0.2
-      }
+      paint: {'line-color': 'rgba(255,255,255,0.70)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],'line-blur': 0.2}
     });
     map.addLayer({
       id: 'country-outline-coast',
@@ -294,89 +233,25 @@
       source: 'composite',
       'source-layer': 'admin',
       filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
-      paint: {
-        'line-color': 'rgba(255,255,255,0.55)',
-        'line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],
-        'line-blur': 0.2
-      }
+      paint: {'line-color': 'rgba(255,255,255,0.55)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],'line-blur': 0.2}
     });
 
-    // === Mönchengladbach ===
     const city = [6.4428, 51.1805];
     map.addSource('mg', {
       type: 'geojson',
-      data: { type:'FeatureCollection', features:[
-        { type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }
-      ]}
+      data: { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }]}
     });
 
-    // Glow
-    map.addLayer({
-      id: 'mg-glow',
-      type: 'circle',
-      source: 'mg',
-      paint: {
-        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],
-        'circle-color': 'rgba(255,190,120,0.85)',
-        'circle-blur': 0.9,
-        'circle-opacity': 0.38
-      }
-    });
+    map.addLayer({id: 'mg-glow',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],'circle-color': 'rgba(255,190,120,0.85)','circle-blur': 0.9,'circle-opacity': 0.38}});
+    map.addLayer({id: 'mg-pulse',type: 'circle',source: 'mg',paint: {'circle-radius': 7,'circle-color': 'rgba(255,208,150,1)','circle-opacity': 0.55,'circle-stroke-color': 'rgba(255,230,190,0.9)','circle-stroke-width': 1.1}});
+    map.addLayer({id: 'mg-core',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],'circle-color': '#ffd8a0','circle-opacity': 0.95}});
+    map.addLayer({id: 'mg-label',type: 'symbol',source: 'mg',layout: {'text-field': ['get','name'],'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],'text-letter-spacing': 0.25,'text-transform': 'uppercase','text-offset': [0, 1.6],'text-anchor': 'top','text-allow-overlap': true},paint: {'text-color': 'rgba(255,210,150,0.98)','text-halo-color': 'rgba(0,0,0,0.9)','text-halo-width': 2.0}});
 
-    // pulsierender Punkt (kleiner & sanfter)
-    map.addLayer({
-      id: 'mg-pulse',
-      type: 'circle',
-      source: 'mg',
-      paint: {
-        'circle-radius': 7,
-        'circle-color': 'rgba(255,208,150,1)',
-        'circle-opacity': 0.55,
-        'circle-stroke-color': 'rgba(255,230,190,0.9)',
-        'circle-stroke-width': 1.1
-      }
-    });
-
-    // kleiner Kernpunkt
-    map.addLayer({
-      id: 'mg-core',
-      type: 'circle',
-      source: 'mg',
-      paint: {
-        'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],
-        'circle-color': '#ffd8a0',
-        'circle-opacity': 0.95
-      }
-    });
-
-    // Label kleiner und UNTER dem Punkt
-    map.addLayer({
-      id: 'mg-label',
-      type: 'symbol',
-      source: 'mg',
-      layout: {
-        'text-field': ['get','name'],
-        'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],
-        'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],
-        'text-letter-spacing': 0.25,
-        'text-transform': 'uppercase',
-        'text-offset': [0, 1.6],   // ↓ unter den Punkt
-        'text-anchor': 'top',      // am oberen Rand des Textes ansetzen
-        'text-allow-overlap': true
-      },
-      paint: {
-        'text-color': 'rgba(255,210,150,0.98)',
-        'text-halo-color': 'rgba(0,0,0,0.9)',
-        'text-halo-width': 2.0
-      }
-    });
-
-    // Animation fürs Pulsieren
     const start = Date.now();
     (function animate(){
       const t = (Date.now() - start) / 1000;
-      const radius = 6 + Math.sin(t * 2.2) * 3;                 // kleiner
-      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;    // sanfter
+      const radius = 6 + Math.sin(t * 2.2) * 3;
+      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;
       map.setPaintProperty('mg-pulse','circle-radius', radius);
       map.setPaintProperty('mg-pulse','circle-opacity', opacity);
       requestAnimationFrame(animate);
