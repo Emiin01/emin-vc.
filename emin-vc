@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Emin Turus</title>
+
+  <!-- Mapbox GL -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   
   <!-- Professional Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,89 +19,12 @@
     html,body{height:100%;overflow:hidden}
     body{
       font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:#0a0a0a;
-      color:#e8e8e8;
-      line-height:1.6;
-      position:relative;
-      font-weight:300;
+      background:#0a0a0a;color:#e8e8e8;line-height:1.6;
+      position:relative;font-weight:300;
     }
 
-    /* Hintergrundbild - NASA Earth at Night */
-    .background-map{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      background-image:url('https://eoimages.gsfc.nasa.gov/images/imagerecords/144000/144898/europe_vir_2016_lrg.jpg');
-      background-size:cover;
-      background-position:center;
-      background-repeat:no-repeat;
-      filter:brightness(0.6) contrast(1.2);
-    }
-    
-    /* Mönchengladbach Marker */
-    .city-marker{
-      position:fixed;
-      left:42%;
-      top:38%;
-      z-index:1;
-      transform:translate(-50%, -50%);
-    }
-    
-    .marker-glow{
-      position:absolute;
-      width:80px;
-      height:80px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(255,190,120,0.6) 0%, transparent 70%);
-      top:50%;
-      left:50%;
-      transform:translate(-50%, -50%);
-      animation:glow 3s ease-in-out infinite;
-    }
-    
-    @keyframes glow{
-      0%, 100%{transform:translate(-50%, -50%) scale(1);opacity:0.6}
-      50%{transform:translate(-50%, -50%) scale(1.3);opacity:0.8}
-    }
-    
-    .marker-dot{
-      position:relative;
-      width:12px;
-      height:12px;
-      border-radius:50%;
-      background:#ffd8a0;
-      box-shadow:0 0 20px rgba(255,200,100,0.8);
-      animation:pulse 2s ease-in-out infinite;
-      z-index:2;
-    }
-    
-    @keyframes pulse{
-      0%, 100%{transform:scale(1)}
-      50%{transform:scale(1.3)}
-    }
-    
-    .marker-label{
-      position:absolute;
-      top:20px;
-      left:50%;
-      transform:translateX(-50%);
-      white-space:nowrap;
-      font-size:12px;
-      font-weight:500;
-      letter-spacing:0.2em;
-      text-transform:uppercase;
-      color:#ffd8a0;
-      text-shadow:0 0 10px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.9);
-      z-index:2;
-    }
-    
-    .map-overlay{
-      position:fixed;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      background:radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,.2), rgba(0,0,0,.4));
-    }
+    #map{position:fixed;inset:0;z-index:0;filter:brightness(.92) contrast(1.1)}
+    .map-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.015), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.12))}
 
     .main-container{
       display:grid;
@@ -108,11 +35,7 @@
       max-width:1900px;
       margin:0 auto;
     }
-    
-    .profile-section,.blocks-section,.vision-section{
-      background:rgba(0,0,0,0.7);
-      backdrop-filter:blur(6px);
-    }
+    .profile-section,.blocks-section,.vision-section{background:rgba(0,0,0,0.7);backdrop-filter:blur(6px)}
     
     /* LEFT COLUMN */
     .profile-section{
@@ -159,10 +82,8 @@
 
     .social-icons{display:flex;gap:1.1rem;justify-content:center}
     .social-icon{
-      width:38px;height:38px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:8px;
+      width:38px;height:38px;background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.1);border-radius:8px;
       display:flex;align-items:center;justify-content:center;
       color:#fff;text-decoration:none;transition:all .3s ease;
     }
@@ -183,7 +104,9 @@
     .block{
       width:100%;
       max-width:680px;
-      background:linear-gradient(135deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.7) 100%);
+      background:linear-gradient(135deg, 
+        rgba(0,0,0,.8) 0%, 
+        rgba(0,0,0,.7) 100%);
       backdrop-filter:blur(8px);
       border:1px solid rgba(255,255,255,.2);
       border-radius:24px;
@@ -192,14 +115,18 @@
       position:relative;
       overflow:hidden;
       cursor:pointer;
-      box-shadow:0 10px 40px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.15);
+      box-shadow:
+        0 10px 40px rgba(0,0,0,.6),
+        inset 0 1px 0 rgba(255,255,255,.15);
     }
     
     .block::before{
       content:"";
       position:absolute;
-      top:-50%;left:-50%;
-      width:200%;height:200%;
+      top:-50%;
+      left:-50%;
+      width:200%;
+      height:200%;
       background:radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
       opacity:0;
       transition:opacity .6s ease;
@@ -209,8 +136,12 @@
     .block::after{
       content:"";
       position:absolute;
-      inset:0;left:-100%;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+      inset:0;
+      left:-100%;
+      background:linear-gradient(90deg, 
+        transparent, 
+        rgba(255,255,255,.08), 
+        transparent);
       transition:left .8s ease;
     }
     .block:hover::after{left:100%}
@@ -218,11 +149,21 @@
     .block:hover{
       transform:translateY(-6px) scale(1.01);
       border-color:rgba(255,255,255,.3);
-      background:linear-gradient(135deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.65) 100%);
-      box-shadow:0 25px 70px rgba(0,0,0,.7),0 0 0 1px rgba(255,200,100,.25),inset 0 1px 0 rgba(255,255,255,.2);
+      background:linear-gradient(135deg, 
+        rgba(0,0,0,.75) 0%, 
+        rgba(0,0,0,.65) 100%);
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.7),
+        0 0 0 1px rgba(255,200,100,.25),
+        inset 0 1px 0 rgba(255,255,255,.2);
     }
     
-    .block-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.3rem}
+    .block-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      margin-bottom:1.3rem;
+    }
     .block-title-wrapper{display:flex;flex-direction:column;gap:.55rem}
     .block-name{
       font-family:"Playfair Display",serif;
@@ -244,12 +185,16 @@
     }
     
     .block-arrow{
-      width:22px;height:22px;
+      width:22px;
+      height:22px;
       border:1.5px solid rgba(255,255,255,.4);
-      border-left:none;border-bottom:none;
+      border-left:none;
+      border-bottom:none;
       transform:rotate(45deg);
       transition:all .4s ease;
-      flex-shrink:0;margin-top:5px;opacity:.7;
+      flex-shrink:0;
+      margin-top:5px;
+      opacity:.7;
     }
     .block:hover .block-arrow{
       border-color:rgba(255,200,100,1);
@@ -334,20 +279,34 @@
       color:#c0c0c0;
     }
     
-    .timeline{position:relative;padding-left:38px}
+    .timeline{
+      position:relative;
+      padding-left:38px;
+    }
     
     .timeline::before{
-      content:"";position:absolute;left:0;top:0;width:1px;height:100%;
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      width:1px;
+      height:100%;
       background:rgba(255,255,255,.1);
     }
     
     .timeline-progress{
-      position:absolute;left:0;top:0;width:1px;height:0;
+      position:absolute;
+      left:0;
+      top:0;
+      width:1px;
+      height:0;
       background:linear-gradient(to bottom, rgba(255,200,100,.6), rgba(255,200,100,.2));
       animation:progressGrow 3s ease-out forwards;
     }
     
-    @keyframes progressGrow{to{height:100%}}
+    @keyframes progressGrow{
+      to{height:100%}
+    }
     
     .milestone{
       position:relative;
@@ -366,13 +325,19 @@
     }
     
     .milestone::before{
-      content:"";position:absolute;left:-41px;top:5px;width:7px;height:7px;border-radius:50%;
+      content:"";
+      position:absolute;
+      left:-41px;
+      top:5px;
+      width:7px;
+      height:7px;
+      border-radius:50%;
       background:rgba(255,200,100,.8);
       box-shadow:0 0 10px rgba(255,200,100,.4);
-      animation:milestonePulse 2s ease-in-out infinite;
+      animation:pulse 2s ease-in-out infinite;
     }
     
-    @keyframes milestonePulse{
+    @keyframes pulse{
       0%, 100%{transform:scale(1);opacity:.8}
       50%{transform:scale(1.3);opacity:1}
     }
@@ -417,19 +382,11 @@
 </head>
 <body>
 
-  <!-- NASA Earth at Night Hintergrund -->
-  <div class="background-map"></div>
-  
-  <!-- Mönchengladbach Marker -->
-  <div class="city-marker">
-    <div class="marker-glow"></div>
-    <div class="marker-dot"></div>
-    <div class="marker-label">MÖNCHENGLADBACH</div>
-  </div>
-  
+  <div id="map"></div>
   <div class="map-overlay"></div>
 
   <div class="main-container">
+    <!-- LEFT COLUMN -->
     <div class="profile-section">
       <div class="profile-main">
         <div class="profile-name">EMIN<br/>TURUS</div>
@@ -463,6 +420,7 @@
       </div>
     </div>
 
+    <!-- MIDDLE COLUMN -->
     <div class="blocks-section">
       <div class="block">
         <div class="block-header">
@@ -519,6 +477,7 @@
       </div>
     </div>
 
+    <!-- RIGHT COLUMN -->
     <div class="vision-section">
       <h2 class="vision-title">Vision & Philosophy</h2>
       <div class="vision-content">
@@ -529,6 +488,7 @@
         <p>My mission is simple: identify, nurture, and scale technologies that will define the next decade while building sustainable businesses that create lasting value.</p>
       </div>
 
+      <!-- TIMELINE -->
       <div class="journey-timeline">
         <div class="timeline-title">The Journey</div>
         <div class="timeline">
@@ -558,5 +518,75 @@
     </div>
   </div>
 
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [10, 52],
+    zoom: 4.4,
+    bearing: 0,
+    pitch: 0,
+    interactive: false,
+    attributionControl: false
+  });
+
+  map.on('load', () => {
+    const leftPad = window.innerWidth >= 1024 ? 360 : 16;
+    map.fitBounds([[-7, 44], [25, 58]], {
+      padding: { top: 20, right: 20, bottom: 20, left: leftPad },
+      duration: 0
+    });
+
+    for (const l of map.getStyle().layers) {
+      if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
+    }
+
+    map.addSource('night', {
+      type: 'raster',
+      tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'],
+      tileSize: 256
+    });
+    map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
+
+    map.addLayer({
+      id: 'country-outline-land',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
+      paint: {'line-color': 'rgba(255,255,255,0.70)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],'line-blur': 0.2}
+    });
+    map.addLayer({
+      id: 'country-outline-coast',
+      type: 'line',
+      source: 'composite',
+      'source-layer': 'admin',
+      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
+      paint: {'line-color': 'rgba(255,255,255,0.55)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],'line-blur': 0.2}
+    });
+
+    const city = [6.4428, 51.1805];
+    map.addSource('mg', {
+      type: 'geojson',
+      data: { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }]}
+    });
+
+    map.addLayer({id: 'mg-glow',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],'circle-color': 'rgba(255,190,120,0.85)','circle-blur': 0.9,'circle-opacity': 0.38}});
+    map.addLayer({id: 'mg-pulse',type: 'circle',source: 'mg',paint: {'circle-radius': 7,'circle-color': 'rgba(255,208,150,1)','circle-opacity': 0.55,'circle-stroke-color': 'rgba(255,230,190,0.9)','circle-stroke-width': 1.1}});
+    map.addLayer({id: 'mg-core',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],'circle-color': '#ffd8a0','circle-opacity': 0.95}});
+    map.addLayer({id: 'mg-label',type: 'symbol',source: 'mg',layout: {'text-field': ['get','name'],'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],'text-letter-spacing': 0.25,'text-transform': 'uppercase','text-offset': [0, 1.6],'text-anchor': 'top','text-allow-overlap': true},paint: {'text-color': 'rgba(255,210,150,0.98)','text-halo-color': 'rgba(0,0,0,0.9)','text-halo-width': 2.0}});
+
+    const start = Date.now();
+    (function animate(){
+      const t = (Date.now() - start) / 1000;
+      const radius = 6 + Math.sin(t * 2.2) * 3;
+      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;
+      map.setPaintProperty('mg-pulse','circle-radius', radius);
+      map.setPaintProperty('mg-pulse','circle-opacity', opacity);
+      requestAnimationFrame(animate);
+    })();
+  });
+</script>
 </body>
 </html>
