@@ -24,7 +24,15 @@
     }
 
     #map{position:fixed;inset:0;z-index:0;filter:brightness(.92) contrast(1.1)}
-    .map-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.015), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.1))}
+    
+    /* VIEL TRANSPARENTER - Map sichtbar! */
+    .map-overlay{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:radial-gradient(1100px 700px at 50% 55%, rgba(255,185,90,.005), transparent 60%),linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.04));
+    }
 
     .main-container{
       display:grid;
@@ -36,10 +44,10 @@
       margin:0 auto;
     }
     
-    /* TRANSPARENT SPALTEN */
+    /* TRANSPARENTE SPALTEN */
     .profile-section,.blocks-section,.vision-section{
-      background:rgba(0,0,0,0.5);
-      backdrop-filter:blur(6px);
+      background:rgba(0,0,0,0.45);
+      backdrop-filter:blur(5px);
     }
     
     /* LEFT COLUMN */
