@@ -4,14 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-  <!-- SEO Meta Tags -->
   <title>Emin Turus | AI Visionary & Strategic Investor</title>
-  <meta name="description" content="Building the future at the intersection of artificial intelligence and strategic capital. AI ventures, venture capital, and strategic consulting.">
+  <meta name="description" content="Building the future at the intersection of artificial intelligence and strategic capital.">
   
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -30,7 +27,6 @@
       font-weight:300;
     }
 
-    /* Einfacher Gradient-Hintergrund */
     body::before{
       content:"";
       position:fixed;
@@ -42,29 +38,6 @@
       z-index:0;
     }
 
-    /* Loading Screen */
-    .loading-screen{
-      position:fixed;
-      inset:0;
-      background:#0a0a0a;
-      z-index:9999;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:opacity .5s ease, visibility .5s ease;
-    }
-    .loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
-    .loader{
-      width:50px;
-      height:50px;
-      border:3px solid rgba(255,200,100,.2);
-      border-top-color:rgba(255,200,100,1);
-      border-radius:50%;
-      animation:spin 1s linear infinite;
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* Contact Button */
     .contact-btn{
       position:fixed;
       top:30px;
@@ -83,19 +56,13 @@
       letter-spacing:.05em;
       text-transform:uppercase;
       transition:all .3s ease;
-      text-shadow:0 2px 8px rgba(0,0,0,0.9);
-      opacity:0;
-      animation:fadeInDown .6s ease forwards .5s;
+      opacity:1;
     }
     .contact-btn:hover{
       background:rgba(255,200,100,.3);
       border-color:rgba(255,200,100,.7);
       transform:translateY(-2px);
       box-shadow:0 10px 30px rgba(255,200,100,.3);
-    }
-    @keyframes fadeInDown{
-      from{opacity:0;transform:translateY(-20px)}
-      to{opacity:1;transform:translateY(0)}
     }
 
     .main-container{
@@ -107,23 +74,12 @@
       max-width:1900px;
       margin:0 auto;
     }
-    
-    .fade-in{
-      opacity:0;
-      transform:translateY(30px);
-      transition:opacity .6s ease, transform .6s ease;
-    }
-    .fade-in.visible{
-      opacity:1;
-      transform:translateY(0);
-    }
 
     .profile-section,.blocks-section,.vision-section{
       background:rgba(0,0,0,0.3);
       backdrop-filter:blur(2px);
     }
     
-    /* LEFT COLUMN */
     .profile-section{
       display:flex;
       flex-direction:column;
@@ -210,7 +166,6 @@
     }
     .social-icon svg{width:19px;height:19px;opacity:.9}
     .social-icon:hover svg{opacity:1}
-
     .social-icon::before{
       content:attr(aria-label);
       position:absolute;
@@ -232,7 +187,6 @@
       opacity:1;
     }
 
-    /* MIDDLE COLUMN */
     .blocks-section{
       display:flex;
       flex-direction:column;
@@ -355,7 +309,6 @@
       transform:translateY(-2px);
     }
 
-    /* RIGHT COLUMN */
     .vision-section{
       display:flex;
       flex-direction:column;
@@ -384,7 +337,6 @@
     .vision-content p{margin-bottom:1.8rem}
     .vision-content p:last-child{margin-bottom:0}
 
-    /* TIMELINE */
     .journey-timeline{margin-top:3rem;padding-top:2.4rem;border-top:1px solid rgba(255,255,255,.2)}
     .timeline-title{
       font-family:"Inter",sans-serif;
@@ -448,7 +400,6 @@
       line-height:1.45;
     }
 
-    /* Footer */
     .footer{
       background:rgba(0,0,0,0.3);
       backdrop-filter:blur(3px);
@@ -495,13 +446,152 @@
 </head>
 <body>
 
-  <div class="loading-screen">
-    <div class="loader"></div>
-  </div>
-
   <a href="#" class="contact-btn" onclick="window.location.href='mailto:contact'+'@'+'emin.vc'; return false;">Contact</a>
 
   <div class="main-container">
-    <div class="profile-section fade-in">
+    <div class="profile-section">
       <div class="profile-main">
         <div class="profile-name">EMIN<br/>TURUS</div>
+        <div class="profile-titles">
+          <div class="profile-title">VISIONARY</div>
+          <div class="profile-title">INNOVATOR</div>
+        </div>
+        <p class="profile-description">
+          Building the future at the intersection of artificial intelligence and strategic capital.
+        </p>
+      </div>
+
+      <div class="bottom-section">
+        <div class="quote-section">
+          <div class="quote-text">"The best way to predict the future is to create it."</div>
+          <div class="quote-author">— Peter Drucker</div>
+        </div>
+
+        <div class="social-icons">
+          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.53 3h3.07l-7.4 8.48L21.5 21h-6.05l-4.75-6.38L5 21H1.93l7.86-9.01L2.8 3h6.2l4.3 5.78L17.53 3z"/>
+            </svg>
+          </a>
+          <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="blocks-section">
+      <div class="block">
+        <div class="block-header">
+          <div class="block-title-wrapper">
+            <div class="block-name">AIGEN AI</div>
+            <div class="block-coming-soon">Coming Soon</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Revolutionary AI solutions transforming industries through cutting-edge machine learning and neural networks.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">AI/ML</span>
+          <span class="block-tag">Deep Learning</span>
+          <span class="block-tag">Innovation</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header">
+          <div class="block-title-wrapper">
+            <div class="block-name">EMIN CAPITALS</div>
+            <div class="block-coming-soon">Coming Soon</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic venture capital investing in transformative technologies and disruptive startups.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">VC Fund</span>
+          <span class="block-tag">Startups</span>
+          <span class="block-tag">Growth</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-header">
+          <div class="block-title-wrapper">
+            <div class="block-name">INSIGHT</div>
+            <div class="block-coming-soon">Coming Soon</div>
+          </div>
+          <div class="block-arrow"></div>
+        </div>
+        <div class="block-description">
+          Strategic consulting providing deep market insights and future trend analysis.
+        </div>
+        <div class="block-tags">
+          <span class="block-tag">Strategy</span>
+          <span class="block-tag">Consulting</span>
+          <span class="block-tag">Analysis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vision-section">
+      <h2 class="vision-title">Vision & Philosophy</h2>
+      <div class="vision-content">
+        <p>The future belongs to those who build it. At the convergence of artificial intelligence, strategic capital, and transformative leadership lies the blueprint for solving civilization's most complex challenges.</p>
+        
+        <p>Innovation is never accidental. It is forged through precision, relentless execution, and an uncompromising vision that reshapes industries and redefines what's achievable.</p>
+        
+        <p>My mandate is clear: identify breakthrough technologies at their inception, empower exceptional founders, and scale ventures that don't just compete in markets—they create them.</p>
+      </div>
+
+      <div class="journey-timeline">
+        <div class="timeline-title">The Journey</div>
+        <div class="timeline">
+          <div class="timeline-progress"></div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2020</div>
+            <div class="milestone-label">Founded first venture in AI technology</div>
+          </div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2022</div>
+            <div class="milestone-label">Launched strategic investment initiatives</div>
+          </div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2024</div>
+            <div class="milestone-label">Expanded into venture capital ecosystem</div>
+          </div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2025</div>
+            <div class="milestone-label">Building the future of AI & capital</div>
+          </div>
+          
+          <div class="milestone">
+            <div class="milestone-year">2026</div>
+            <div class="milestone-label">Securing airdrops and early tokens for maximum returns</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-text">© 2026 Emin Turus. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#" class="footer-link" onclick="window.location.href='mailto:contact'+'@'+'emin.vc'; return false;">Contact</a>
+        <a href="#" class="footer-link" onclick="alert('Impressum:\n\nEmin Turus\nMönchengladbach, Germany\n\nE-Mail: contact@emin.vc'); return false;">Impressum</a>
+        <a href="#" class="footer-link" onclick="alert('Datenschutzerklärung:\n\nDiese Website verwendet keine Cookies und speichert keine personenbezogenen Daten.\n\nKontakt: contact@emin.vc'); return false;">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
