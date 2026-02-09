@@ -7,7 +7,7 @@
   <title>Emin Turus | AI Visionary & Strategic Investor</title>
   <meta name="description" content="Building the future at the intersection of artificial intelligence and strategic capital.">
   
-  <!-- Unterschrift als Favicon (eingebaut) -->
+  <!-- Unterschrift als Favicon -->
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADm0lEQVR4nO3bMW7jQBBFQY+R+1+Z75BLZJYgCBqTVWXwQuZH9+zn8/n8AZb6+/ULAPwOAQCLCQBYTADAYgIAFhMAsPgbgOX+e30B+J4AYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCw2D97qQnKlo6h8gAAAABJRU5ErkJggg==">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -389,18 +389,7 @@
       font-size:.85rem;
       opacity:.5;
       color:#d0d0d0;
-      margin-bottom:20px;
     }
-    .footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-    .footer-link{
-      font-family:"Inter",sans-serif;
-      font-size:.8rem;
-      color:#d0d0d0;
-      text-decoration:none;
-      opacity:.6;
-      transition:opacity .3s ease;
-    }
-    .footer-link:hover{opacity:1}
 
     @media (max-width:1600px){.main-container{grid-template-columns:340px 1fr 420px}}
     @media (max-width:1200px){
@@ -552,11 +541,6 @@
   <div class="footer">
     <div class="footer-content">
       <div class="footer-text">© 2026 Emin Turus. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="#" class="footer-link" onclick="window.location.href='mailto:contact'+'@'+'emin.vc'; return false;">Contact</a>
-        <a href="impressum.html" class="footer-link">Impressum</a>
-        <a href="datenschutz.html" class="footer-link">Datenschutz</a>
-      </div>
     </div>
   </div>
 
