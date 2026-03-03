@@ -1,639 +1,489 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  
-  <title>Emin Turus | AI Visionary & Strategic Investor</title>
-  <meta name="description" content="Building the future at the intersection of artificial intelligence and strategic capital.">
-  
-  <!-- Unterschrift als Favicon -->
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADm0lEQVR4nO3bMW7jQBBFQY+R+1+Z75BLZJYgCBqTVWXwQuZH9+zn8/n8AZb6+/ULAPwOAQCLCQBYTADAYgIAFhMAsPgbgOX+e30B+J4AYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCwmACAxQQALCYAYDEBAIsJAFhMAMBiAgAWEwCw2D97qQnKlo6h8gAAAABJRU5ErkJggg==">
-  
-  <!-- Mapbox GL -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  
+  <title>Emin Turus · terminal</title>
+  <!-- fonts: ibm plex mono (retro) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    html,body{height:100%;overflow:auto}
-    
-    body{
-      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:#0a0a0a;
-      color:#e8e8e8;
-      line-height:1.6;
-      position:relative;
-      font-weight:300;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* Mapbox Hintergrund */
-    #map{position:fixed;inset:0;z-index:0}
-    .map-overlay{position:fixed;inset:0;z-index:1;pointer-events:none;background:transparent}
-
-    .main-container{
-      display:grid;
-      grid-template-columns:360px 1fr 440px;
-      min-height:100vh;
-      position:relative;
-      z-index:2;
-      max-width:1900px;
-      margin:0 auto;
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: #0a0a0a;
+      color: #dddddd;
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-weight: 350;
+      line-height: 1.5;
     }
 
-    .profile-section,.blocks-section,.vision-section{
-      background:rgba(0,0,0,0.15);
-      backdrop-filter:blur(2px);
+    /* retro noise */
+    .bg-noise {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle at 40% 50%, #151515 0%, #050505 100%);
+      z-index: 0;
     }
-    
-    .profile-section{
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      padding:70px 55px 60px;
-      border-right:1px solid rgba(255,255,255,.2);
-      align-items:center;
-      text-align:center;
-      min-height:100vh;
-    }
-
-    .profile-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:280px}
-    .profile-name{
-      font-family:"Playfair Display",serif;
-      font-size:3rem;
-      font-weight:400;
-      letter-spacing:.15em;
-      text-transform:uppercase;
-      margin-bottom:2rem;
-      color:#fff;
-      line-height:1.2;
-      text-shadow:0 2px 15px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.8);
-    }
-    .profile-titles{display:flex;flex-direction:column;gap:.8rem;margin-bottom:2.5rem;align-items:center}
-    .profile-title{
-      font-family:"Inter",sans-serif;
-      font-size:.75rem;
-      font-weight:400;
-      text-transform:uppercase;
-      letter-spacing:.25em;
-      opacity:.7;
-      color:#fff;
-      text-shadow:0 2px 10px rgba(0,0,0,0.9);
-    }
-    .profile-description{
-      font-family:"Inter",sans-serif;
-      font-size:1rem;
-      line-height:1.75;
-      opacity:.85;
-      text-align:center;
-      font-weight:300;
-      color:#f5f5f5;
-      text-shadow:0 2px 10px rgba(0,0,0,0.9);
+    .bg-scanline {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0px, rgba(0,0,0,0.2) 1px, transparent 2px);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .bottom-section{display:flex;flex-direction:column;align-items:center;gap:2.2rem;width:100%}
-    .quote-section{text-align:center;width:100%;max-width:280px}
-    .quote-text{
-      font-family:"Playfair Display",serif;
-      font-size:1.1rem;
-      font-style:italic;
-      line-height:1.65;
-      opacity:.9;
-      margin-bottom:1.1rem;
-      font-weight:400;
-      color:#fff;
-      text-shadow:0 2px 10px rgba(0,0,0,0.9);
-    }
-    .quote-author{
-      font-family:"Inter",sans-serif;
-      font-size:.72rem;
-      opacity:.6;
-      text-transform:uppercase;
-      letter-spacing:.2em;
-      font-weight:400;
-      color:#e0e0e0;
-      text-shadow:0 2px 10px rgba(0,0,0,0.9);
+    /* main container – drei Spalten */
+    .main-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 1.2fr;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      z-index: 10;
+      max-width: 1600px;
+      margin: 0 auto;
+      pointer-events: none;
+      gap: 1px;
     }
 
-    .social-icons{display:flex;gap:1.1rem;justify-content:center}
-    .social-icon{
-      width:38px;
-      height:38px;
-      background:rgba(255,255,255,.1);
-      border:1px solid rgba(255,255,255,.25);
-      border-radius:8px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      text-decoration:none;
-      transition:all .3s ease;
-      position:relative;
-    }
-    .social-icon:hover{
-      background:rgba(255,255,255,.2);
-      border-color:rgba(255,255,255,.4);
-      transform:translateY(-2px);
-    }
-    .social-icon svg{width:19px;height:19px;opacity:.9}
-    .social-icon:hover svg{opacity:1}
-    .social-icon::before{
-      content:attr(aria-label);
-      position:absolute;
-      bottom:calc(100% + 8px);
-      left:50%;
-      transform:translateX(-50%) scale(0);
-      padding:4px 10px;
-      background:rgba(0,0,0,.9);
-      color:#fff;
-      font-size:.7rem;
-      border-radius:4px;
-      white-space:nowrap;
-      opacity:0;
-      transition:all .2s ease;
-      pointer-events:none;
-    }
-    .social-icon:hover::before{
-      transform:translateX(-50%) scale(1);
-      opacity:1;
+    .panel {
+      pointer-events: auto;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(0.5px);
+      border-left: 1px solid #2a2a2a;
+      border-right: 1px solid #2a2a2a;
+      padding: 1.5rem 1.2rem;
     }
 
-    .blocks-section{
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      padding:70px 50px;
-      gap:2.5rem;
-      border-right:1px solid rgba(255,255,255,.15);
-      min-height:100vh;
-    }
-    .block{
-      width:100%;
-      max-width:680px;
-      background:linear-gradient(135deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.4) 100%);
-      backdrop-filter:blur(6px);
-      border:1px solid rgba(255,255,255,.3);
-      border-radius:24px;
-      padding:45px 48px;
-      transition:all .4s cubic-bezier(0.4, 0, 0.2, 1);
-      position:relative;
-      overflow:hidden;
-      cursor:pointer;
-      box-shadow:0 10px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.25);
-    }
-    
-    .block::before{
-      content:"";
-      position:absolute;
-      top:-50%;
-      left:-50%;
-      width:200%;
-      height:200%;
-      background:radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 70%);
-      opacity:0;
-      transition:opacity .6s ease;
-    }
-    .block:hover::before{opacity:1}
-    
-    .block::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      left:-100%;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
-      transition:left .8s ease;
-    }
-    .block:hover::after{left:100%}
-    
-    .block:hover{
-      transform:translateY(-6px) scale(1.01);
-      border-color:rgba(255,255,255,.4);
-      background:linear-gradient(135deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.35) 100%);
-      box-shadow:0 25px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(255,200,100,.4), inset 0 1px 0 rgba(255,255,255,.3);
-    }
-    
-    .block-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.3rem}
-    .block-title-wrapper{display:flex;flex-direction:column;gap:.55rem}
-    .block-name{
-      font-family:"Playfair Display",serif;
-      font-size:1.65rem;
-      font-weight:500;
-      letter-spacing:.02em;
-      color:#fff;
-      text-shadow:0 2px 12px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.8);
-    }
-    .block-coming-soon{
-      font-family:"Inter",sans-serif;
-      font-size:.72rem;
-      font-weight:400;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      opacity:.7;
-      color:rgba(255,200,100,1);
-      text-shadow:0 1px 8px rgba(0,0,0,0.9);
-    }
-    
-    .block-arrow{
-      width:22px;
-      height:22px;
-      border:1.5px solid rgba(255,255,255,.6);
-      border-left:none;
-      border-bottom:none;
-      transform:rotate(45deg);
-      transition:all .4s ease;
-      flex-shrink:0;
-      margin-top:5px;
-      opacity:.9;
-    }
-    .block:hover .block-arrow{
-      border-color:rgba(255,200,100,1);
-      transform:rotate(45deg) translate(5px,-5px);
-      opacity:1;
-    }
-    
-    .block-description{
-      font-family:"Inter",sans-serif;
-      font-size:1.08rem;
-      line-height:1.75;
-      opacity:.9;
-      margin-bottom:1.5rem;
-      font-weight:300;
-      color:#fff;
-      text-shadow:0 2px 8px rgba(0,0,0,0.9);
-    }
-    .block-tags{display:flex;gap:.65rem;flex-wrap:wrap}
-    .block-tag{
-      font-family:"Inter",sans-serif;
-      padding:.45rem .95rem;
-      background:rgba(255,255,255,.18);
-      backdrop-filter:blur(4px);
-      border-radius:20px;
-      font-size:.75rem;
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      border:1px solid rgba(255,255,255,.3);
-      font-weight:400;
-      color:#fff;
-      transition:all .3s ease;
-      text-shadow:0 1px 6px rgba(0,0,0,0.8);
-    }
-    .block-tag:hover{
-      background:rgba(255,200,100,.35);
-      border-color:rgba(255,200,100,.7);
-      transform:translateY(-2px);
+    /* left panel */
+    .panel-left {
+      background: #0b0b0b;
     }
 
-    .vision-section{
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      padding:70px 55px;
-      max-width:500px;
-      min-height:100vh;
+    .city-times {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.6rem;
     }
-    .vision-title{
-      font-family:"Playfair Display",serif;
-      font-size:2.1rem;
-      font-weight:500;
-      margin-bottom:2.2rem;
-      color:#fff;
-      letter-spacing:.02em;
-      line-height:1.3;
-      text-shadow:0 2px 15px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.8);
+    .city-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      font-size: 0.8rem;
     }
-    .vision-content{
-      font-family:"Inter",sans-serif;
-      font-size:1rem;
-      line-height:1.85;
-      opacity:.9;
-      font-weight:300;
-      color:#fff;
-      text-shadow:0 2px 10px rgba(0,0,0,0.9);
+    .city-name {
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
     }
-    .vision-content p{margin-bottom:1.8rem}
-    .vision-content p:last-child{margin-bottom:0}
-
-    .journey-timeline{margin-top:3rem;padding-top:2.4rem;border-top:1px solid rgba(255,255,255,.2)}
-    .timeline-title{
-      font-family:"Inter",sans-serif;
-      font-size:.72rem;
-      font-weight:400;
-      text-transform:uppercase;
-      letter-spacing:.2em;
-      opacity:.6;
-      margin-bottom:2rem;
-      color:#e0e0e0;
-      text-shadow:0 2px 8px rgba(0,0,0,0.9);
-    }
-    
-    .timeline{position:relative;padding-left:38px}
-    .timeline::before{content:"";position:absolute;left:0;top:0;width:1px;height:100%;background:rgba(255,255,255,.25)}
-    .timeline-progress{
-      position:absolute;
-      left:0;
-      top:0;
-      width:1px;
-      height:0;
-      background:linear-gradient(to bottom, rgba(255,200,100,.8), rgba(255,200,100,.4));
-      animation:progressGrow 3s ease-out forwards;
-    }
-    @keyframes progressGrow{to{height:100%}}
-    
-    .milestone{position:relative;margin-bottom:1.75rem;opacity:0;animation:fadeInUp .6s ease-out forwards}
-    .milestone:nth-child(2){animation-delay:.3s}
-    .milestone:nth-child(3){animation-delay:.6s}
-    .milestone:nth-child(4){animation-delay:.9s}
-    .milestone:nth-child(5){animation-delay:1.2s}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    
-    .milestone::before{
-      content:"";
-      position:absolute;
-      left:-41px;
-      top:5px;
-      width:7px;
-      height:7px;
-      border-radius:50%;
-      background:rgba(255,200,100,1);
-      box-shadow:0 0 15px rgba(255,200,100,.6);
-      animation:pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse{0%, 100%{transform:scale(1)}50%{transform:scale(1.3)}}
-    
-    .milestone-year{
-      font-family:"Inter",sans-serif;
-      font-size:.72rem;
-      font-weight:500;
-      color:rgba(255,200,100,1);
-      margin-bottom:.35rem;
-      letter-spacing:.1em;
-      text-shadow:0 2px 8px rgba(0,0,0,0.9);
-    }
-    .milestone-label{
-      font-family:"Inter",sans-serif;
-      font-size:.88rem;
-      font-weight:400;
-      color:#fff;
-      opacity:.9;
-      line-height:1.45;
-      text-shadow:0 2px 8px rgba(0,0,0,0.9);
+    .city-time {
+      color: #bbbbbb;
     }
 
-    .footer{
-      background:rgba(0,0,0,0.2);
-      backdrop-filter:blur(3px);
-      border-top:1px solid rgba(255,255,255,.1);
-      padding:40px 60px;
-      text-align:center;
-      position:relative;
-      z-index:2;
+    .main-title {
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
     }
-    .footer-content{max-width:600px;margin:0 auto}
-    .footer-text{
-      font-family:"Inter",sans-serif;
-      font-size:.85rem;
-      opacity:.5;
-      color:#d0d0d0;
-      text-shadow:0 1px 6px rgba(0,0,0,0.9);
+    .location {
+      font-size: 0.7rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.8rem;
+    }
+    .bio {
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: #ccc;
+      border-left: 2px solid #555;
+      padding-left: 0.8rem;
+      margin-bottom: 1rem;
     }
 
-    @media (max-width:1600px){.main-container{grid-template-columns:340px 1fr 420px}}
-    @media (max-width:1200px){
-      .main-container{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
-      .vision-section{grid-column:1 / -1;max-width:none;padding:70px 60px}
+    .gauss-block {
+      border: 1px solid #333;
+      padding: 0.8rem;
+      background: #101010;
+      margin-bottom: 0.8rem;
     }
-    @media (max-width:768px){
-      .main-container{grid-template-columns:1fr}
-      .profile-section,.blocks-section,.vision-section{padding:60px 35px}
+    .gauss-quote {
+      font-size: 0.7rem;
+      font-style: italic;
+      color: #ddd;
+      margin-bottom: 0.3rem;
     }
+    .gauss-attrib {
+      font-size: 0.55rem;
+      color: #888;
+      text-transform: uppercase;
+    }
+    .gauss-footer {
+      font-size: 0.6rem;
+      color: #aaa;
+      margin-top: 0.3rem;
+      border-top: 1px solid #2a2a2a;
+      padding-top: 0.3rem;
+    }
+
+    .separator {
+      border-top: 1px solid #333;
+      margin: 0.8rem 0;
+    }
+
+    /* middle panel – projects */
+    .panel-middle {
+      background: #0b0b0b;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .project-card {
+      border: 1px solid #2e2e2e;
+      padding: 0.8rem;
+      background: #0f0f0f;
+    }
+    .project-name {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 0.1rem;
+    }
+    .project-desc {
+      font-size: 0.65rem;
+      color: #bbb;
+      line-height: 1.5;
+      margin: 0.2rem 0 0.3rem 0;
+    }
+    .project-tags {
+      font-size: 0.6rem;
+      color: #aaa;
+      border-top: 1px dashed #333;
+      padding-top: 0.3rem;
+    }
+
+    .prompt-line {
+      font-size: 0.65rem;
+      color: #888;
+      margin-top: 0.5rem;
+      border-top: 1px solid #2a2a2a;
+      padding-top: 0.4rem;
+    }
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: #aaa;
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    /* right panel – mit neuer horizontaler Timeline */
+    .panel-right {
+      background: #0b0b0b;
+    }
+
+    .vision-block {
+      border: 1px solid #333;
+      padding: 0.9rem;
+      margin-bottom: 0.8rem;
+      background: #0f0f0f;
+    }
+    .vision-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.2rem;
+    }
+    .vision-text {
+      font-size: 0.65rem;
+      color: #bbb;
+      line-height: 1.6;
+    }
+    .vision-text p {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Live-Daten ohne Titel */
+    .live-data {
+      border: 1px solid #2e2e2e;
+      padding: 0.6rem;
+      background: #0c0c0c;
+      margin-bottom: 0.8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem 0.8rem;
+    }
+    .live-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      font-size: 0.65rem;
+    }
+    .live-label {
+      color: #aaa;
+    }
+    .live-value {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Horizontale Timeline */
+    .timeline-horizontal {
+      border: 1px solid #333;
+      padding: 0.8rem;
+      background: #0f0f0f;
+    }
+    .timeline-horizontal .title {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.2rem;
+    }
+    .years {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.6rem 0;
+    }
+    .year-dot {
+      position: relative;
+      cursor: default;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #ccc;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .year-dot:hover {
+      background: #2a4a4a;
+      color: #fff;
+    }
+
+    .timeline-descriptions {
+      position: relative;
+      height: 3.2rem;              /* Platz für Beschreibungstext */
+      margin-top: 0.5rem;
+      border-top: 1px dashed #333;
+      padding-top: 0.4rem;
+    }
+    .desc-text {
+      position: absolute;
+      top: 0.4rem;
+      left: 0;
+      right: 0;
+      font-size: 0.65rem;
+      color: #bbb;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      text-align: center;
+    }
+    /* Standardmäßig erste Beschreibung anzeigen? Oder nur bei Hover. Wir machen: Hover auf ein Jahr zeigt die Beschreibung */
+    #desc-2020 { opacity: 0; }
+    #desc-2022 { opacity: 0; }
+    #desc-2024 { opacity: 0; }
+    #desc-2025 { opacity: 0; }
+    #desc-2026 { opacity: 0; }
+
+    .year-dot[data-year="2020"]:hover ~ .timeline-descriptions #desc-2020,
+    .year-dot[data-year="2020"]:hover + .timeline-descriptions #desc-2020 /* funktioniert so nicht, wir brauchen bessere Selektoren */
+    /* Wir verwenden JavaScript für die Interaktion, weil CSS hier zu kompliziert wird (Geschwister-Selektoren schwierig) */
+    /* Daher fügen wir ein kleines Script hinzu, das die Beschreibung beim Hover anzeigt. */
   </style>
 </head>
 <body>
 
-  <div id="map"></div>
-  <div class="map-overlay"></div>
+  <div class="bg-noise"></div>
+  <div class="bg-scanline"></div>
 
   <div class="main-container">
-    <div class="profile-section">
-      <div class="profile-main">
-        <div class="profile-name">EMIN<br/>TURUS</div>
-        <div class="profile-titles">
-          <div class="profile-title">VISIONARY</div>
-          <div class="profile-title">INNOVATOR</div>
-        </div>
-        <p class="profile-description">
-          Building the future at the intersection of artificial intelligence and strategic capital.
-        </p>
-      </div>
 
-      <div class="bottom-section">
-        <div class="quote-section">
-          <div class="quote-text">"The best way to predict the future is to create it."</div>
-          <div class="quote-author">— Peter Drucker</div>
-        </div>
-
-        <div class="social-icons">
-          <a class="social-icon" href="https://x.com/aigenvc" target="_blank" rel="noopener" aria-label="X / Twitter">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.53 3h3.07l-7.4 8.48L21.5 21h-6.05l-4.75-6.38L5 21H1.93l7.86-9.01L2.8 3h6.2l4.3 5.78L17.53 3z"/>
-            </svg>
-          </a>
-          <a class="social-icon" href="https://www.instagram.com/emiintrs/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 2a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-          </a>
-        </div>
+    <!-- LEFT PANEL (unverändert) -->
+    <div class="panel panel-left">
+      <div class="city-times">
+        <div class="city-row"><span class="city-name">BER</span><span class="city-time" id="ber-time">11:51:09</span></div>
+        <div class="city-row"><span class="city-name">NYC</span><span class="city-time" id="nyc-time">05:51:09</span></div>
+        <div class="city-row"><span class="city-name">IST</span><span class="city-time" id="ist-time">13:51:09</span></div>
       </div>
+      <div class="main-title"># EMIN TURUS</div>
+      <div class="location">MÖNCHENGLADBACH · DE</div>
+      <div class="bio">Builder, founder, and strategist. I create autonomous systems, patient capital, and ideas that outlive us.</div>
+      <div class="gauss-block">
+        <div class="gauss-quote">“Mathematics is the queen of the sciences, and number theory is the queen of mathematics.”</div>
+        <div class="gauss-attrib">— CARL FRIEDRICH GAUSS (1777–1855)</div>
+        <div class="gauss-footer">Precision, relentless inquiry, uncharted territories — guiding our vision.</div>
+      </div>
+      <div class="separator"></div>
     </div>
 
-    <div class="blocks-section">
-      <div class="block">
-        <div class="block-header">
-          <div class="block-title-wrapper">
-            <div class="block-name">AIGEN AI</div>
-            <div class="block-coming-soon">Coming Soon</div>
-          </div>
-          <div class="block-arrow"></div>
+    <!-- MIDDLE PANEL (unverändert) -->
+    <div class="panel panel-middle">
+      <div class="project-stack">
+        <div class="project-card">
+          <div class="project-name">## # AIGEN</div>
+          <div class="project-desc">Autonomous AI for traders – self-learning systems that analyse microstructure, on-chain data, and execute without emotion.</div>
+          <div class="project-tags">deep x1 latent models 2026</div>
         </div>
-        <div class="block-description">
-          Revolutionary AI solutions transforming industries through cutting-edge machine learning and neural networks.
+        <div class="project-card">
+          <div class="project-name">## # EMIN CAPITAL</div>
+          <div class="project-desc">Managing capital for those who believe in long‑term building. Backing resilient founders and durable ideas. Releases in the coming years.</div>
+          <div class="project-tags">deep tech coming</div>
         </div>
-        <div class="block-tags">
-          <span class="block-tag">AI/ML</span>
-          <span class="block-tag">Deep Learning</span>
-          <span class="block-tag">Innovation</span>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="block-header">
-          <div class="block-title-wrapper">
-            <div class="block-name">EMIN CAPITALS</div>
-            <div class="block-coming-soon">Coming Soon</div>
-          </div>
-          <div class="block-arrow"></div>
-        </div>
-        <div class="block-description">
-          Strategic venture capital investing in transformative technologies and disruptive startups.
-        </div>
-        <div class="block-tags">
-          <span class="block-tag">VC Fund</span>
-          <span class="block-tag">Startups</span>
-          <span class="block-tag">Growth</span>
+        <div class="project-card">
+          <div class="project-name">## # INSIGHT</div>
+          <div class="project-desc">Strategic advisory, frontier research, exponential roadmapping. Stealth until ~2030.</div>
+          <div class="project-tags">horizon strategic</div>
         </div>
       </div>
-
-      <div class="block">
-        <div class="block-header">
-          <div class="block-title-wrapper">
-            <div class="block-name">INSIGHT</div>
-            <div class="block-coming-soon">Coming Soon</div>
-          </div>
-          <div class="block-arrow"></div>
-        </div>
-        <div class="block-description">
-          Strategic consulting providing deep market insights and future trend analysis.
-        </div>
-        <div class="block-tags">
-          <span class="block-tag">Strategy</span>
-          <span class="block-tag">Consulting</span>
-          <span class="block-tag">Analysis</span>
-        </div>
-      </div>
+      <div class="prompt-line"><span style="color:#666;">></span> ls -la projects/ <span class="cursor"></span></div>
     </div>
 
-    <div class="vision-section">
-      <h2 class="vision-title">Vision & Philosophy</h2>
-      <div class="vision-content">
-        <p>The future belongs to those who build it. At the convergence of artificial intelligence, strategic capital, and transformative leadership lies the blueprint for solving civilization's most complex challenges.</p>
-        
-        <p>Innovation is never accidental. It is forged through precision, relentless execution, and an uncompromising vision that reshapes industries and redefines what's achievable.</p>
-        
-        <p>My mandate is clear: identify breakthrough technologies at their inception, empower exceptional founders, and scale ventures that don't just compete in markets—they create them.</p>
-      </div>
-
-      <div class="journey-timeline">
-        <div class="timeline-title">The Journey</div>
-        <div class="timeline">
-          <div class="timeline-progress"></div>
-          
-          <div class="milestone">
-            <div class="milestone-year">2020</div>
-            <div class="milestone-label">Founded first venture in AI technology</div>
-          </div>
-          
-          <div class="milestone">
-            <div class="milestone-year">2022</div>
-            <div class="milestone-label">Launched strategic investment initiatives</div>
-          </div>
-          
-          <div class="milestone">
-            <div class="milestone-year">2024</div>
-            <div class="milestone-label">Expanded into venture capital ecosystem</div>
-          </div>
-          
-          <div class="milestone">
-            <div class="milestone-year">2025</div>
-            <div class="milestone-label">Building the future of AI & capital</div>
-          </div>
-          
-          <div class="milestone">
-            <div class="milestone-year">2026</div>
-            <div class="milestone-label">Securing airdrops and early tokens for maximum returns</div>
-          </div>
+    <!-- RIGHT PANEL mit Live-Daten und interaktiver Timeline -->
+    <div class="panel panel-right">
+      <!-- Vision -->
+      <div class="vision-block">
+        <div class="vision-title">## # VISION & PHILOSOPHY</div>
+        <div class="vision-text">
+          <p>The future belongs to those who build it. At the convergence of artificial intelligence, strategic capital, and transformative leadership lies the blueprint for solving civilization's most complex challenges.</p>
+          <p>Innovation is never accidental. It is forged through precision, relentless execution, and an uncompromising vision that reshapes industries and redefines what's achievable.</p>
+          <p>My mandate is clear: identify breakthrough technologies at their inception, empower exceptional founders, and scale ventures that don't just compete in markets—they create them.</p>
         </div>
       </div>
+
+      <!-- Live-Daten ohne Titel (nur Werte) -->
+      <div class="live-data">
+        <div class="live-item"><span class="live-label">micro:</span><span class="live-value" id="micro-value">1474</span></div>
+        <div class="live-item"><span class="live-label">macro:</span><span class="live-value" id="macro-value">0.73</span></div>
+        <div class="live-item"><span class="live-label">signals/min:</span><span class="live-value" id="signals-value">63.3</span></div>
+        <div class="live-item"><span class="live-label">capital:</span><span class="live-value" id="capital-value">327.063N</span></div>
+      </div>
+
+      <!-- Horizontale Timeline -->
+      <div class="timeline-horizontal">
+        <div class="title">## # JOURNEY (hover years)</div>
+        <div class="years">
+          <span class="year-dot" data-year="2020">2020</span>
+          <span class="year-dot" data-year="2022">2022</span>
+          <span class="year-dot" data-year="2024">2024</span>
+          <span class="year-dot" data-year="2025">2025</span>
+          <span class="year-dot" data-year="2026">2026</span>
+        </div>
+        <!-- Beschreibungscontainer -->
+        <div class="timeline-descriptions" id="timelineDesc">
+          <div id="desc-2020" class="desc-text">Founded first venture in AI technology</div>
+          <div id="desc-2022" class="desc-text">Launched strategic investment initiatives</div>
+          <div id="desc-2024" class="desc-text">Expanded into venture capital ecosystem</div>
+          <div id="desc-2025" class="desc-text">Building the future of AI & capital</div>
+          <div id="desc-2026" class="desc-text">Securing airdrops and early tokens</div>
+        </div>
+      </div>
+
+      <!-- kleiner Prompt am Ende (optional) -->
+      <div class="prompt-line" style="margin-top:0.3rem;"><span style="color:#666;">$</span> cat journey.log <span class="cursor"></span></div>
     </div>
   </div>
 
-  <div class="footer">
-    <div class="footer-content">
-      <div class="footer-text">© 2026 Emin Turus. All rights reserved.</div>
-    </div>
-  </div>
+  <!-- Script für dynamische Zeiten, Live-Daten und Timeline-Hover -->
+  <script>
+    // Uhrzeiten aktualisieren
+    function updateCityTimes() {
+      const now = new Date();
+      const ber = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      document.getElementById('ber-time').textContent = ber;
 
-<script>
-  // Mapbox mit NASA Black Marble Hintergrund und Mönchengladbach Marker
-  mapboxgl.accessToken = 'pk.eyJ1IjoiZW1pbjEiLCJhIjoiY21lc3k4NnR3MDcyeDJpcXg1YXEzaDcxdyJ9.MqoStsdrQ52rXpOwtQ1wfA';
-  const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/dark-v11',
-    center: [10, 52],
-    zoom: 4.4,
-    bearing: 0,
-    pitch: 0,
-    interactive: false,
-    attributionControl: false
-  });
+      const nyc = new Date(now.getTime() - 6*60*60*1000);
+      document.getElementById('nyc-time').textContent = nyc.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
 
-  map.on('load', () => {
-    const leftPad = window.innerWidth >= 1024 ? 360 : 16;
-    map.fitBounds([[-7, 44], [25, 58]], {
-      padding: { top: 20, right: 20, bottom: 20, left: leftPad },
-      duration: 0
-    });
-
-    // Alle Standard-Layer ausblenden
-    for (const l of map.getStyle().layers) {
-      if (l.type !== 'background') map.setLayoutProperty(l.id, 'visibility', 'none');
+      const ist = new Date(now.getTime() + 2*60*60*1000);
+      document.getElementById('ist-time').textContent = ist.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     }
 
-    // NASA Black Marble Layer hinzufügen
-    map.addSource('night', {
-      type: 'raster',
-      tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/VIIRS_Black_Marble/default/2016-01-01/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg'],
-      tileSize: 256
-    });
-    map.addLayer({ id:'night', type:'raster', source:'night', paint:{ 'raster-opacity': 0.95 } });
+    // Live-Daten mit leichten Schwankungen
+    function updateLiveData() {
+      const microBase = 1474;
+      const macroBase = 0.73;
+      const signalsBase = 63.3;
+      const capitalBase = 327.063;
 
-    // Länderumrisse
-    map.addLayer({
-      id: 'country-outline-land',
-      type: 'line',
-      source: 'composite',
-      'source-layer': 'admin',
-      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'false']],
-      paint: {'line-color': 'rgba(255,255,255,0.70)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.8, 5, 1.2, 7, 1.8],'line-blur': 0.2}
-    });
-    map.addLayer({
-      id: 'country-outline-coast',
-      type: 'line',
-      source: 'composite',
-      'source-layer': 'admin',
-      filter: ['all', ['==', ['get','admin_level'], 0], ['==', ['get','maritime'], 'true']],
-      paint: {'line-color': 'rgba(255,255,255,0.55)','line-width': ['interpolate',['linear'],['zoom'], 3, 0.7, 5, 1.0, 7, 1.5],'line-blur': 0.2}
+      document.getElementById('micro-value').textContent = (microBase + (Math.random()*6-3)).toFixed(0);
+      document.getElementById('macro-value').textContent = (macroBase + (Math.random()*0.04-0.02)).toFixed(2);
+      document.getElementById('signals-value').textContent = (signalsBase + (Math.random()*1-0.5)).toFixed(1);
+      document.getElementById('capital-value').textContent = (capitalBase + (Math.random()*2-1)).toFixed(3) + 'N';
+    }
+
+    // Timeline Hover mit JavaScript (weil CSS-Geschwister zu komplex)
+    const yearDots = document.querySelectorAll('.year-dot');
+    const descs = {
+      '2020': document.getElementById('desc-2020'),
+      '2022': document.getElementById('desc-2022'),
+      '2024': document.getElementById('desc-2024'),
+      '2025': document.getElementById('desc-2025'),
+      '2026': document.getElementById('desc-2026')
+    };
+
+    // Alle Beschreibungen ausblenden
+    function hideAllDescs() {
+      for (let key in descs) {
+        descs[key].style.opacity = '0';
+      }
+    }
+    hideAllDescs(); // initial alle aus
+
+    yearDots.forEach(dot => {
+      dot.addEventListener('mouseenter', () => {
+        hideAllDescs();
+        const year = dot.getAttribute('data-year');
+        if (descs[year]) {
+          descs[year].style.opacity = '1';
+        }
+      });
+      dot.addEventListener('mouseleave', () => {
+        hideAllDescs();
+      });
     });
 
-    // Mönchengladbach Marker
-    const city = [6.4428, 51.1805];
-    map.addSource('mg', {
-      type: 'geojson',
-      data: { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'MÖNCHENGLADBACH' }, geometry:{ type:'Point', coordinates: city } }]}
-    });
+    // Start und Intervall
+    updateCityTimes();
+    updateLiveData();
+    setInterval(() => {
+      updateCityTimes();
+      updateLiveData();
+    }, 3000);
+  </script>
 
-    map.addLayer({id: 'mg-glow',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 12, 5, 28, 7, 64],'circle-color': 'rgba(255,190,120,0.85)','circle-blur': 0.9,'circle-opacity': 0.38}});
-    map.addLayer({id: 'mg-pulse',type: 'circle',source: 'mg',paint: {'circle-radius': 7,'circle-color': 'rgba(255,208,150,1)','circle-opacity': 0.55,'circle-stroke-color': 'rgba(255,230,190,0.9)','circle-stroke-width': 1.1}});
-    map.addLayer({id: 'mg-core',type: 'circle',source: 'mg',paint: {'circle-radius': ['interpolate',['linear'],['zoom'], 3, 2.5, 5, 4, 7, 5.5],'circle-color': '#ffd8a0','circle-opacity': 0.95}});
-    map.addLayer({id: 'mg-label',type: 'symbol',source: 'mg',layout: {'text-field': ['get','name'],'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Regular'],'text-size': ['interpolate',['linear'],['zoom'], 3, 13, 5, 15, 7, 17],'text-letter-spacing': 0.25,'text-transform': 'uppercase','text-offset': [0, 1.6],'text-anchor': 'top','text-allow-overlap': true},paint: {'text-color': 'rgba(255,210,150,0.98)','text-halo-color': 'rgba(0,0,0,0.9)','text-halo-width': 2.0}});
-
-    // Pulsierender Marker
-    const start = Date.now();
-    (function animate(){
-      const t = (Date.now() - start) / 1000;
-      const radius = 6 + Math.sin(t * 2.2) * 3;
-      const opacity = 0.30 + (Math.sin(t * 2.2) + 1) * 0.22;
-      map.setPaintProperty('mg-pulse','circle-radius', radius);
-      map.setPaintProperty('mg-pulse','circle-opacity', opacity);
-      requestAnimationFrame(animate);
-    })();
-  });
-</script>
 </body>
 </html>
