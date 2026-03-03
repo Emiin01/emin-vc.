@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-  <title>Emin Turus · studio</title>
+  <title>Emin Turus · terminal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -17,13 +17,11 @@
       font-weight: 350;
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+      align-items: stretch;
       position: relative;
     }
 
-    /* Matrix Rain Canvas */
+    /* Matrix Rain Canvas – jetzt heller (Opacity 0.4) */
     #matrix-canvas {
       position: fixed;
       top: 0;
@@ -32,7 +30,7 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.15; /* sehr dezent */
+      opacity: 0.4; /* Deutlich sichtbar, aber nicht überwältigend */
     }
 
     /* Scanline (retro) */
@@ -44,52 +42,70 @@
       z-index: 1;
     }
 
-    /* Hauptcontainer – 3 Spalten (Desktop) */
+    /* Hauptcontainer – volle Breite, kein Rand */
     .main-container {
       display: grid;
       grid-template-columns: 1.2fr 0.9fr 1.2fr;
-      gap: 1px;
       width: 100%;
-      max-width: 1400px;
-      background: #111;
-      border: 1px solid #2a2a2a;
-      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      min-height: 100vh;
       position: relative;
       z-index: 2;
     }
 
-    /* Panels */
+    /* Panels – leicht transparent, damit Matrix durchscheint */
     .panel {
-      background: rgba(0, 0, 0, 0.92);
-      backdrop-filter: blur(0.5px);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(1px);
       border-left: 1px solid #2a2a2a;
       border-right: 1px solid #2a2a2a;
-      padding: 1.8rem 1.5rem;
+      padding: 2rem 1.8rem;
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
+      height: 100vh;
+      overflow-y: auto;
     }
 
-    .panel-left { background: #0b0b0b; }
-    .panel-middle { background: #0b0b0b; }
-    .panel-right { background: #0b0b0b; }
+    @media (max-width: 800px) {
+      .panel {
+        height: auto;
+        min-height: 100vh;
+      }
+    }
 
-    /* Gemeinsame Styles */
-    .city-times {
+    .panel-left { background: rgba(8, 8, 8, 0.9); }
+    .panel-middle { background: rgba(8, 8, 8, 0.9); }
+    .panel-right { background: rgba(8, 8, 8, 0.9); }
+
+    /* City-Zeiten Layout: Städte links, Zeiten rechts */
+    .city-block {
       display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
+      justify-content: space-between;
       border-bottom: 1px solid #333;
       padding-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
     }
-    .city-row {
+    .city-names {
       display: flex;
-      align-items: baseline;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .city-name {
+      color: #fff;
+      font-weight: 500;
+      text-transform: uppercase;
       font-size: 0.9rem;
     }
-    .city-name { color: #fff; font-weight: 500; text-transform: uppercase; }
-    .city-time { color: #bbb; }
+    .city-times-values {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .city-time {
+      color: #bbb;
+      font-size: 0.9rem;
+      text-align: right;
+    }
 
     .main-title { font-size: 2.2rem; font-weight: 500; color: #fff; line-height: 1.1; text-transform: uppercase; }
     .location { font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.15em; }
@@ -174,9 +190,6 @@
       .panel {
         padding: 1.5rem;
       }
-      body {
-        padding: 8px;
-      }
     }
   </style>
 </head>
@@ -187,10 +200,18 @@
   <div class="main-container">
     <!-- LINKES PANEL: Zeiten, Profil, Gauss, E-Mail -->
     <div class="panel panel-left">
-      <div class="city-times">
-        <div class="city-row"><span class="city-name">BER</span><span class="city-time" id="ber-time">12:29:32</span></div>
-        <div class="city-row"><span class="city-name">NYC</span><span class="city-time" id="nyc-time">06:29:32</span></div>
-        <div class="city-row"><span class="city-name">IST</span><span class="city-time" id="ist-time">14:29:32</span></div>
+      <!-- City-Zeiten im neuen Layout -->
+      <div class="city-block">
+        <div class="city-names">
+          <span class="city-name">BER</span>
+          <span class="city-name">NYC</span>
+          <span class="city-name">IST</span>
+        </div>
+        <div class="city-times-values">
+          <span class="city-time" id="ber-time">13:11:58</span>
+          <span class="city-time" id="nyc-time">07:11:58</span>
+          <span class="city-time" id="ist-time">15:11:58</span>
+        </div>
       </div>
 
       <div class="main-title"># EMIN TURUS</div>
@@ -278,7 +299,7 @@
   </div>
 
   <script>
-    // Matrix Rain Effekt
+    // Matrix Rain Effekt (mit erhöhter Opacity im CSS bereits gesetzt)
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -291,23 +312,23 @@
       canvas.width = width;
       canvas.height = height;
 
-      columns = Math.floor(width / 20); // breitere Spalten für subtileren Effekt
+      columns = Math.floor(width / 20);
       drops = [];
       for (let i = 0; i < columns; i++) {
-        drops[i] = Math.floor(Math.random() * -height); // negative Startwerte
+        drops[i] = Math.floor(Math.random() * -height);
       }
     }
 
     function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.03)'; // langsames Verblassen
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
       ctx.fillRect(0, 0, width, height);
 
-      ctx.fillStyle = '#0f0'; // grün
+      ctx.fillStyle = '#0f0';
       ctx.font = '12px monospace';
-      ctx.globalAlpha = 0.15; // sehr dezent
+      ctx.globalAlpha = 0.25; // etwas höher, aber durch CSS-Opacity bereits 0.4 insgesamt
 
       for (let i = 0; i < drops.length; i++) {
-        const text = String.fromCharCode(0x30A0 + Math.random() * 96); // zufällige Katakana-ähnliche Zeichen
+        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
         const x = i * 20;
         const y = drops[i] * 18;
 
@@ -316,7 +337,7 @@
         if (y > height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-        drops[i] += 0.5; // langsame Fallgeschwindigkeit
+        drops[i] += 0.5;
       }
       requestAnimationFrame(drawMatrix);
     }
@@ -327,7 +348,7 @@
     resizeCanvas();
     drawMatrix();
 
-    // Uhrzeiten
+    // Uhrzeiten – jetzt sekündlich aktualisieren
     function updateCityTimes() {
       const now = new Date();
       document.getElementById('ber-time').textContent = now.toLocaleTimeString('de-DE', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
@@ -337,7 +358,7 @@
       document.getElementById('ist-time').textContent = ist.toLocaleTimeString('de-DE', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
     }
 
-    // Live-Daten
+    // Live-Daten (weiterhin alle 3 Sekunden)
     function updateLiveData() {
       document.getElementById('micro-value').textContent = (1472 + (Math.random()*4-2)).toFixed(0);
       document.getElementById('macro-value').textContent = (0.72 + (Math.random()*0.04-0.02)).toFixed(2);
@@ -345,7 +366,7 @@
       document.getElementById('capital-value').textContent = (328.075 + (Math.random()*0.5-0.25)).toFixed(3) + 'N';
     }
 
-    // Portfolio
+    // Portfolio (alle 5 Sekunden)
     const coins = [
       { symbol: 'BTC', basePrice: 67399.29 },
       { symbol: 'ETH', basePrice: 3507.78 },
@@ -390,10 +411,10 @@
     updateCityTimes();
     updateLiveData();
     updatePortfolio();
-    setInterval(() => {
-      updateCityTimes();
-      updateLiveData();
-    }, 3000);
+
+    // Intervalle: Uhrzeit sekündlich, Live-Daten alle 3s, Portfolio alle 5s
+    setInterval(updateCityTimes, 1000);      // jetzt jede Sekunde
+    setInterval(updateLiveData, 3000);
     setInterval(updatePortfolio, 5000);
   </script>
 </body>
