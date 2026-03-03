@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-  <title>Emin Turus · Blog</title>
+  <title>Emin Turus · terminal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
       position: relative;
     }
 
-    /* Matrix Rain Canvas – jetzt heller (Opacity 0.4) */
+    /* Matrix Rain Canvas – jetzt extra hell */
     #matrix-canvas {
       position: fixed;
       top: 0;
@@ -30,7 +30,7 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.4; /* Deutlich sichtbar, aber nicht überwältigend */
+      opacity: 0.8; /* Deutlich sichtbar */
     }
 
     /* Scanline (retro) */
@@ -52,10 +52,10 @@
       z-index: 2;
     }
 
-    /* Panels – leicht transparent, damit Matrix durchscheint */
+    /* Panels – ultra-transparent (Alpha 0.25) */
     .panel {
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(1px);
+      background: rgba(0, 0, 0, 0.25); /* Ganz transparent */
+      backdrop-filter: blur(2px);       /* Mehr Blur für Lesbarkeit */
       border-left: 1px solid #2a2a2a;
       border-right: 1px solid #2a2a2a;
       padding: 2rem 1.8rem;
@@ -73,11 +73,11 @@
       }
     }
 
-    .panel-left { background: rgba(8, 8, 8, 0.9); }
-    .panel-middle { background: rgba(8, 8, 8, 0.9); }
-    .panel-right { background: rgba(8, 8, 8, 0.9); }
+    /* Alle inneren Blöcke ebenfalls sehr transparent */
+    .panel-left { background: rgba(8, 8, 8, 0.2); }
+    .panel-middle { background: rgba(8, 8, 8, 0.2); }
+    .panel-right { background: rgba(8, 8, 8, 0.2); }
 
-    /* City-Zeiten Layout: Städte links, Zeiten rechts */
     .city-block {
       display: flex;
       justify-content: space-between;
@@ -95,6 +95,7 @@
       font-weight: 500;
       text-transform: uppercase;
       font-size: 0.9rem;
+      text-shadow: 0 0 5px #000;
     }
     .city-times-values {
       display: flex;
@@ -105,32 +106,34 @@
       color: #bbb;
       font-size: 0.9rem;
       text-align: right;
+      text-shadow: 0 0 5px #000;
     }
 
-    .main-title { font-size: 2.2rem; font-weight: 500; color: #fff; line-height: 1.1; text-transform: uppercase; }
-    .location { font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.15em; }
+    .main-title { font-size: 2.2rem; font-weight: 500; color: #fff; line-height: 1.1; text-transform: uppercase; text-shadow: 0 0 10px #000; }
+    .location { font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.15em; text-shadow: 0 0 5px #000; }
 
     .bio {
       font-size: 0.75rem; line-height: 1.6; color: #ccc;
       border-left: 2px solid #555; padding-left: 0.8rem;
+      text-shadow: 0 0 5px #000;
     }
 
     .gauss-block {
-      border: 1px solid #333; padding: 0.8rem; background: #101010;
+      border: 1px solid #333; padding: 0.8rem; background: rgba(16, 16, 16, 0.4);
     }
     .gauss-quote { font-size: 0.7rem; font-style: italic; color: #ddd; margin-bottom: 0.3rem; }
     .gauss-attrib { font-size: 0.55rem; color: #888; text-transform: uppercase; }
     .gauss-footer { font-size: 0.6rem; color: #aaa; border-top: 1px solid #2a2a2a; padding-top: 0.3rem; margin-top: 0.3rem; }
 
     .email-block { border-top: 1px solid #333; padding-top: 1rem; text-align: center; margin-top: auto; }
-    .email-link { color: #8f8; text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; }
+    .email-link { color: #8f8; text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-shadow: 0 0 5px #000; }
     .email-link:hover { text-decoration: underline; color: #cfc; }
 
     .project-card {
-      border: 1px solid #2e2e2e; padding: 1rem; background: #0f0f0f;
+      border: 1px solid #2e2e2e; padding: 1rem; background: rgba(15, 15, 15, 0.4);
     }
-    .project-name { font-size: 1.2rem; font-weight: 500; color: #fff; margin-bottom: 0.2rem; }
-    .project-desc { font-size: 0.7rem; color: #bbb; line-height: 1.5; margin: 0.3rem 0 0.5rem; }
+    .project-name { font-size: 1.2rem; font-weight: 500; color: #fff; margin-bottom: 0.2rem; text-shadow: 0 0 5px #000; }
+    .project-desc { font-size: 0.7rem; color: #bbb; line-height: 1.5; margin: 0.3rem 0 0.5rem; text-shadow: 0 0 5px #000; }
     .project-tags { font-size: 0.6rem; color: #aaa; border-top: 1px dashed #333; padding-top: 0.4rem; }
 
     .prompt-line {
@@ -142,19 +145,19 @@
     }
     @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-    .vision-text { font-size: 0.7rem; color: #bbb; line-height: 1.6; }
+    .vision-text { font-size: 0.7rem; color: #bbb; line-height: 1.6; text-shadow: 0 0 5px #000; }
     .vision-text p { margin-bottom: 0.5rem; }
 
     .live-data {
       display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 0.6rem;
-      border: 1px solid #2e2e2e; padding: 0.5rem; background: #0c0c0c;
+      border: 1px solid #2e2e2e; padding: 0.5rem; background: rgba(12, 12, 12, 0.4);
     }
     .live-item { display: flex; align-items: baseline; justify-content: space-between; font-size: 0.6rem; }
     .live-label { color: #aaa; }
-    .live-value { color: #fff; font-weight: 500; }
+    .live-value { color: #fff; font-weight: 500; text-shadow: 0 0 5px #000; }
 
     .journey-block {
-      border: 1px solid #333; padding: 0.8rem; background: #0f0f0f;
+      border: 1px solid #333; padding: 0.8rem; background: rgba(15, 15, 15, 0.4);
     }
     .years-row {
       display: flex; justify-content: space-between; margin: 0.5rem 0;
@@ -162,27 +165,28 @@
     .year-dot {
       font-size: 0.8rem; font-weight: 500; color: #ccc; padding: 0.2rem 0.5rem;
       border-radius: 3px; transition: background 0.2s, color 0.2s; cursor: default;
+      text-shadow: 0 0 5px #000;
     }
     .year-dot:hover { background: #2a4a4a; color: #fff; }
-    .desc-box { min-height: 2.5rem; font-size: 0.7rem; color: #8f8; border-top: 1px dashed #333; padding-top: 0.5rem; margin-bottom: 0.5rem; }
+    .desc-box { min-height: 2.5rem; font-size: 0.7rem; color: #8f8; border-top: 1px dashed #333; padding-top: 0.5rem; margin-bottom: 0.5rem; text-shadow: 0 0 5px #000; }
 
     .portfolio-block {
-      border: 1px solid #333; padding: 0.8rem; background: #0f0f0f;
+      border: 1px solid #333; padding: 0.8rem; background: rgba(15, 15, 15, 0.4);
     }
     .portfolio-table {
       width: 100%; border-collapse: collapse; font-size: 0.7rem; margin: 0.5rem 0;
     }
     .portfolio-table th {
       text-align: left; color: #8f8; font-weight: 500; border-bottom: 1px solid #444; padding-bottom: 0.3rem;
+      text-shadow: 0 0 5px #000;
     }
     .portfolio-table td { padding: 0.3rem 0; border-bottom: 1px dotted #333; }
-    .portfolio-table .coin { color: #fff; }
-    .portfolio-table .price { color: #cfc; text-align: right; }
+    .portfolio-table .coin { color: #fff; text-shadow: 0 0 5px #000; }
+    .portfolio-table .price { color: #cfc; text-align: right; text-shadow: 0 0 5px #000; }
     .portfolio-table .change { text-align: right; }
     .positive { color: #8f8; }
     .negative { color: #f88; }
 
-    /* Mobil: unter 800px wird das Grid zu einer Spalte */
     @media (max-width: 800px) {
       .main-container {
         grid-template-columns: 1fr;
@@ -200,7 +204,6 @@
   <div class="main-container">
     <!-- LINKES PANEL: Zeiten, Profil, Gauss, E-Mail -->
     <div class="panel panel-left">
-      <!-- City-Zeiten im neuen Layout -->
       <div class="city-block">
         <div class="city-names">
           <span class="city-name">BER</span>
@@ -215,9 +218,9 @@
       </div>
 
       <div class="main-title"># EMIN TURUS</div>
-      <div class="location">GERMANY</div>
+      <div class="location">MÖNCHENGLADBACH · DE</div>
       <div class="bio">
-        , founder, and strategist. I create autonomous systems, patient capital, and ideas that outlive us.
+        Builder, founder, and strategist. I create autonomous systems, patient capital, and ideas that outlive us.
       </div>
 
       <div class="gauss-block">
@@ -230,7 +233,6 @@
         </div>
       </div>
 
-      <!-- E-Mail grün unten -->
       <div class="email-block">
         <a href="mailto:contact@emin.vc" class="email-link">contact@emin.vc</a>
       </div>
@@ -258,14 +260,12 @@
 
     <!-- RECHTES PANEL: Vision, Live-Daten, Journey, Portfolio -->
     <div class="panel panel-right">
-      <!-- Vision & Philosophy -->
       <div class="vision-text">
         <p>The future belongs to those who build it. At the convergence of artificial intelligence, strategic capital, and transformative leadership lies the blueprint for solving civilization's most complex challenges.</p>
         <p>Innovation is never accidental. It is forged through precision, relentless execution, and an uncompromising vision that reshapes industries and redefines what's achievable.</p>
         <p>My mandate is clear: identify breakthrough technologies at their inception, empower exceptional founders, and scale ventures that don't just compete in markets—they create them.</p>
       </div>
 
-      <!-- Live-Daten -->
       <div class="live-data">
         <div class="live-item"><span class="live-label">micro:</span><span class="live-value" id="micro-value">1472</span></div>
         <div class="live-item"><span class="live-label">macro:</span><span class="live-value" id="macro-value">0.72</span></div>
@@ -273,9 +273,8 @@
         <div class="live-item"><span class="live-label">capital:</span><span class="live-value" id="capital-value">328.075N</span></div>
       </div>
 
-      <!-- Journey Hover -->
       <div class="journey-block">
-        <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem;"># # JOURNEY (HOVER YEARS)</div>
+        <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem; text-shadow:0 0 5px #000;"># # JOURNEY (HOVER YEARS)</div>
         <div class="years-row">
           <span class="year-dot" data-year="2020">2020</span>
           <span class="year-dot" data-year="2022">2022</span>
@@ -286,9 +285,9 @@
         <div class="prompt-line"><span style="color:#666;">$</span> cat journey.log <span class="cursor"></span></div>
       </div>
 
-      <!-- Portfolio -->
+      <!-- Portfolio mit den gewünschten Coins -->
       <div class="portfolio-block">
-        <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem;"># # PORTFOLIO</div>
+        <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem; text-shadow:0 0 5px #000;"># # PORTFOLIO</div>
         <table class="portfolio-table">
           <thead><tr><th>coin</th><th>price (USD)</th><th>24h</th></tr></thead>
           <tbody id="portfolio-body"></tbody>
@@ -299,7 +298,6 @@
   </div>
 
   <script>
-    // Matrix Rain Effekt (mit erhöhter Opacity im CSS bereits gesetzt)
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -325,7 +323,7 @@
 
       ctx.fillStyle = '#0f0';
       ctx.font = '12px monospace';
-      ctx.globalAlpha = 0.25; // etwas höher, aber durch CSS-Opacity bereits 0.4 insgesamt
+      ctx.globalAlpha = 0.4; // Heller
 
       for (let i = 0; i < drops.length; i++) {
         const text = String.fromCharCode(0x30A0 + Math.random() * 96);
@@ -342,13 +340,10 @@
       requestAnimationFrame(drawMatrix);
     }
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-    });
+    window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
     drawMatrix();
 
-    // Uhrzeiten – jetzt sekündlich aktualisieren
     function updateCityTimes() {
       const now = new Date();
       document.getElementById('ber-time').textContent = now.toLocaleTimeString('de-DE', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
@@ -358,7 +353,6 @@
       document.getElementById('ist-time').textContent = ist.toLocaleTimeString('de-DE', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
     }
 
-    // Live-Daten (weiterhin alle 3 Sekunden)
     function updateLiveData() {
       document.getElementById('micro-value').textContent = (1472 + (Math.random()*4-2)).toFixed(0);
       document.getElementById('macro-value').textContent = (0.72 + (Math.random()*0.04-0.02)).toFixed(2);
@@ -366,29 +360,37 @@
       document.getElementById('capital-value').textContent = (328.075 + (Math.random()*0.5-0.25)).toFixed(3) + 'N';
     }
 
-    // Portfolio (alle 5 Sekunden)
+    // Neue Coin-Liste: BTC, ETH, SOL, ARB, MATIC, LDO, FXS
     const coins = [
-      { symbol: 'BTC', basePrice: 67399.29 },
-      { symbol: 'ETH', basePrice: 3507.78 },
-      { symbol: 'SOL', basePrice: 175.39 },
-      { symbol: 'ADA', basePrice: 0.450 },
-      { symbol: 'DOT', basePrice: 7.22 },
-      { symbol: 'LINK', basePrice: 18.20 }
+      { symbol: 'BTC', basePrice: 67000.00 },
+      { symbol: 'ETH', basePrice: 3500.00 },
+      { symbol: 'SOL', basePrice: 170.00 },
+      { symbol: 'ARB', basePrice: 1.80 },
+      { symbol: 'MATIC', basePrice: 0.90 },
+      { symbol: 'LDO', basePrice: 2.40 },
+      { symbol: 'FXS', basePrice: 5.20 }
     ];
+
     function updatePortfolio() {
       const tbody = document.getElementById('portfolio-body');
       tbody.innerHTML = '';
       coins.forEach(coin => {
-        const change = (Math.random() * 3 - 1.5);
+        const change = (Math.random() * 4 - 2); // -2% bis +2%
         const price = coin.basePrice * (1 + change/100);
-        const priceStr = price.toFixed(coin.basePrice < 1 ? 3 : 2);
+        let priceStr;
+        if (coin.basePrice < 1) {
+          priceStr = price.toFixed(3);
+        } else if (coin.basePrice < 10) {
+          priceStr = price.toFixed(2);
+        } else {
+          priceStr = price.toFixed(2);
+        }
         const changeStr = change.toFixed(1) + '%';
         const changeClass = change >= 0 ? 'positive' : 'negative';
         tbody.innerHTML += `<tr><td class="coin">${coin.symbol}</td><td class="price">$${priceStr}</td><td class="change ${changeClass}">${changeStr}</td></tr>`;
       });
     }
 
-    // Journey Hover
     const yearDots = document.querySelectorAll('.year-dot');
     const descBox = document.getElementById('journey-desc');
     const journeyTexts = {
@@ -407,13 +409,11 @@
       });
     });
 
-    // Initialisierung
     updateCityTimes();
     updateLiveData();
     updatePortfolio();
 
-    // Intervalle: Uhrzeit sekündlich, Live-Daten alle 3s, Portfolio alle 5s
-    setInterval(updateCityTimes, 1000);      // jetzt jede Sekunde
+    setInterval(updateCityTimes, 1000);
     setInterval(updateLiveData, 3000);
     setInterval(updatePortfolio, 5000);
   </script>
