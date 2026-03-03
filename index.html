@@ -19,8 +19,6 @@
       color: #dddddd;
       font-family: 'IBM Plex Mono', monospace;
       font-weight: 350;
-      display: flex;
-      flex-direction: column;
     }
     
     .bg-scanline {
@@ -31,10 +29,9 @@
       z-index: 1;
     }
     
-    /* Container: Panels PLUS Footer */
     .wrapper {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-rows: 1fr auto;
       height: 100vh;
       width: 100%;
       position: relative;
@@ -45,7 +42,6 @@
       display: grid;
       grid-template-columns: 1.2fr 0.9fr 1.2fr;
       width: 100%;
-      flex: 1;
       overflow: hidden;
     }
     
@@ -54,10 +50,10 @@
       backdrop-filter: blur(2px);
       border-left: 1px solid #2a2a2a;
       border-right: 1px solid #2a2a2a;
-      padding: 2rem 1.8rem 1.5rem 1.8rem;
+      padding: 1.5rem 1.3rem;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 0.9rem;
       overflow-y: auto;
     }
     
@@ -70,159 +66,168 @@
       justify-content: space-between;
       align-items: flex-start;
       border-bottom: 1px solid #333;
-      padding-bottom: 0.8rem;
-      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.7rem;
       gap: 1rem;
     }
     .city-names {
       display: flex;
       flex-direction: column;
-      gap: 0.15rem;
+      gap: 0.1rem;
     }
     .city-name {
       color: #fff;
       font-weight: 500;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
     }
     .city-times-values {
       display: flex;
       flex-direction: column;
-      gap: 0.15rem;
+      gap: 0.1rem;
     }
     .city-time {
       color: #bbb;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       text-align: right;
     }
     
     .main-title {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 500;
       color: #fff;
       line-height: 1.1;
       text-transform: uppercase;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
     }
     
     .bio {
-      font-size: 0.75rem;
-      line-height: 1.7;
+      font-size: 0.65rem;
+      line-height: 1.55;
       color: #ccc;
       border-left: 2px solid #555;
-      padding-left: 0.8rem;
-      margin-bottom: 1rem;
+      padding-left: 0.6rem;
+      margin-bottom: 0.7rem;
     }
     
     .gauss-block {
       border: 1px solid #333;
-      padding: 0.8rem;
+      padding: 0.6rem;
       background: rgba(16, 16, 16, 0.8);
     }
     .gauss-quote {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       font-style: italic;
       color: #ddd;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
     }
     .gauss-attrib {
-      font-size: 0.55rem;
+      font-size: 0.48rem;
       color: #888;
       text-transform: uppercase;
     }
     .gauss-footer {
-      font-size: 0.6rem;
+      font-size: 0.52rem;
       color: #aaa;
       border-top: 1px solid #2a2a2a;
-      padding-top: 0.3rem;
-      margin-top: 0.3rem;
+      padding-top: 0.25rem;
+      margin-top: 0.25rem;
     }
     
     .project-card {
       border: 1px solid #2e2e2e;
-      padding: 1rem;
+      padding: 0.7rem;
       background: rgba(15, 15, 15, 0.8);
     }
     .project-name {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 500;
       color: #fff;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
     }
     .project-desc {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: #bbb;
-      line-height: 1.5;
-      margin: 0.3rem 0 0.5rem;
+      line-height: 1.4;
+      margin: 0.25rem 0 0.35rem;
     }
     .project-tags {
-      font-size: 0.6rem;
+      font-size: 0.52rem;
       color: #aaa;
       border-top: 1px dashed #333;
-      padding-top: 0.4rem;
+      padding-top: 0.3rem;
     }
     
     .prompt-line {
-      font-size: 0.65rem;
+      font-size: 0.55rem;
       color: #888;
       border-top: 1px solid #2a2a2a;
-      padding-top: 0.5rem;
-      margin-top: 0.5rem;
+      padding-top: 0.35rem;
+      margin-top: 0.35rem;
     }
     .cursor {
       display: inline-block;
-      width: 8px;
-      height: 14px;
+      width: 6px;
+      height: 11px;
       background: #aaa;
       animation: blink 1s step-end infinite;
       vertical-align: middle;
-      margin-left: 4px;
+      margin-left: 3px;
     }
     @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
     
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.2rem;
+    }
+    
     .vision-text {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: #bbb;
-      line-height: 1.6;
+      line-height: 1.5;
     }
     .vision-text p {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
     
     .live-data {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.3rem 0.6rem;
+      gap: 0.2rem 0.4rem;
       border: 1px solid #2e2e2e;
-      padding: 0.5rem;
+      padding: 0.35rem;
       background: rgba(12, 12, 12, 0.8);
     }
     .live-item {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      font-size: 0.6rem;
+      font-size: 0.52rem;
     }
     .live-label { color: #aaa; }
     .live-value { color: #fff; font-weight: 500; }
     
     .journey-block {
       border: 1px solid #333;
-      padding: 0.8rem;
+      padding: 0.6rem;
       background: rgba(15, 15, 15, 0.8);
     }
     .years-row {
       display: flex;
       justify-content: space-between;
-      margin: 0.5rem 0;
+      margin: 0.4rem 0;
       flex-wrap: wrap;
-      gap: 0.3rem;
+      gap: 0.25rem;
     }
     .year-dot {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 500;
       color: #ccc;
-      padding: 0.2rem 0.5rem;
+      padding: 0.15rem 0.4rem;
       border-radius: 3px;
       transition: background 0.2s, color 0.2s;
       cursor: default;
@@ -232,34 +237,34 @@
       color: #fff;
     }
     .desc-box {
-      min-height: 2.5rem;
-      font-size: 0.7rem;
+      min-height: 2rem;
+      font-size: 0.6rem;
       color: #8f8;
       border-top: 1px dashed #333;
-      padding-top: 0.5rem;
-      margin-bottom: 0.5rem;
+      padding-top: 0.4rem;
+      margin-bottom: 0.4rem;
     }
     
     .portfolio-block {
       border: 1px solid #333;
-      padding: 0.8rem;
+      padding: 0.6rem;
       background: rgba(15, 15, 15, 0.8);
     }
     .portfolio-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.7rem;
-      margin: 0.5rem 0;
+      font-size: 0.6rem;
+      margin: 0.4rem 0;
     }
     .portfolio-table th {
       text-align: left;
       color: #8f8;
       font-weight: 500;
       border-bottom: 1px solid #444;
-      padding-bottom: 0.3rem;
+      padding-bottom: 0.25rem;
     }
     .portfolio-table td {
-      padding: 0.3rem 0;
+      padding: 0.25rem 0;
       border-bottom: 1px dotted #333;
     }
     .portfolio-table .coin { color: #fff; }
@@ -268,11 +273,10 @@
     .positive { color: #8f8; }
     .negative { color: #f88; }
     
-    /* FOOTER - Teil des Grids */
+    /* FOOTER - KEIN border-top */
     .footer {
       background: rgba(10, 10, 10, 0.95);
-      border-top: 1px solid #2a2a2a;
-      padding: 1rem 2rem;
+      padding: 0.8rem 2rem;
       display: grid;
       grid-template-columns: 1.2fr 0.9fr 1.2fr;
       align-items: center;
@@ -281,7 +285,7 @@
     
     .footer-left {
       display: flex;
-      gap: 1rem;
+      gap: 0.9rem;
       align-items: center;
     }
     
@@ -290,7 +294,7 @@
     }
     
     .footer-right {
-      /* leer für Symmetrie */
+      /* leer */
     }
     
     .social-icon {
@@ -305,15 +309,15 @@
       opacity: 1;
     }
     .social-icon svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       fill: currentColor;
     }
     
     .footer-email {
       color: #8f8;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
       letter-spacing: 0.05em;
       transition: color 0.3s;
@@ -334,8 +338,8 @@
       }
       .footer {
         grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 1rem;
+        gap: 0.8rem;
+        padding: 0.8rem;
         text-align: center;
       }
       .footer-left {
@@ -345,43 +349,43 @@
     
     @media (max-width: 768px) {
       .panel {
-        padding: 1.5rem 1rem;
-        gap: 1rem;
+        padding: 1.2rem 0.9rem;
+        gap: 0.7rem;
       }
       .main-title {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
       }
       .project-name {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
       .bio, .project-desc, .vision-text {
-        font-size: 0.65rem;
+        font-size: 0.58rem;
       }
       .city-name, .city-time {
-        font-size: 0.75rem;
+        font-size: 0.68rem;
       }
       .live-data {
         grid-template-columns: 1fr;
-        gap: 0.2rem;
+        gap: 0.15rem;
       }
       .portfolio-table {
-        font-size: 0.65rem;
+        font-size: 0.58rem;
       }
     }
     
     @media (max-width: 480px) {
       .panel {
-        padding: 1rem 0.8rem;
+        padding: 0.9rem 0.7rem;
       }
       .main-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
       }
       .year-dot {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.4rem;
+        font-size: 0.62rem;
+        padding: 0.12rem 0.35rem;
       }
       .footer-email {
-        font-size: 0.8rem;
+        font-size: 0.72rem;
       }
     }
   </style>
@@ -413,7 +417,7 @@
           <br><br>
           Precision-driven architect of next-generation AI infrastructure. I identify market inefficiencies, deploy capital at inflection points, and scale ventures that reshape industries rather than compete within them.
           <br><br>
-          My work spans deep learning models, quantitative trading systems, and venture acceleration—always at the intersection of emerging technology and asymmetric opportunity.
+          My work spans deep learning models, quantitative trading systems, and venture acceleration always at the intersection of emerging technology and asymmetric opportunity.
         </div>
         
         <div class="gauss-block">
@@ -449,6 +453,7 @@
       
       <!-- RECHTES PANEL -->
       <div class="panel panel-right">
+        <div class="section-title">## # VISION & PHILOSOPHY</div>
         <div class="vision-text">
           <p>The future belongs to those who build it. At the convergence of artificial intelligence, strategic capital, and transformative leadership lies the blueprint for solving civilization's most complex challenges.</p>
           <p>Innovation is never accidental. It is forged through precision, relentless execution, and an uncompromising vision that reshapes industries and redefines what's achievable.</p>
@@ -463,7 +468,7 @@
         </div>
         
         <div class="journey-block">
-          <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem;">## # JOURNEY (HOVER YEARS)</div>
+          <div class="section-title">## # JOURNEY (HOVER YEARS)</div>
           <div class="years-row">
             <span class="year-dot" data-year="2020">2020</span>
             <span class="year-dot" data-year="2022">2022</span>
@@ -475,7 +480,7 @@
         </div>
         
         <div class="portfolio-block">
-          <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem;">## # PORTFOLIO</div>
+          <div class="section-title">## # PORTFOLIO</div>
           <table class="portfolio-table">
             <thead><tr><th>coin</th><th>price (USD)</th><th>24h</th></tr></thead>
             <tbody id="portfolio-body"></tbody>
@@ -485,7 +490,7 @@
       </div>
     </div>
     
-    <!-- FOOTER - Teil des Layouts -->
+    <!-- FOOTER - OHNE border-top Strich -->
     <div class="footer">
       <div class="footer-left">
         <a href="https://x.com/aigenvc" target="_blank" rel="noopener" class="social-icon" aria-label="X / Twitter">
