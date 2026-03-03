@@ -2,488 +2,399 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Emin Turus · terminal</title>
-  <!-- fonts: ibm plex mono (retro) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>Emin Turus · studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
+    body {
       background: #0a0a0a;
       color: #dddddd;
-      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-family: 'IBM Plex Mono', monospace;
       font-weight: 350;
-      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      position: relative;
     }
 
-    /* retro noise */
-    .bg-noise {
+    /* Matrix Rain Canvas */
+    #matrix-canvas {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(circle at 40% 50%, #151515 0%, #050505 100%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 0;
+      pointer-events: none;
+      opacity: 0.15; /* sehr dezent */
     }
+
+    /* Scanline (retro) */
     .bg-scanline {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      inset: 0;
       background: repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0px, rgba(0,0,0,0.2) 1px, transparent 2px);
       pointer-events: none;
       z-index: 1;
     }
 
-    /* main container – drei Spalten */
+    /* Hauptcontainer – 3 Spalten (Desktop) */
     .main-container {
       display: grid;
       grid-template-columns: 1.2fr 0.9fr 1.2fr;
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      z-index: 10;
-      max-width: 1600px;
-      margin: 0 auto;
-      pointer-events: none;
       gap: 1px;
+      width: 100%;
+      max-width: 1400px;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      position: relative;
+      z-index: 2;
     }
 
+    /* Panels */
     .panel {
-      pointer-events: auto;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
       background: rgba(0, 0, 0, 0.92);
       backdrop-filter: blur(0.5px);
       border-left: 1px solid #2a2a2a;
       border-right: 1px solid #2a2a2a;
-      padding: 1.5rem 1.2rem;
+      padding: 1.8rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
     }
 
-    /* left panel */
-    .panel-left {
-      background: #0b0b0b;
-    }
+    .panel-left { background: #0b0b0b; }
+    .panel-middle { background: #0b0b0b; }
+    .panel-right { background: #0b0b0b; }
 
+    /* Gemeinsame Styles */
     .city-times {
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
-      margin-bottom: 1rem;
       border-bottom: 1px solid #333;
-      padding-bottom: 0.6rem;
+      padding-bottom: 0.8rem;
     }
     .city-row {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
     }
-    .city-name {
-      color: #ffffff;
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-    .city-time {
-      color: #bbbbbb;
-    }
+    .city-name { color: #fff; font-weight: 500; text-transform: uppercase; }
+    .city-time { color: #bbb; }
 
-    .main-title {
-      font-size: 2.2rem;
-      font-weight: 500;
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 0.25rem;
-      text-transform: uppercase;
-    }
-    .location {
-      font-size: 0.7rem;
-      color: #aaa;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 0.8rem;
-    }
+    .main-title { font-size: 2.2rem; font-weight: 500; color: #fff; line-height: 1.1; text-transform: uppercase; }
+    .location { font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.15em; }
+
     .bio {
-      font-size: 0.75rem;
-      line-height: 1.6;
-      color: #ccc;
-      border-left: 2px solid #555;
-      padding-left: 0.8rem;
-      margin-bottom: 1rem;
+      font-size: 0.75rem; line-height: 1.6; color: #ccc;
+      border-left: 2px solid #555; padding-left: 0.8rem;
     }
 
     .gauss-block {
-      border: 1px solid #333;
-      padding: 0.8rem;
-      background: #101010;
-      margin-bottom: 0.8rem;
+      border: 1px solid #333; padding: 0.8rem; background: #101010;
     }
-    .gauss-quote {
-      font-size: 0.7rem;
-      font-style: italic;
-      color: #ddd;
-      margin-bottom: 0.3rem;
-    }
-    .gauss-attrib {
-      font-size: 0.55rem;
-      color: #888;
-      text-transform: uppercase;
-    }
-    .gauss-footer {
-      font-size: 0.6rem;
-      color: #aaa;
-      margin-top: 0.3rem;
-      border-top: 1px solid #2a2a2a;
-      padding-top: 0.3rem;
-    }
+    .gauss-quote { font-size: 0.7rem; font-style: italic; color: #ddd; margin-bottom: 0.3rem; }
+    .gauss-attrib { font-size: 0.55rem; color: #888; text-transform: uppercase; }
+    .gauss-footer { font-size: 0.6rem; color: #aaa; border-top: 1px solid #2a2a2a; padding-top: 0.3rem; margin-top: 0.3rem; }
 
-    .separator {
-      border-top: 1px solid #333;
-      margin: 0.8rem 0;
-    }
-
-    /* middle panel – projects */
-    .panel-middle {
-      background: #0b0b0b;
-    }
-
-    .project-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
+    .email-block { border-top: 1px solid #333; padding-top: 1rem; text-align: center; margin-top: auto; }
+    .email-link { color: #8f8; text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; }
+    .email-link:hover { text-decoration: underline; color: #cfc; }
 
     .project-card {
-      border: 1px solid #2e2e2e;
-      padding: 0.8rem;
-      background: #0f0f0f;
+      border: 1px solid #2e2e2e; padding: 1rem; background: #0f0f0f;
     }
-    .project-name {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #fff;
-      margin-bottom: 0.1rem;
-    }
-    .project-desc {
-      font-size: 0.65rem;
-      color: #bbb;
-      line-height: 1.5;
-      margin: 0.2rem 0 0.3rem 0;
-    }
-    .project-tags {
-      font-size: 0.6rem;
-      color: #aaa;
-      border-top: 1px dashed #333;
-      padding-top: 0.3rem;
-    }
+    .project-name { font-size: 1.2rem; font-weight: 500; color: #fff; margin-bottom: 0.2rem; }
+    .project-desc { font-size: 0.7rem; color: #bbb; line-height: 1.5; margin: 0.3rem 0 0.5rem; }
+    .project-tags { font-size: 0.6rem; color: #aaa; border-top: 1px dashed #333; padding-top: 0.4rem; }
 
     .prompt-line {
-      font-size: 0.65rem;
-      color: #888;
-      margin-top: 0.5rem;
-      border-top: 1px solid #2a2a2a;
-      padding-top: 0.4rem;
+      font-size: 0.65rem; color: #888; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; margin-top: 0.5rem;
     }
     .cursor {
-      display: inline-block;
-      width: 8px;
-      height: 14px;
-      background: #aaa;
-      animation: blink 1s step-end infinite;
-      vertical-align: middle;
-      margin-left: 4px;
+      display: inline-block; width: 8px; height: 14px; background: #aaa;
+      animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 4px;
     }
     @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-    /* right panel – mit neuer horizontaler Timeline */
-    .panel-right {
-      background: #0b0b0b;
-    }
+    .vision-text { font-size: 0.7rem; color: #bbb; line-height: 1.6; }
+    .vision-text p { margin-bottom: 0.5rem; }
 
-    .vision-block {
-      border: 1px solid #333;
-      padding: 0.9rem;
-      margin-bottom: 0.8rem;
-      background: #0f0f0f;
-    }
-    .vision-title {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #fff;
-      margin-bottom: 0.4rem;
-      text-transform: uppercase;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.2rem;
-    }
-    .vision-text {
-      font-size: 0.65rem;
-      color: #bbb;
-      line-height: 1.6;
-    }
-    .vision-text p {
-      margin-bottom: 0.4rem;
-    }
-
-    /* Live-Daten ohne Titel */
     .live-data {
-      border: 1px solid #2e2e2e;
-      padding: 0.6rem;
-      background: #0c0c0c;
-      margin-bottom: 0.8rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.4rem 0.8rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 0.6rem;
+      border: 1px solid #2e2e2e; padding: 0.5rem; background: #0c0c0c;
     }
-    .live-item {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      font-size: 0.65rem;
-    }
-    .live-label {
-      color: #aaa;
-    }
-    .live-value {
-      color: #fff;
-      font-weight: 500;
-    }
+    .live-item { display: flex; align-items: baseline; justify-content: space-between; font-size: 0.6rem; }
+    .live-label { color: #aaa; }
+    .live-value { color: #fff; font-weight: 500; }
 
-    /* Horizontale Timeline */
-    .timeline-horizontal {
-      border: 1px solid #333;
-      padding: 0.8rem;
-      background: #0f0f0f;
+    .journey-block {
+      border: 1px solid #333; padding: 0.8rem; background: #0f0f0f;
     }
-    .timeline-horizontal .title {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #fff;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.2rem;
-    }
-    .years {
-      display: flex;
-      justify-content: space-between;
-      margin: 0.6rem 0;
+    .years-row {
+      display: flex; justify-content: space-between; margin: 0.5rem 0;
     }
     .year-dot {
-      position: relative;
-      cursor: default;
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: #ccc;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      transition: background 0.2s, color 0.2s;
+      font-size: 0.8rem; font-weight: 500; color: #ccc; padding: 0.2rem 0.5rem;
+      border-radius: 3px; transition: background 0.2s, color 0.2s; cursor: default;
     }
-    .year-dot:hover {
-      background: #2a4a4a;
-      color: #fff;
-    }
+    .year-dot:hover { background: #2a4a4a; color: #fff; }
+    .desc-box { min-height: 2.5rem; font-size: 0.7rem; color: #8f8; border-top: 1px dashed #333; padding-top: 0.5rem; margin-bottom: 0.5rem; }
 
-    .timeline-descriptions {
-      position: relative;
-      height: 3.2rem;              /* Platz für Beschreibungstext */
-      margin-top: 0.5rem;
-      border-top: 1px dashed #333;
-      padding-top: 0.4rem;
+    .portfolio-block {
+      border: 1px solid #333; padding: 0.8rem; background: #0f0f0f;
     }
-    .desc-text {
-      position: absolute;
-      top: 0.4rem;
-      left: 0;
-      right: 0;
-      font-size: 0.65rem;
-      color: #bbb;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-      text-align: center;
+    .portfolio-table {
+      width: 100%; border-collapse: collapse; font-size: 0.7rem; margin: 0.5rem 0;
     }
-    /* Standardmäßig erste Beschreibung anzeigen? Oder nur bei Hover. Wir machen: Hover auf ein Jahr zeigt die Beschreibung */
-    #desc-2020 { opacity: 0; }
-    #desc-2022 { opacity: 0; }
-    #desc-2024 { opacity: 0; }
-    #desc-2025 { opacity: 0; }
-    #desc-2026 { opacity: 0; }
+    .portfolio-table th {
+      text-align: left; color: #8f8; font-weight: 500; border-bottom: 1px solid #444; padding-bottom: 0.3rem;
+    }
+    .portfolio-table td { padding: 0.3rem 0; border-bottom: 1px dotted #333; }
+    .portfolio-table .coin { color: #fff; }
+    .portfolio-table .price { color: #cfc; text-align: right; }
+    .portfolio-table .change { text-align: right; }
+    .positive { color: #8f8; }
+    .negative { color: #f88; }
 
-    .year-dot[data-year="2020"]:hover ~ .timeline-descriptions #desc-2020,
-    .year-dot[data-year="2020"]:hover + .timeline-descriptions #desc-2020 /* funktioniert so nicht, wir brauchen bessere Selektoren */
-    /* Wir verwenden JavaScript für die Interaktion, weil CSS hier zu kompliziert wird (Geschwister-Selektoren schwierig) */
-    /* Daher fügen wir ein kleines Script hinzu, das die Beschreibung beim Hover anzeigt. */
+    /* Mobil: unter 800px wird das Grid zu einer Spalte */
+    @media (max-width: 800px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .panel {
+        padding: 1.5rem;
+      }
+      body {
+        padding: 8px;
+      }
+    }
   </style>
 </head>
 <body>
-
-  <div class="bg-noise"></div>
+  <canvas id="matrix-canvas"></canvas>
   <div class="bg-scanline"></div>
 
   <div class="main-container">
-
-    <!-- LEFT PANEL (unverändert) -->
+    <!-- LINKES PANEL: Zeiten, Profil, Gauss, E-Mail -->
     <div class="panel panel-left">
       <div class="city-times">
-        <div class="city-row"><span class="city-name">BER</span><span class="city-time" id="ber-time">11:51:09</span></div>
-        <div class="city-row"><span class="city-name">NYC</span><span class="city-time" id="nyc-time">05:51:09</span></div>
-        <div class="city-row"><span class="city-name">IST</span><span class="city-time" id="ist-time">13:51:09</span></div>
+        <div class="city-row"><span class="city-name">BER</span><span class="city-time" id="ber-time">12:29:32</span></div>
+        <div class="city-row"><span class="city-name">NYC</span><span class="city-time" id="nyc-time">06:29:32</span></div>
+        <div class="city-row"><span class="city-name">IST</span><span class="city-time" id="ist-time">14:29:32</span></div>
       </div>
+
       <div class="main-title"># EMIN TURUS</div>
       <div class="location">MÖNCHENGLADBACH · DE</div>
-      <div class="bio">Builder, founder, and strategist. I create autonomous systems, patient capital, and ideas that outlive us.</div>
-      <div class="gauss-block">
-        <div class="gauss-quote">“Mathematics is the queen of the sciences, and number theory is the queen of mathematics.”</div>
-        <div class="gauss-attrib">— CARL FRIEDRICH GAUSS (1777–1855)</div>
-        <div class="gauss-footer">Precision, relentless inquiry, uncharted territories — guiding our vision.</div>
+      <div class="bio">
+        Builder, founder, and strategist. I create autonomous systems, patient capital, and ideas that outlive us.
       </div>
-      <div class="separator"></div>
+
+      <div class="gauss-block">
+        <div class="gauss-quote">
+          “Mathematics is the queen of the sciences, and number theory is the queen of mathematics.”
+        </div>
+        <div class="gauss-attrib">— CARL FRIEDRICH GAUSS (1777–1855)</div>
+        <div class="gauss-footer">
+          Precision, relentless inquiry, uncharted territories — guiding our vision.
+        </div>
+      </div>
+
+      <!-- E-Mail grün unten -->
+      <div class="email-block">
+        <a href="mailto:contact@emin.vc" class="email-link">contact@emin.vc</a>
+      </div>
     </div>
 
-    <!-- MIDDLE PANEL (unverändert) -->
+    <!-- MITTLERES PANEL: Projekte -->
     <div class="panel panel-middle">
-      <div class="project-stack">
-        <div class="project-card">
-          <div class="project-name">## # AIGEN</div>
-          <div class="project-desc">Autonomous AI for traders – self-learning systems that analyse microstructure, on-chain data, and execute without emotion.</div>
-          <div class="project-tags">deep x1 latent models 2026</div>
-        </div>
-        <div class="project-card">
-          <div class="project-name">## # EMIN CAPITAL</div>
-          <div class="project-desc">Managing capital for those who believe in long‑term building. Backing resilient founders and durable ideas. Releases in the coming years.</div>
-          <div class="project-tags">deep tech coming</div>
-        </div>
-        <div class="project-card">
-          <div class="project-name">## # INSIGHT</div>
-          <div class="project-desc">Strategic advisory, frontier research, exponential roadmapping. Stealth until ~2030.</div>
-          <div class="project-tags">horizon strategic</div>
-        </div>
+      <div class="project-card">
+        <div class="project-name"># # AIGEN</div>
+        <div class="project-desc">Autonomous AI for traders – self-learning systems that analyse microstructure, on-chain data, and execute without emotion.</div>
+        <div class="project-tags">deep x1 latent models 2026</div>
+      </div>
+      <div class="project-card">
+        <div class="project-name"># # EMIN CAPITAL</div>
+        <div class="project-desc">Managing capital for those who believe in long‑term building. Backing resilient founders and durable ideas. Releases in the coming years.</div>
+        <div class="project-tags">deep tech coming</div>
+      </div>
+      <div class="project-card">
+        <div class="project-name"># # INSIGHT</div>
+        <div class="project-desc">Strategic advisory, frontier research, exponential roadmapping. Stealth until ~2030.</div>
+        <div class="project-tags">horizon strategic</div>
       </div>
       <div class="prompt-line"><span style="color:#666;">></span> ls -la projects/ <span class="cursor"></span></div>
     </div>
 
-    <!-- RIGHT PANEL mit Live-Daten und interaktiver Timeline -->
+    <!-- RECHTES PANEL: Vision, Live-Daten, Journey, Portfolio -->
     <div class="panel panel-right">
-      <!-- Vision -->
-      <div class="vision-block">
-        <div class="vision-title">## # VISION & PHILOSOPHY</div>
-        <div class="vision-text">
-          <p>The future belongs to those who build it. At the convergence of artificial intelligence, strategic capital, and transformative leadership lies the blueprint for solving civilization's most complex challenges.</p>
-          <p>Innovation is never accidental. It is forged through precision, relentless execution, and an uncompromising vision that reshapes industries and redefines what's achievable.</p>
-          <p>My mandate is clear: identify breakthrough technologies at their inception, empower exceptional founders, and scale ventures that don't just compete in markets—they create them.</p>
-        </div>
+      <!-- Vision & Philosophy -->
+      <div class="vision-text">
+        <p>The future belongs to those who build it. At the convergence of artificial intelligence, strategic capital, and transformative leadership lies the blueprint for solving civilization's most complex challenges.</p>
+        <p>Innovation is never accidental. It is forged through precision, relentless execution, and an uncompromising vision that reshapes industries and redefines what's achievable.</p>
+        <p>My mandate is clear: identify breakthrough technologies at their inception, empower exceptional founders, and scale ventures that don't just compete in markets—they create them.</p>
       </div>
 
-      <!-- Live-Daten ohne Titel (nur Werte) -->
+      <!-- Live-Daten -->
       <div class="live-data">
-        <div class="live-item"><span class="live-label">micro:</span><span class="live-value" id="micro-value">1474</span></div>
-        <div class="live-item"><span class="live-label">macro:</span><span class="live-value" id="macro-value">0.73</span></div>
-        <div class="live-item"><span class="live-label">signals/min:</span><span class="live-value" id="signals-value">63.3</span></div>
-        <div class="live-item"><span class="live-label">capital:</span><span class="live-value" id="capital-value">327.063N</span></div>
+        <div class="live-item"><span class="live-label">micro:</span><span class="live-value" id="micro-value">1472</span></div>
+        <div class="live-item"><span class="live-label">macro:</span><span class="live-value" id="macro-value">0.72</span></div>
+        <div class="live-item"><span class="live-label">signals/min:</span><span class="live-value" id="signals-value">63.4</span></div>
+        <div class="live-item"><span class="live-label">capital:</span><span class="live-value" id="capital-value">328.075N</span></div>
       </div>
 
-      <!-- Horizontale Timeline -->
-      <div class="timeline-horizontal">
-        <div class="title">## # JOURNEY (hover years)</div>
-        <div class="years">
+      <!-- Journey Hover -->
+      <div class="journey-block">
+        <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem;"># # JOURNEY (HOVER YEARS)</div>
+        <div class="years-row">
           <span class="year-dot" data-year="2020">2020</span>
           <span class="year-dot" data-year="2022">2022</span>
           <span class="year-dot" data-year="2024">2024</span>
-          <span class="year-dot" data-year="2025">2025</span>
           <span class="year-dot" data-year="2026">2026</span>
         </div>
-        <!-- Beschreibungscontainer -->
-        <div class="timeline-descriptions" id="timelineDesc">
-          <div id="desc-2020" class="desc-text">Founded first venture in AI technology</div>
-          <div id="desc-2022" class="desc-text">Launched strategic investment initiatives</div>
-          <div id="desc-2024" class="desc-text">Expanded into venture capital ecosystem</div>
-          <div id="desc-2025" class="desc-text">Building the future of AI & capital</div>
-          <div id="desc-2026" class="desc-text">Securing airdrops and early tokens</div>
-        </div>
+        <div class="desc-box" id="journey-desc">Hover over a year</div>
+        <div class="prompt-line"><span style="color:#666;">$</span> cat journey.log <span class="cursor"></span></div>
       </div>
 
-      <!-- kleiner Prompt am Ende (optional) -->
-      <div class="prompt-line" style="margin-top:0.3rem;"><span style="color:#666;">$</span> cat journey.log <span class="cursor"></span></div>
+      <!-- Portfolio -->
+      <div class="portfolio-block">
+        <div style="font-size:0.9rem; font-weight:500; color:#fff; margin-bottom:0.5rem; border-bottom:1px solid #444; padding-bottom:0.2rem;"># # PORTFOLIO</div>
+        <table class="portfolio-table">
+          <thead><tr><th>coin</th><th>price (USD)</th><th>24h</th></tr></thead>
+          <tbody id="portfolio-body"></tbody>
+        </table>
+        <div class="prompt-line"><span style="color:#666;">$</span> watch -n 1 portfolio <span class="cursor"></span></div>
+      </div>
     </div>
   </div>
 
-  <!-- Script für dynamische Zeiten, Live-Daten und Timeline-Hover -->
   <script>
-    // Uhrzeiten aktualisieren
-    function updateCityTimes() {
-      const now = new Date();
-      const ber = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-      document.getElementById('ber-time').textContent = ber;
+    // Matrix Rain Effekt
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
 
-      const nyc = new Date(now.getTime() - 6*60*60*1000);
-      document.getElementById('nyc-time').textContent = nyc.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    let width, height;
+    let columns, drops = [];
 
-      const ist = new Date(now.getTime() + 2*60*60*1000);
-      document.getElementById('ist-time').textContent = ist.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-    }
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
 
-    // Live-Daten mit leichten Schwankungen
-    function updateLiveData() {
-      const microBase = 1474;
-      const macroBase = 0.73;
-      const signalsBase = 63.3;
-      const capitalBase = 327.063;
-
-      document.getElementById('micro-value').textContent = (microBase + (Math.random()*6-3)).toFixed(0);
-      document.getElementById('macro-value').textContent = (macroBase + (Math.random()*0.04-0.02)).toFixed(2);
-      document.getElementById('signals-value').textContent = (signalsBase + (Math.random()*1-0.5)).toFixed(1);
-      document.getElementById('capital-value').textContent = (capitalBase + (Math.random()*2-1)).toFixed(3) + 'N';
-    }
-
-    // Timeline Hover mit JavaScript (weil CSS-Geschwister zu komplex)
-    const yearDots = document.querySelectorAll('.year-dot');
-    const descs = {
-      '2020': document.getElementById('desc-2020'),
-      '2022': document.getElementById('desc-2022'),
-      '2024': document.getElementById('desc-2024'),
-      '2025': document.getElementById('desc-2025'),
-      '2026': document.getElementById('desc-2026')
-    };
-
-    // Alle Beschreibungen ausblenden
-    function hideAllDescs() {
-      for (let key in descs) {
-        descs[key].style.opacity = '0';
+      columns = Math.floor(width / 20); // breitere Spalten für subtileren Effekt
+      drops = [];
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * -height); // negative Startwerte
       }
     }
-    hideAllDescs(); // initial alle aus
 
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.03)'; // langsames Verblassen
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = '#0f0'; // grün
+      ctx.font = '12px monospace';
+      ctx.globalAlpha = 0.15; // sehr dezent
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = String.fromCharCode(0x30A0 + Math.random() * 96); // zufällige Katakana-ähnliche Zeichen
+        const x = i * 20;
+        const y = drops[i] * 18;
+
+        ctx.fillText(text, x, y);
+
+        if (y > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i] += 0.5; // langsame Fallgeschwindigkeit
+      }
+      requestAnimationFrame(drawMatrix);
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+    resizeCanvas();
+    drawMatrix();
+
+    // Uhrzeiten
+    function updateCityTimes() {
+      const now = new Date();
+      document.getElementById('ber-time').textContent = now.toLocaleTimeString('de-DE', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
+      const nyc = new Date(now.getTime() - 6*60*60*1000);
+      document.getElementById('nyc-time').textContent = nyc.toLocaleTimeString('de-DE', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
+      const ist = new Date(now.getTime() + 2*60*60*1000);
+      document.getElementById('ist-time').textContent = ist.toLocaleTimeString('de-DE', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
+    }
+
+    // Live-Daten
+    function updateLiveData() {
+      document.getElementById('micro-value').textContent = (1472 + (Math.random()*4-2)).toFixed(0);
+      document.getElementById('macro-value').textContent = (0.72 + (Math.random()*0.04-0.02)).toFixed(2);
+      document.getElementById('signals-value').textContent = (63.4 + (Math.random()*0.6-0.3)).toFixed(1);
+      document.getElementById('capital-value').textContent = (328.075 + (Math.random()*0.5-0.25)).toFixed(3) + 'N';
+    }
+
+    // Portfolio
+    const coins = [
+      { symbol: 'BTC', basePrice: 67399.29 },
+      { symbol: 'ETH', basePrice: 3507.78 },
+      { symbol: 'SOL', basePrice: 175.39 },
+      { symbol: 'ADA', basePrice: 0.450 },
+      { symbol: 'DOT', basePrice: 7.22 },
+      { symbol: 'LINK', basePrice: 18.20 }
+    ];
+    function updatePortfolio() {
+      const tbody = document.getElementById('portfolio-body');
+      tbody.innerHTML = '';
+      coins.forEach(coin => {
+        const change = (Math.random() * 3 - 1.5);
+        const price = coin.basePrice * (1 + change/100);
+        const priceStr = price.toFixed(coin.basePrice < 1 ? 3 : 2);
+        const changeStr = change.toFixed(1) + '%';
+        const changeClass = change >= 0 ? 'positive' : 'negative';
+        tbody.innerHTML += `<tr><td class="coin">${coin.symbol}</td><td class="price">$${priceStr}</td><td class="change ${changeClass}">${changeStr}</td></tr>`;
+      });
+    }
+
+    // Journey Hover
+    const yearDots = document.querySelectorAll('.year-dot');
+    const descBox = document.getElementById('journey-desc');
+    const journeyTexts = {
+      '2020': 'Founded first venture in AI technology',
+      '2022': 'Launched strategic investment initiatives',
+      '2024': 'Expanded into venture capital ecosystem',
+      '2026': 'Securing airdrops and early tokens for maximum returns'
+    };
     yearDots.forEach(dot => {
       dot.addEventListener('mouseenter', () => {
-        hideAllDescs();
         const year = dot.getAttribute('data-year');
-        if (descs[year]) {
-          descs[year].style.opacity = '1';
-        }
+        descBox.textContent = journeyTexts[year] || '';
       });
       dot.addEventListener('mouseleave', () => {
-        hideAllDescs();
+        descBox.textContent = 'Hover over a year';
       });
     });
 
-    // Start und Intervall
+    // Initialisierung
     updateCityTimes();
     updateLiveData();
+    updatePortfolio();
     setInterval(() => {
       updateCityTimes();
       updateLiveData();
     }, 3000);
+    setInterval(updatePortfolio, 5000);
   </script>
-
 </body>
 </html>
